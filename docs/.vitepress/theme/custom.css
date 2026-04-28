@@ -1,0 +1,850 @@
+/* =============================================================================
+   Tailwind CSS Website Design System
+   Applied to VitePress documentation
+   Based on: https://github.com/tailwindlabs/tailwindcss.com
+   ============================================================================= */
+
+/* =============================================================================
+   1. FONTS
+   ============================================================================= */
+
+:root {
+  /* Font stacks - matching tailwindcss.com */
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-mono:
+    "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+
+  /* OpenType features */
+  --font-sans-features: "cv02", "cv03", "cv04", "cv11";
+  --font-mono-features: "ss02", "zero";
+}
+
+/* =============================================================================
+   2. COLOR PALETTE (Tailwind CSS Gray + Sky + Pink)
+   ============================================================================= */
+
+:root {
+  /* Gray scale (Tailwind gray) */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-gray-950: #030712;
+
+  /* Sky (accent for links) */
+  --color-sky-300: #7dd3fc;
+  --color-sky-400: #38bdf8;
+  --color-sky-500: #0ea5e9;
+  --color-sky-600: #0284c7;
+  --color-sky-700: #0369a1;
+  --color-sky-800: #075985;
+
+  /* Pink (CTA buttons) */
+  --color-pink-400: #f472b6;
+  --color-pink-500: #ec4899;
+  --color-pink-600: #db2777;
+}
+
+/* =============================================================================
+   3. VITEPRESS THEME VARIABLES - LIGHT MODE
+   ============================================================================= */
+
+:root {
+  /* Typography */
+  --vp-font-family-base: var(--font-sans);
+  --vp-font-family-mono: var(--font-mono);
+
+  /* Brand colors - using Sky */
+  --vp-c-brand-1: var(--color-sky-500);
+  --vp-c-brand-2: var(--color-sky-600);
+  --vp-c-brand-3: var(--color-sky-700);
+  --vp-c-brand-soft: rgba(14, 165, 233, 0.14);
+
+  /* Background colors */
+  --vp-c-bg: #ffffff;
+  --vp-c-bg-alt: var(--color-gray-50);
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-bg-soft: var(--color-gray-100);
+
+  /* Text colors */
+  --vp-c-text-1: var(--color-gray-950);
+  --vp-c-text-2: var(--color-gray-700);
+  --vp-c-text-3: var(--color-gray-600);
+
+  /* Border/divider colors */
+  --vp-c-divider: rgba(3, 7, 18, 0.05);
+  --vp-c-border: var(--color-gray-200);
+  --vp-c-gutter: var(--color-gray-100);
+
+  /* Inline code */
+  --vp-c-mute: rgba(3, 7, 18, 0.05);
+  --vp-c-mute-dark: rgba(3, 7, 18, 0.08);
+
+  /* Link colors */
+  --vp-c-text-code: var(--color-gray-950);
+
+  /* Hero section */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(
+    135deg,
+    var(--color-gray-950) 0%,
+    var(--color-sky-500) 100%
+  );
+
+  /* Layout */
+  --vp-layout-max-width: 1440px;
+}
+
+/* =============================================================================
+   4. VITEPRESS THEME VARIABLES - DARK MODE
+   ============================================================================= */
+
+.dark {
+  /* Brand colors - brighter for dark mode */
+  --vp-c-brand-1: var(--color-sky-400);
+  --vp-c-brand-2: var(--color-sky-500);
+  --vp-c-brand-3: var(--color-sky-600);
+  --vp-c-brand-soft: rgba(56, 189, 248, 0.16);
+
+  /* Background colors - using gray-950 like tailwindcss.com */
+  --vp-c-bg: var(--color-gray-950);
+  --vp-c-bg-alt: var(--color-gray-900);
+  --vp-c-bg-elv: var(--color-gray-900);
+  --vp-c-bg-soft: var(--color-gray-800);
+
+  /* Text colors */
+  --vp-c-text-1: #ffffff;
+  --vp-c-text-2: var(--color-gray-300);
+  --vp-c-text-3: var(--color-gray-400);
+
+  /* Border/divider colors */
+  --vp-c-divider: rgba(255, 255, 255, 0.1);
+  --vp-c-border: rgba(255, 255, 255, 0.1);
+  --vp-c-gutter: var(--color-gray-800);
+
+  /* Inline code */
+  --vp-c-mute: rgba(255, 255, 255, 0.1);
+  --vp-c-mute-dark: rgba(255, 255, 255, 0.12);
+
+  /* Link colors */
+  --vp-c-text-code: #ffffff;
+
+  /* Hero section */
+  --vp-home-hero-name-background: linear-gradient(
+    135deg,
+    var(--color-sky-400) 0%,
+    var(--color-sky-500) 100%
+  );
+}
+
+/* =============================================================================
+   5. GLOBAL TYPOGRAPHY STYLES
+   ============================================================================= */
+
+/* Apply Inter font with OpenType features */
+html {
+  font-family: var(--font-sans);
+  font-feature-settings: var(--font-sans-features);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Monospace font with features */
+code,
+kbd,
+pre,
+samp,
+.vp-code,
+.vp-code-group {
+  font-family: var(--font-mono) !important;
+  font-feature-settings: var(--font-mono-features);
+}
+
+/* Heading styles - tighter tracking like tailwindcss.com */
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: -0.025em;
+}
+
+h1 {
+  font-weight: 500;
+}
+
+h2,
+h3 {
+  font-weight: 600;
+}
+
+/* =============================================================================
+   6. LINK STYLES (matching tailwindcss.com)
+   ============================================================================= */
+
+.vp-doc a {
+  color: var(--color-sky-600);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-sky-400);
+  text-decoration-thickness: 1px;
+  transition: text-decoration-thickness 0.15s ease;
+}
+
+.vp-doc a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.dark .vp-doc a {
+  color: var(--color-sky-400);
+}
+
+/* =============================================================================
+   7. CODE BLOCKS (VitePress default + Shiki VSCode themes)
+   ============================================================================= */
+
+/* Light mode: add subtle border around code blocks for better distinction */
+:root .vp-doc div[class*="language-"],
+:root .vp-doc .vp-code-group div[class*="language-"] {
+  border: 1px solid var(--color-gray-200);
+}
+
+/* Dark mode: no border needed (dark background provides enough contrast) */
+.dark .vp-doc div[class*="language-"],
+.dark .vp-doc .vp-code-group div[class*="language-"] {
+  border: none;
+}
+
+/* =============================================================================
+   8. SIDEBAR STYLES (matching tailwindcss.com)
+   ============================================================================= */
+
+/* Sidebar section titles - uppercase monospace */
+.VPSidebarItem.level-0 > .item > .text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gray-500);
+}
+
+.dark .VPSidebarItem.level-0 > .item > .text {
+  color: var(--color-gray-400);
+}
+
+/* Sidebar links */
+.VPSidebarItem .link {
+  color: var(--color-gray-600);
+  transition: color 0.15s ease;
+}
+
+.VPSidebarItem .link:hover {
+  color: var(--color-gray-950);
+}
+
+.dark .VPSidebarItem .link {
+  color: var(--color-gray-300);
+}
+
+.dark .VPSidebarItem .link:hover {
+  color: #ffffff;
+}
+
+/* Active sidebar link */
+.VPSidebarItem.is-active > .item > .link {
+  font-weight: 600;
+  color: var(--color-gray-950);
+}
+
+.dark .VPSidebarItem.is-active > .item > .link {
+  color: #ffffff;
+}
+
+/* =============================================================================
+   9. NAVBAR STYLES
+   ============================================================================= */
+
+/* Solid navbar background with border */
+.VPNavBar {
+  background-color: var(--vp-c-bg) !important;
+  border-bottom: 1px solid var(--vp-c-divider) !important;
+}
+
+.VPNavBar.has-sidebar .curtain {
+  background-color: var(--vp-c-bg) !important;
+}
+
+/* Full-width divider line under navbar */
+.VPSidebar::before {
+  content: "";
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 1px;
+  background-color: var(--vp-c-divider);
+  z-index: 999;
+  pointer-events: none;
+}
+
+/* Nav links */
+.VPNavBarMenuLink {
+  color: var(--color-gray-600);
+  transition: color 0.15s ease;
+}
+
+.VPNavBarMenuLink:hover {
+  color: var(--color-gray-950);
+}
+
+.dark .VPNavBarMenuLink {
+  color: var(--color-gray-300);
+}
+
+.dark .VPNavBarMenuLink:hover {
+  color: #ffffff;
+}
+
+/* Active nav link */
+.VPNavBarMenuLink.active {
+  font-weight: 600;
+  color: var(--color-gray-950);
+}
+
+.dark .VPNavBarMenuLink.active {
+  color: #ffffff;
+}
+
+/* Navbar wrapper alignment */
+.VPNavBar .wrapper {
+  max-width: calc(var(--vp-layout-max-width) + 64px) !important;
+  margin: 0 auto !important;
+  padding: 0 24px !important;
+  width: 100% !important;
+}
+
+@media (min-width: 960px) {
+  .VPNavBar .wrapper {
+    padding: 0 32px !important;
+  }
+}
+
+/* =============================================================================
+   10. SEARCH BAR STYLES
+   ============================================================================= */
+
+/* Search button styling */
+.VPNavBarSearch .DocSearch-Button,
+.VPNavBarSearch #local-search button,
+.VPLocalSearchBox button.search-button {
+  background-color: var(--vp-c-bg-soft) !important;
+  border: 1px solid var(--vp-c-divider) !important;
+  border-radius: 0.5rem !important;
+  transition: border-color 0.15s ease;
+}
+
+.VPNavBarSearch .DocSearch-Button:hover,
+.VPNavBarSearch #local-search button:hover,
+.VPLocalSearchBox button.search-button:hover {
+  border-color: var(--color-sky-400) !important;
+}
+
+/* Search modal */
+.DocSearch-Modal {
+  background-color: var(--vp-c-bg) !important;
+  border-radius: 0.75rem;
+}
+
+.dark .DocSearch-Modal {
+  background-color: var(--color-gray-800) !important;
+}
+
+/* Search bar full width */
+@media (min-width: 768px) {
+  .VPNavBar.has-sidebar .title {
+    position: relative !important;
+    flex-shrink: 0 !important;
+  }
+
+  .VPNavBar.has-sidebar .content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .VPNavBar .content {
+    display: flex !important;
+    align-items: center !important;
+    flex: 1 !important;
+  }
+
+  .VPNavBar .content-body {
+    display: flex !important;
+    align-items: center !important;
+    flex: 1 !important;
+    width: 100% !important;
+    gap: 16px !important;
+    justify-content: flex-start !important;
+  }
+
+  .VPNavBar .VPNavBarSearch.search {
+    flex: 1 !important;
+    max-width: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .VPNavBar .VPNavBarSearch #local-search {
+    width: 100% !important;
+  }
+
+  .VPNavBar .VPNavBarSearch .DocSearch-Button {
+    width: 100% !important;
+    max-width: none !important;
+    justify-content: flex-start !important;
+    padding: 0 12px 0 10px !important;
+    height: 40px !important;
+    margin: 0 !important;
+  }
+
+  .VPNavBar .VPNavBarMenu.menu {
+    flex-shrink: 0 !important;
+  }
+
+  .VPNavBar .VPNavBarExtra,
+  .VPNavBar .VPSocialLinks {
+    flex-shrink: 0 !important;
+  }
+}
+
+/* =============================================================================
+   11. BUTTON STYLES (CTA using Pink)
+   ============================================================================= */
+
+/* Primary button - VitePress action buttons */
+.VPButton.brand {
+  background-color: var(--color-pink-500) !important;
+  border-color: var(--color-pink-500) !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.VPButton.brand:hover {
+  background-color: var(--color-pink-600) !important;
+  border-color: var(--color-pink-600) !important;
+}
+
+/* Alternative button */
+.VPButton.alt {
+  background-color: rgba(3, 7, 18, 0.05);
+  border-color: transparent !important;
+  color: var(--color-gray-950);
+  font-weight: 600;
+  transition: background-color 0.15s ease;
+}
+
+.VPButton.alt:hover {
+  background-color: rgba(3, 7, 18, 0.1);
+}
+
+.dark .VPButton.alt {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.dark .VPButton.alt:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* =============================================================================
+   12. BADGE STYLES (matching tailwindcss.com)
+   ============================================================================= */
+
+.VPBadge {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Tip badge - Sky color */
+.VPBadge.tip {
+  background-color: rgba(14, 165, 233, 0.1);
+  color: var(--color-sky-800);
+}
+
+.dark .VPBadge.tip {
+  background-color: rgba(56, 189, 248, 0.1);
+  color: var(--color-sky-300);
+}
+
+/* =============================================================================
+   13. TABLE STYLES
+   ============================================================================= */
+
+/* Tables use VitePress defaults - no overrides */
+
+/* =============================================================================
+   14. CUSTOM UTILITIES (from tailwindcss.com)
+   ============================================================================= */
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Line dividers */
+.line-t::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  translate: -50%;
+  height: 1px;
+  background-color: rgba(3, 7, 18, 0.05);
+}
+
+.dark .line-t::before {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.line-b::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  translate: -50%;
+  height: 1px;
+  background-color: rgba(3, 7, 18, 0.05);
+}
+
+.dark .line-b::after {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* =============================================================================
+   15. HOME PAGE SECTIONS
+   ============================================================================= */
+
+.VPHero .container,
+.VPFeatures .container,
+.VPHome .vp-doc.container {
+  max-width: var(--vp-layout-max-width) !important;
+  margin: 0 auto !important;
+  padding: 0 24px !important;
+  width: 100% !important;
+}
+
+@media (min-width: 960px) {
+  .VPHero .container,
+  .VPFeatures .container,
+  .VPHome .vp-doc.container {
+    padding: 0 32px !important;
+  }
+}
+
+/* =============================================================================
+   16. DOCUMENTATION PAGES LAYOUT
+   ============================================================================= */
+
+@media (min-width: 960px) {
+  .VPDoc.has-sidebar .container,
+  .VPDoc .container {
+    max-width: var(--vp-layout-max-width) !important;
+    margin: 0 auto !important;
+  }
+}
+
+/* Sidebar positioning for large screens */
+@media (min-width: 1440px) {
+  .VPSidebar {
+    padding-left: max(32px, calc((100vw - var(--vp-layout-max-width)) / 2)) !important;
+  }
+}
+
+/* =============================================================================
+   17. HEADER LOGO
+   ============================================================================= */
+
+.VPNavBarTitle .logo {
+  height: 32px;
+  width: auto;
+}
+
+@media (min-width: 960px) {
+  .VPNavBarTitle .logo {
+    height: 36px;
+  }
+}
+
+/* =============================================================================
+   18. HERO IMAGE
+   ============================================================================= */
+
+.VPHero .image-container {
+  max-width: 100% !important;
+  width: 100% !important;
+  transform: none !important;
+}
+
+.VPHero .image-container .image-bg {
+  display: none !important;
+}
+
+.VPHero .image-src {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 150px !important;
+}
+
+.VPHero .image {
+  flex: 1 !important;
+  max-width: none !important;
+}
+
+@media (min-width: 960px) {
+  .VPHero .container {
+    gap: 48px !important;
+  }
+
+  .VPHero .main {
+    flex-shrink: 0 !important;
+    max-width: 45% !important;
+  }
+
+  .VPHero .image {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+    overflow: visible !important;
+  }
+
+  .VPHero .image-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .VPHero .image-src {
+    max-width: none !important;
+    width: 120% !important;
+    height: auto !important;
+  }
+}
+
+/* =============================================================================
+   19. BLOCKQUOTE / CALLOUTS
+   ============================================================================= */
+
+.vp-doc blockquote {
+  border-left: 4px solid var(--color-sky-400);
+  background-color: rgba(14, 165, 233, 0.05);
+  padding: 1rem 1.5rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: var(--vp-c-text-2);
+}
+
+.dark .vp-doc blockquote {
+  background-color: rgba(56, 189, 248, 0.05);
+}
+
+/* =============================================================================
+   20. CUSTOM CONTAINERS (TIP, WARNING, etc.)
+   ============================================================================= */
+
+/* Tip container - Sky color */
+.vp-doc .custom-block.tip {
+  border-color: var(--color-sky-400);
+  background-color: rgba(14, 165, 233, 0.05);
+}
+
+.vp-doc .custom-block.tip .custom-block-title {
+  color: var(--color-sky-600);
+}
+
+.dark .vp-doc .custom-block.tip {
+  background-color: rgba(56, 189, 248, 0.05);
+}
+
+.dark .vp-doc .custom-block.tip .custom-block-title {
+  color: var(--color-sky-400);
+}
+
+/* Info container */
+.vp-doc .custom-block.info {
+  border-color: var(--color-sky-400);
+  background-color: rgba(14, 165, 233, 0.05);
+}
+
+.dark .vp-doc .custom-block.info {
+  background-color: rgba(56, 189, 248, 0.05);
+}
+
+/* =============================================================================
+   21. FOOTER
+   ============================================================================= */
+
+.VPFooter {
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.VPFooter .message,
+.VPFooter .copyright {
+  color: var(--color-gray-500);
+}
+
+.VPFooter a {
+  color: var(--color-sky-600);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.dark .VPFooter a {
+  color: var(--color-sky-400);
+}
+
+/* =============================================================================
+   22. ANIMATIONS
+   ============================================================================= */
+
+/* Flash code animation (from tailwindcss.com) */
+@keyframes flash-code {
+  0% {
+    background-color: rgba(14, 165, 233, 0.1);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.flash-code {
+  animation: flash-code 2s forwards;
+}
+
+/* =============================================================================
+   23. SMOOTH TRANSITIONS
+   ============================================================================= */
+
+/* Smooth color transitions for theme switching */
+html {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+a,
+button,
+.VPNavBarMenuLink,
+.VPSidebarItem .link {
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* =============================================================================
+   24. FEATURE CARDS
+   ============================================================================= */
+
+.VPFeature {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 0.75rem;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.VPFeature:hover {
+  border-color: var(--color-sky-400);
+}
+
+/* =============================================================================
+   25. ON THIS PAGE (TOC)
+   ============================================================================= */
+
+.VPDocAsideOutline .outline-link {
+  color: var(--color-gray-500);
+  transition: color 0.15s ease;
+}
+
+.VPDocAsideOutline .outline-link:hover {
+  color: var(--color-gray-950);
+}
+
+.dark .VPDocAsideOutline .outline-link:hover {
+  color: #ffffff;
+}
+
+.VPDocAsideOutline .outline-link.active {
+  color: var(--color-sky-600);
+  font-weight: 500;
+}
+
+.dark .VPDocAsideOutline .outline-link.active {
+  color: var(--color-sky-400);
+}
+
+/* =============================================================================
+   26. EDIT LINK
+   ============================================================================= */
+
+.VPDocFooter .edit-link-button {
+  color: var(--color-gray-500);
+  transition: color 0.15s ease;
+}
+
+.VPDocFooter .edit-link-button:hover {
+  color: var(--color-sky-600);
+}
+
+.dark .VPDocFooter .edit-link-button:hover {
+  color: var(--color-sky-400);
+}
+
+/* =============================================================================
+   27. PREV/NEXT NAVIGATION
+   ============================================================================= */
+
+.VPDocFooter .pager-link {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 0.5rem;
+  transition: border-color 0.15s ease;
+}
+
+.VPDocFooter .pager-link:hover {
+  border-color: var(--color-sky-400);
+}
+
+.VPDocFooter .pager-link .title {
+  color: var(--color-sky-600);
+}
+
+.dark .VPDocFooter .pager-link .title {
+  color: var(--color-sky-400);
+}

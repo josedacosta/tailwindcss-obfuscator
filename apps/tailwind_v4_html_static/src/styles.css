@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* Custom theme configuration for Tailwind CSS v4 */
+@theme {
+  /* Custom colors */
+  --color-primary: #3b82f6;
+  --color-secondary: #8b5cf6;
+  --color-accent: #06b6d4;
+
+  /* Custom fonts */
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Custom spacing */
+  --spacing-128: 32rem;
+}
+
+/* Custom base styles */
+@layer base {
+  html {
+    font-family: var(--font-sans), sans-serif;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .btn {
+    @apply rounded-lg px-4 py-2 font-medium transition-colors duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-primary hover:bg-primary/90 text-white;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary/90 text-white;
+  }
+
+  .card {
+    @apply rounded-xl border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800;
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-200;
+  }
+
+  .badge-success {
+    @apply inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-200;
+  }
+}
+
+/* Custom utility styles */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

@@ -1,0 +1,37 @@
+/* Tailwind v4 CSS-first configuration */
+@import "tailwindcss";
+
+/* Custom theme using v4 syntax */
+@theme {
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+}
+
+/* Custom utilities using v4 @utility directive */
+@utility btn {
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+@utility btnprimary {
+  background-color: var(--color-primary-500);
+  color: white;
+
+  &:hover {
+    background-color: var(--color-primary-600);
+  }
+}
+
+/* Custom variant using v4 @variant directive */
+@variant hocus (&:hover, &:focus);

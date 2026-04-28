@@ -1,0 +1,20 @@
+{
+  "name": "test-static-html",
+  "version": "1.0.0",
+  "description": "Test app for tailwindcss-obfuscator with static HTML + Tailwind v4",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:css": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/styles.css",
+    "build:js": "node build.js",
+    "build": "pnpm build:css && pnpm build:js",
+    "dev": "pnpm build && npx serve dist"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.4",
+    "tailwindcss": "^4.2.4",
+    "esbuild": "^0.28.0",
+    "serve": "^14.2.4",
+    "tailwindcss-obfuscator": "workspace:*"
+  }
+}

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or Discussion
+    url: https://github.com/josedacosta/tailwindcss-obfuscator/discussions
+    about: Ask a question or start a discussion with the community.
+  - name: Security Vulnerability
+    url: https://github.com/josedacosta/tailwindcss-obfuscator/security/advisories/new
+    about: Report a security issue privately via GitHub Security Advisories.

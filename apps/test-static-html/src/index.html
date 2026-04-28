@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Static HTML - TailwindCSS Obfuscator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="min-h-screen bg-gray-100">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+      <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+        <h1 class="text-2xl font-bold text-gray-900">TailwindCSS Obfuscator - Static HTML Test</h1>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <!-- Counter Section -->
+      <section class="mb-8">
+        <div class="rounded-xl bg-white p-6 shadow-lg">
+          <h3 class="mb-4 text-lg font-bold text-gray-900">Counter Example</h3>
+          <div class="flex items-center gap-4">
+            <button
+              id="increment"
+              class="rounded-lg bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600"
+            >
+              Increment
+            </button>
+            <span id="count" class="font-mono text-xl text-gray-700">0</span>
+            <button
+              id="reset"
+              class="rounded-lg bg-gray-200 px-4 py-2 text-gray-800 transition-colors hover:bg-gray-300"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Alerts Section -->
+      <section class="mb-8 space-y-4">
+        <h2 class="text-xl font-semibold text-gray-900">Alerts</h2>
+        <div class="rounded-lg border border-blue-200 bg-blue-50 p-4 text-blue-800">
+          This is an info alert
+        </div>
+        <div class="rounded-lg border border-green-200 bg-green-50 p-4 text-green-800">
+          This is a success alert
+        </div>
+        <div class="rounded-lg border border-yellow-200 bg-yellow-50 p-4 text-yellow-800">
+          This is a warning alert
+        </div>
+        <div class="rounded-lg border border-red-200 bg-red-50 p-4 text-red-800">
+          This is an error alert
+        </div>
+      </section>
+
+      <!-- Cards Grid -->
+      <section class="mb-8">
+        <h2 class="mb-4 text-xl font-semibold text-gray-900">Feature Cards</h2>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div class="rounded-xl bg-white p-6 shadow-lg transition-shadow hover:shadow-xl">
+            <h3 class="mb-2 text-lg font-bold text-gray-900">Static HTML</h3>
+            <p class="text-gray-600">Pure HTML without any framework</p>
+            <div class="mt-4">
+              <span
+                class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800"
+              >
+                No Framework
+              </span>
+            </div>
+          </div>
+          <div class="rounded-xl bg-white p-6 shadow-lg transition-shadow hover:shadow-xl">
+            <h3 class="mb-2 text-lg font-bold text-gray-900">esbuild</h3>
+            <p class="text-gray-600">Uses esbuild plugin for bundling</p>
+            <div class="mt-4">
+              <span
+                class="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800"
+              >
+                Fast Bundler
+              </span>
+            </div>
+          </div>
+          <div class="rounded-xl bg-white p-6 shadow-lg transition-shadow hover:shadow-xl">
+            <h3 class="mb-2 text-lg font-bold text-gray-900">CLI Support</h3>
+            <p class="text-gray-600">Can also use CLI for processing</p>
+            <div class="mt-4">
+              <span
+                class="inline-flex items-center rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800"
+              >
+                Flexible
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Responsive Test -->
+      <section class="mb-8">
+        <h2 class="mb-4 text-xl font-semibold text-gray-900">Responsive Design</h2>
+        <div class="rounded-lg bg-white p-4 shadow">
+          <p class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">
+            This text changes size at different breakpoints
+          </p>
+          <div class="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+            <div class="h-12 rounded bg-red-500"></div>
+            <div class="h-12 rounded bg-orange-500"></div>
+            <div class="h-12 rounded bg-yellow-500"></div>
+            <div class="h-12 rounded bg-green-500"></div>
+            <div class="h-12 rounded bg-blue-500"></div>
+            <div class="h-12 rounded bg-purple-500"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Excluded Class -->
+      <section class="mb-8">
+        <h2 class="mb-4 text-xl font-semibold text-gray-900">Excluded Classes</h2>
+        <div class="no-obfuscate rounded bg-yellow-100 p-4">
+          This div has "no-obfuscate" class which should be excluded
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-8 text-white">
+      <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+        <p class="text-gray-400">TailwindCSS Obfuscator - Static HTML Test App</p>
+      </div>
+    </footer>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+node_modules
+dist
+build
+out
+coverage
+
+# Build artifacts
+.next
+.nuxt
+.output
+.nitro
+.svelte-kit
+.astro
+.qwik
+.solid
+.vercel
+.vinxi
+.turbo
+.tw-obfuscation
+.tw-patch
+
+# VitePress
+docs/.vitepress/dist
+docs/.vitepress/cache
+
+# Lockfiles & generated
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+*.min.js
+*.min.css
+
+# Reverse-engineering refs (read-only sources)
+github/
+
+# French-only directories (per CLAUDE.md)
+jose/
+reports/

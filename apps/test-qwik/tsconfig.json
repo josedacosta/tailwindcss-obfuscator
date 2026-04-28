@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable", "WebWorker"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "@builder.io/qwik",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "Bundler",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "types": ["node", "vite/client"]
+  },
+  "files": [".eslintrc.cjs"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}

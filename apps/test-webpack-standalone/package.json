@@ -1,0 +1,23 @@
+{
+  "name": "test-webpack-standalone",
+  "version": "1.0.0",
+  "description": "Standalone Webpack 5 + Tailwind v4 test for tailwindcss-obfuscator/webpack",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve --mode development"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.4",
+    "css-loader": "^7.1.2",
+    "mini-css-extract-plugin": "^2.10.2",
+    "postcss": "^8.5.12",
+    "postcss-loader": "^8.2.0",
+    "tailwindcss": "^4.2.4",
+    "tailwindcss-obfuscator": "workspace:*",
+    "webpack": "^5.106.2",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.3"
+  }
+}

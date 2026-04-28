@@ -1,0 +1,20 @@
+{
+  "name": "test-rollup-standalone",
+  "version": "1.0.0",
+  "description": "Standalone Rollup + Tailwind v4 test for tailwindcss-obfuscator/rollup",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "@rollup/plugin-html": "^2.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@tailwindcss/postcss": "^4.2.4",
+    "postcss": "^8.5.12",
+    "rollup": "^4.60.2",
+    "rollup-plugin-postcss": "^4.0.2",
+    "tailwindcss": "^4.2.4",
+    "tailwindcss-obfuscator": "workspace:*"
+  }
+}

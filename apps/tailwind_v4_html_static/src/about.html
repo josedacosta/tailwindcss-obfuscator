@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About - Tailwind CSS v4 (HTML Static)</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white shadow-md dark:bg-gray-800">
+      <div class="container mx-auto max-w-7xl px-4">
+        <div class="flex h-16 items-center justify-between">
+          <a href="./index.html" class="text-xl font-bold text-gray-900 dark:text-white">
+            TW v4 (HTML Static)
+          </a>
+          <div class="flex gap-6">
+            <a
+              href="./index.html"
+              class="text-gray-600 transition-colors hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
+            >
+              Home
+            </a>
+            <a href="./about.html" class="font-semibold text-blue-500 dark:text-blue-400">
+              About
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto max-w-7xl p-8">
+      <header class="mb-12 text-center">
+        <h1 class="mb-4 text-4xl font-bold text-gray-900 md:text-5xl dark:text-white">
+          About This Project
+        </h1>
+        <p class="mx-auto max-w-2xl text-xl text-gray-600 dark:text-gray-300">
+          Testing multi-page HTML support for Tailwind CSS class obfuscation
+        </p>
+      </header>
+
+      <div class="grid gap-8 md:grid-cols-2">
+        <!-- Card 1: Features -->
+        <section class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800">
+          <div class="mb-4 flex items-center gap-3">
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500"
+            >
+              <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                />
+              </svg>
+            </div>
+            <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">Features</h2>
+          </div>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-2">
+              <span class="mt-1 text-green-500">&#10003;</span>
+              <span class="text-gray-700 dark:text-gray-300">Multi-page HTML support</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 text-green-500">&#10003;</span>
+              <span class="text-gray-700 dark:text-gray-300">Automatic class extraction</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 text-green-500">&#10003;</span>
+              <span class="text-gray-700 dark:text-gray-300">CSS obfuscation in production</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 text-green-500">&#10003;</span>
+              <span class="text-gray-700 dark:text-gray-300">Tailwind CSS v4 compatible</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Card 2: Tech Stack -->
+        <section class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800">
+          <div class="mb-4 flex items-center gap-3">
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-pink-500"
+            >
+              <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                />
+              </svg>
+            </div>
+            <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">Tech Stack</h2>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-lg bg-gray-100 p-3 text-center dark:bg-gray-700">
+              <span class="text-sm font-medium text-gray-900 dark:text-white">Tailwind CSS v4</span>
+            </div>
+            <div class="rounded-lg bg-gray-100 p-3 text-center dark:bg-gray-700">
+              <span class="text-sm font-medium text-gray-900 dark:text-white">Vite</span>
+            </div>
+            <div class="rounded-lg bg-gray-100 p-3 text-center dark:bg-gray-700">
+              <span class="text-sm font-medium text-gray-900 dark:text-white">TypeScript</span>
+            </div>
+            <div class="rounded-lg bg-gray-100 p-3 text-center dark:bg-gray-700">
+              <span class="text-sm font-medium text-gray-900 dark:text-white">Vitest</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Card 3: How It Works -->
+        <section class="rounded-2xl bg-white p-6 shadow-xl md:col-span-2 dark:bg-gray-800">
+          <h2 class="mb-6 text-2xl font-semibold text-gray-900 dark:text-white">How It Works</h2>
+          <div class="flex flex-col gap-4 md:flex-row">
+            <div class="relative flex-1">
+              <div
+                class="absolute -left-2 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-sm font-bold text-white"
+              >
+                1
+              </div>
+              <div class="ml-2 border-l-2 border-blue-200 pb-4 pl-10 dark:border-blue-800">
+                <h3 class="mb-1 font-semibold text-gray-900 dark:text-white">Extract Classes</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                  The extraction script scans all HTML files and CSS @apply directives
+                </p>
+              </div>
+            </div>
+            <div class="relative flex-1">
+              <div
+                class="absolute -left-2 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-purple-500 text-sm font-bold text-white"
+              >
+                2
+              </div>
+              <div class="ml-2 border-l-2 border-purple-200 pb-4 pl-10 dark:border-purple-800">
+                <h3 class="mb-1 font-semibold text-gray-900 dark:text-white">Generate Map</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                  Classes are saved to a JSON file for the obfuscation plugin
+                </p>
+              </div>
+            </div>
+            <div class="relative flex-1">
+              <div
+                class="absolute -left-2 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-sm font-bold text-white"
+              >
+                3
+              </div>
+              <div class="ml-2 border-l-2 border-green-200 pb-4 pl-10 dark:border-green-800">
+                <h3 class="mb-1 font-semibold text-gray-900 dark:text-white">Obfuscate</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                  During production build, classes are replaced with short names
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Stats Section -->
+      <section
+        class="mt-12 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-white shadow-xl"
+      >
+        <h2 class="mb-8 text-center text-2xl font-semibold">Project Statistics</h2>
+        <div class="grid grid-cols-2 gap-6 text-center md:grid-cols-4">
+          <div>
+            <div class="mb-2 text-4xl font-bold">450+</div>
+            <div class="text-blue-100">CSS Classes</div>
+          </div>
+          <div>
+            <div class="mb-2 text-4xl font-bold">43</div>
+            <div class="text-blue-100">Tests</div>
+          </div>
+          <div>
+            <div class="mb-2 text-4xl font-bold">3</div>
+            <div class="text-blue-100">HTML Pages</div>
+          </div>
+          <div>
+            <div class="mb-2 text-4xl font-bold">100%</div>
+            <div class="text-blue-100">Coverage</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

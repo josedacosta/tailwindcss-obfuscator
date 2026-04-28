@@ -1,0 +1,1157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailwind CSS v3 (HTML Static)</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white shadow-md dark:bg-gray-800">
+      <div class="container mx-auto max-w-7xl px-4">
+        <div class="flex h-16 items-center justify-between">
+          <a href="./index.html" class="text-xl font-bold text-gray-900 dark:text-white">
+            Tailwind CSS v3 Class Obfuscation (HTML Static)
+          </a>
+          <div class="flex gap-6">
+            <a href="./index.html" class="font-semibold text-blue-500 dark:text-blue-400"> Home </a>
+            <a
+              href="./about.html"
+              class="text-gray-600 transition-colors hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
+            >
+              About
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mx-auto max-w-7xl p-8">
+      <!-- Header -->
+      <header class="mb-12 text-center">
+        <h1 class="mb-4 text-4xl font-bold text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+          Tailwind CSS v3 (HTML Static)
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300">
+          Tailwind CSS v3 <strong>class obfuscation</strong> (HTML Static) with : tailwindcss-patch
+          + unplugin-tailwindcss-mangle
+        </p>
+      </header>
+
+      <!-- Test Grid -->
+      <div class="grid gap-8">
+        <!-- ============================================== -->
+        <!-- SECTION 1: Basic Classes -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="basic-classes"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">1.</span> Basic Classes
+          </h2>
+          <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+            <div class="rounded-lg bg-red-500 p-4 text-center text-white">bg-red-500</div>
+            <div class="rounded-lg bg-blue-500 p-4 text-center text-white">bg-blue-500</div>
+            <div class="rounded-lg bg-green-500 p-4 text-center text-white">bg-green-500</div>
+            <div class="rounded-lg bg-yellow-500 p-4 text-center text-black">bg-yellow-500</div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 2: Responsive Variants -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="responsive-variants"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">2.</span> Responsive Variants
+          </h2>
+          <div class="space-y-4">
+            <div
+              class="rounded-lg bg-purple-500 p-4 text-center text-sm text-white sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl"
+            >
+              Resize window: text-sm -> sm:text-base -> md:text-lg -> lg:text-xl -> xl:text-2xl ->
+              2xl:text-3xl
+            </div>
+            <div
+              class="hidden rounded-lg bg-indigo-500 p-4 text-center text-white sm:block md:hidden lg:block xl:hidden 2xl:block"
+            >
+              Visible: base(hidden) sm(block) md(hidden) lg(block) xl(hidden) 2xl(block)
+            </div>
+            <div class="flex flex-col gap-4 sm:flex-row">
+              <div class="flex-1 rounded-lg bg-pink-500 p-4 text-center text-white">
+                flex-col -> sm:flex-row (1)
+              </div>
+              <div class="flex-1 rounded-lg bg-pink-600 p-4 text-center text-white">
+                flex-col -> sm:flex-row (2)
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 3: Dark Mode -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="dark-mode"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">3.</span> Dark Mode
+          </h2>
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div
+              class="rounded-lg bg-gray-100 p-4 text-center text-gray-900 dark:bg-gray-700 dark:text-gray-100"
+            >
+              bg-gray-100 -> dark:bg-gray-700
+            </div>
+            <div
+              class="rounded-lg border-2 border-gray-300 p-4 text-center text-gray-900 dark:border-gray-600 dark:text-white"
+            >
+              border-gray-300 -> dark:border-gray-600
+            </div>
+            <div
+              class="rounded-lg bg-white p-4 text-center text-gray-900 shadow-lg dark:bg-gray-700 dark:text-white dark:shadow-gray-900/50"
+            >
+              shadow-lg -> dark:shadow-gray-900/50
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 4: Hover / Focus / Active States -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="state-variants"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">4.</span> Hover / Focus / Active States
+          </h2>
+          <div class="flex flex-wrap gap-4">
+            <button
+              class="rounded-lg bg-blue-500 px-6 py-3 text-white transition-colors hover:bg-blue-700 active:bg-blue-800"
+            >
+              hover:bg-blue-700 active:bg-blue-800
+            </button>
+            <button
+              class="rounded-lg bg-green-500 px-6 py-3 text-white transition-transform hover:scale-110 active:scale-95"
+            >
+              hover:scale-110 active:scale-95
+            </button>
+            <input
+              type="text"
+              placeholder="Focus me"
+              class="rounded-lg border-2 border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+            />
+            <button
+              class="rounded-lg bg-purple-500 px-6 py-3 text-white transition-shadow hover:shadow-lg hover:shadow-purple-500/50"
+            >
+              hover:shadow-purple-500/50
+            </button>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 5: Group & Peer Variants -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="group-peer"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">5.</span> Group & Peer Variants
+          </h2>
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <!-- Group hover -->
+            <div
+              class="group cursor-pointer rounded-lg bg-gray-100 p-4 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+            >
+              <p class="mb-2 text-gray-900 dark:text-white">Hover this card (group)</p>
+              <span class="text-gray-500 transition-colors group-hover:text-blue-500"
+                >group-hover:text-blue-500</span
+              >
+              <div
+                class="mt-2 rounded bg-blue-500 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100"
+              >
+                group-hover:opacity-100
+              </div>
+            </div>
+            <!-- Peer -->
+            <div class="space-y-4">
+              <input type="checkbox" id="peer-checkbox" class="peer hidden" />
+              <label
+                for="peer-checkbox"
+                class="block cursor-pointer rounded-lg bg-gray-100 p-4 text-gray-900 hover:bg-gray-200 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+              >
+                Click to toggle (peer checkbox)
+              </label>
+              <div class="hidden rounded-lg bg-green-500 p-4 text-white peer-checked:block">
+                peer-checked:block - Checkbox is checked!
+              </div>
+              <div class="block rounded-lg bg-red-500 p-4 text-white peer-checked:hidden">
+                peer-checked:hidden - Checkbox is unchecked
+              </div>
+            </div>
+          </div>
+          <!-- Group with named groups (v3 supports this) -->
+          <div
+            class="group/card mt-6 cursor-pointer rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 p-4"
+          >
+            <p class="mb-2 text-white">Named group: group/card</p>
+            <span class="text-white/70 transition-colors group-hover/card:text-white">
+              group-hover/card:text-white
+            </span>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 6: First / Last / Odd / Even -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="first-last-odd-even"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">6.</span> First / Last / Odd / Even
+          </h2>
+          <ul class="divide-y divide-gray-200 overflow-hidden rounded-lg dark:divide-gray-600">
+            <li
+              class="bg-gray-100 p-3 text-gray-900 first:rounded-t-lg first:bg-green-100 last:rounded-b-lg odd:bg-gray-50 even:bg-white dark:bg-gray-700 dark:text-white dark:first:bg-green-900 dark:odd:bg-gray-700 dark:even:bg-gray-800"
+            >
+              Item 1 - first:bg-green-100 odd:bg-gray-50
+            </li>
+            <li
+              class="bg-gray-100 p-3 text-gray-900 first:rounded-t-lg first:bg-green-100 last:rounded-b-lg odd:bg-gray-50 even:bg-white dark:bg-gray-700 dark:text-white dark:first:bg-green-900 dark:odd:bg-gray-700 dark:even:bg-gray-800"
+            >
+              Item 2 - even:bg-white
+            </li>
+            <li
+              class="bg-gray-100 p-3 text-gray-900 first:rounded-t-lg first:bg-green-100 last:rounded-b-lg odd:bg-gray-50 even:bg-white dark:bg-gray-700 dark:text-white dark:first:bg-green-900 dark:odd:bg-gray-700 dark:even:bg-gray-800"
+            >
+              Item 3 - odd:bg-gray-50
+            </li>
+            <li
+              class="bg-gray-100 p-3 text-gray-900 first:rounded-t-lg last:rounded-b-lg last:bg-red-100 odd:bg-gray-50 even:bg-white dark:bg-gray-700 dark:text-white dark:last:bg-red-900 dark:odd:bg-gray-700 dark:even:bg-gray-800"
+            >
+              Item 4 - last:bg-red-100 even:bg-white
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 7: Before / After Pseudo-elements -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="before-after"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">7.</span> Before / After Pseudo-elements
+          </h2>
+          <div class="space-y-6">
+            <div
+              class="relative rounded-lg bg-gray-100 p-4 pt-8 text-gray-900 before:absolute before:left-0 before:top-0 before:rounded-tl-lg before:bg-red-500 before:px-2 before:py-1 before:text-xs before:text-white before:content-['Before'] dark:bg-gray-700 dark:text-white"
+            >
+              before:content-['Before'] with positioning
+            </div>
+            <div
+              class="relative rounded-lg bg-gray-100 p-4 pb-8 text-gray-900 after:absolute after:bottom-0 after:right-0 after:rounded-br-lg after:bg-blue-500 after:px-2 after:py-1 after:text-xs after:text-white after:content-['After'] dark:bg-gray-700 dark:text-white"
+            >
+              after:content-['After'] with positioning
+            </div>
+            <blockquote
+              class="rounded-lg bg-gray-100 p-4 italic text-gray-900 before:mr-2 before:text-4xl before:text-blue-500 before:content-['<<'] after:ml-2 after:text-4xl after:text-blue-500 after:content-['>>'] dark:bg-gray-700 dark:text-white"
+            >
+              Quote with before/after decorative quotes
+            </blockquote>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 8: Arbitrary Values -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="arbitrary-values"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">8.</span> Arbitrary Values
+          </h2>
+          <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+              <div
+                class="flex h-[80px] w-[120px] items-center justify-center rounded-lg bg-[#1da1f2] text-sm text-white"
+              >
+                w-[120px] bg-[#1da1f2]
+              </div>
+              <div
+                class="flex h-[80px] w-[150px] items-center justify-center rounded-lg bg-[rgb(234,88,12)] text-sm text-white"
+              >
+                bg-[rgb(234,88,12)]
+              </div>
+              <div
+                class="flex h-[80px] w-[calc(100%-20px)] items-center justify-center rounded-lg bg-[hsl(280,100%,50%)] text-sm text-white"
+              >
+                w-[calc(100%-20px)]
+              </div>
+              <div
+                class="flex items-center justify-center rounded-lg bg-gradient-to-r from-[#667eea] to-[#764ba2] p-[13px] text-sm text-white"
+              >
+                p-[13px] gradient
+              </div>
+            </div>
+            <div class="grid grid-cols-[1fr_2fr_1fr] gap-2">
+              <div class="rounded bg-teal-500 p-2 text-center text-sm text-white">1fr</div>
+              <div class="rounded bg-teal-600 p-2 text-center text-sm text-white">2fr</div>
+              <div class="rounded bg-teal-500 p-2 text-center text-sm text-white">1fr</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 9: Arbitrary Properties -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="arbitrary-properties"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">9.</span> Arbitrary Properties
+          </h2>
+          <div class="flex flex-wrap gap-4">
+            <div
+              class="flex h-32 w-32 items-center justify-center bg-gradient-to-b from-cyan-500 to-blue-500 p-4 text-center text-xs text-white [clip-path:polygon(0_0,100%_0,100%_75%,50%_100%,0_75%)]"
+            >
+              [clip-path:polygon(...)]
+            </div>
+            <div
+              class="rounded-lg bg-gray-500 p-4 text-2xl font-bold text-white [text-shadow:2px_2px_4px_rgba(0,0,0,0.5)]"
+            >
+              [text-shadow:...]
+            </div>
+            <div class="h-32 rounded-lg bg-orange-500 p-4 text-white [writing-mode:vertical-rl]">
+              [writing-mode:vertical-rl]
+            </div>
+            <div
+              class="h-32 w-32 rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 [mask-image:linear-gradient(to_bottom,black,transparent)]"
+            ></div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 10: Important Modifier -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="important-modifier"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">10.</span> Important Modifier (!)
+          </h2>
+          <div class="flex flex-wrap gap-4">
+            <div class="rounded-lg bg-gray-100 p-4 !text-red-500 text-blue-500 dark:bg-gray-700">
+              text-blue-500 !text-red-500 -> Should be RED
+            </div>
+            <div class="rounded-lg !bg-green-500 bg-blue-500 p-4 text-white">
+              bg-blue-500 !bg-green-500 -> Should be GREEN
+            </div>
+            <div class="!mt-4 mt-0 rounded-lg bg-yellow-500 p-4 text-black">
+              mt-0 !mt-4 -> Has margin-top
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 11: Opacity Modifiers -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="opacity-modifiers"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">11.</span> Opacity Modifiers
+          </h2>
+          <div class="grid grid-cols-2 gap-4 md:grid-cols-5">
+            <div class="rounded-lg bg-blue-500/100 p-4 text-center text-white">bg-blue-500/100</div>
+            <div class="rounded-lg bg-blue-500/75 p-4 text-center text-white">bg-blue-500/75</div>
+            <div class="rounded-lg bg-blue-500/50 p-4 text-center text-white">bg-blue-500/50</div>
+            <div class="rounded-lg bg-blue-500/25 p-4 text-center text-white">bg-blue-500/25</div>
+            <div
+              class="rounded-lg border border-blue-500 bg-blue-500/10 p-4 text-center text-gray-900 dark:text-white"
+            >
+              bg-blue-500/10
+            </div>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-4">
+            <div class="text-2xl font-bold text-red-500/50">text-red-500/50</div>
+            <div class="rounded-lg border-4 border-green-500/50 p-4 text-gray-900 dark:text-white">
+              border-green-500/50
+            </div>
+            <div
+              class="rounded-lg bg-white p-4 text-gray-900 shadow-xl shadow-purple-500/50 dark:bg-gray-700 dark:text-white"
+            >
+              shadow-purple-500/50
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 12: Negative Values -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="negative-values"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">12.</span> Negative Values
+          </h2>
+          <div class="space-y-6">
+            <div class="relative h-24 overflow-visible rounded-lg bg-gray-100 dark:bg-gray-700">
+              <div
+                class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg bg-red-500 p-4 text-sm text-white"
+              >
+                -translate-x-1/2 -translate-y-1/2
+              </div>
+            </div>
+            <div class="flex items-start gap-8 pt-8">
+              <div class="-mt-4 rounded-lg bg-blue-500 p-4 text-white">-mt-4</div>
+              <div class="relative z-10 -ml-4 rounded-lg bg-green-500 p-4 text-white">
+                -ml-4 (overlaps)
+              </div>
+              <div class="-rotate-6 rounded-lg bg-yellow-500 p-4 text-black">-rotate-6</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 13: Placeholder Classes (v3 style, no container queries) -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="placeholder-styles"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">13.</span> Placeholder Styles
+          </h2>
+          <div class="space-y-4">
+            <input
+              type="text"
+              placeholder="Default placeholder"
+              class="w-full rounded-lg border border-gray-300 px-4 py-2 placeholder:text-gray-400 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-500"
+            />
+            <input
+              type="text"
+              placeholder="Italic blue placeholder"
+              class="w-full rounded-lg border border-gray-300 px-4 py-2 placeholder:italic placeholder:text-blue-400 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            />
+            <input
+              type="text"
+              placeholder="Uppercase placeholder"
+              class="w-full rounded-lg border border-gray-300 px-4 py-2 placeholder:uppercase placeholder:tracking-widest placeholder:text-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            />
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 14: Motion Preferences -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="motion-preferences"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">14.</span> Motion Preferences
+          </h2>
+          <div class="flex flex-wrap gap-4">
+            <button
+              class="rounded-lg bg-blue-500 px-6 py-3 text-white transition-transform duration-300 hover:scale-110 motion-reduce:transform-none motion-reduce:transition-none"
+            >
+              motion-reduce:transform-none
+            </button>
+            <div
+              class="animate-pulse rounded-lg bg-green-500 px-6 py-3 text-white motion-reduce:animate-none"
+            >
+              animate-pulse motion-reduce:animate-none
+            </div>
+            <div
+              class="animate-bounce rounded-lg bg-orange-500 px-6 py-3 text-white motion-safe:animate-bounce motion-reduce:animate-none"
+            >
+              motion-safe:animate-bounce
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 15: Print Media -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800 print:bg-white print:text-black print:shadow-none"
+          data-testid="print-media"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white print:text-black"
+          >
+            <span class="text-green-500 print:text-black">15.</span> Print Media
+          </h2>
+          <div class="space-y-4">
+            <div class="rounded-lg bg-blue-500 p-4 text-white print:bg-gray-200 print:text-black">
+              print:bg-gray-200 print:text-black
+            </div>
+            <div class="hidden rounded bg-gray-200 p-4 text-black print:block">
+              print:block - Only visible when printing
+            </div>
+            <div
+              class="block rounded-lg bg-red-100 p-4 text-red-800 dark:bg-red-900 dark:text-red-200 print:hidden"
+            >
+              print:hidden - Hidden when printing
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 16: Portrait / Landscape -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="orientation"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">16.</span> Portrait / Landscape
+          </h2>
+          <div class="space-y-4">
+            <div
+              class="rounded-lg p-4 text-center text-white portrait:bg-pink-500 landscape:bg-cyan-500"
+            >
+              portrait:bg-pink-500 landscape:bg-cyan-500 (rotate device to see)
+            </div>
+            <div class="flex gap-4 portrait:flex-col landscape:flex-row">
+              <div class="flex-1 rounded-lg bg-amber-500 p-4 text-center text-white">
+                portrait:flex-col (1)
+              </div>
+              <div class="flex-1 rounded-lg bg-amber-600 p-4 text-center text-white">
+                landscape:flex-row (2)
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 17: Supports Queries -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="supports-queries"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">17.</span> Supports Queries
+          </h2>
+          <div class="space-y-4">
+            <div
+              class="flex flex-wrap gap-2 supports-[display:grid]:grid supports-[display:grid]:grid-cols-3 supports-[display:grid]:gap-4"
+            >
+              <div class="rounded-lg bg-emerald-500 p-4 text-center text-white">
+                supports-[display:grid]:grid
+              </div>
+              <div class="rounded-lg bg-emerald-600 p-4 text-center text-white">Grid Item 2</div>
+              <div class="rounded-lg bg-emerald-700 p-4 text-center text-white">Grid Item 3</div>
+            </div>
+            <div
+              class="rounded-lg bg-gray-500 p-4 text-gray-900 supports-[backdrop-filter]:bg-white/30 supports-[backdrop-filter]:backdrop-blur-sm dark:text-white"
+            >
+              supports-[backdrop-filter]:backdrop-blur-sm
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 18: ARIA States -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="aria-states"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">18.</span> ARIA States
+          </h2>
+          <div class="flex flex-wrap gap-4">
+            <button
+              aria-selected="true"
+              class="rounded-lg bg-gray-200 px-4 py-2 text-gray-900 aria-selected:bg-blue-500 aria-selected:text-white dark:bg-gray-700 dark:text-white"
+            >
+              aria-selected:bg-blue-500 (selected)
+            </button>
+            <button
+              aria-selected="false"
+              class="rounded-lg bg-gray-200 px-4 py-2 text-gray-900 aria-selected:bg-blue-500 aria-selected:text-white dark:bg-gray-700 dark:text-white"
+            >
+              aria-selected:bg-blue-500 (not selected)
+            </button>
+            <button
+              aria-disabled="true"
+              class="rounded-lg bg-green-500 px-4 py-2 text-white aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+            >
+              aria-disabled:opacity-50
+            </button>
+            <div
+              aria-expanded="true"
+              class="rounded-lg bg-gray-100 p-4 text-gray-900 aria-expanded:bg-yellow-100 dark:bg-gray-700 dark:text-white dark:aria-expanded:bg-yellow-900"
+            >
+              aria-expanded:bg-yellow-100
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 19: Data Attributes -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="data-attributes"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">19.</span> Data Attributes
+          </h2>
+          <div class="flex flex-wrap gap-4">
+            <button
+              data-state="open"
+              class="rounded-lg px-4 py-2 text-white data-[state=closed]:bg-red-500 data-[state=open]:bg-green-500"
+            >
+              data-[state=open]:bg-green-500
+            </button>
+            <button
+              data-state="closed"
+              class="rounded-lg px-4 py-2 text-white data-[state=closed]:bg-red-500 data-[state=open]:bg-green-500"
+            >
+              data-[state=closed]:bg-red-500
+            </button>
+            <div
+              data-size="large"
+              class="rounded-lg bg-purple-500 px-4 py-2 text-white data-[size=large]:text-2xl data-[size=small]:text-sm"
+            >
+              data-[size=large]:text-2xl
+            </div>
+            <div
+              data-active="true"
+              class="rounded-lg bg-gray-200 p-4 text-gray-900 data-[active=true]:ring-4 data-[active=true]:ring-blue-500 dark:bg-gray-700 dark:text-white"
+            >
+              data-[active=true]:ring-4
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 20: Selection Styles -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="selection-styles"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">20.</span> Selection Styles
+          </h2>
+          <div class="space-y-4">
+            <p class="text-gray-900 selection:bg-pink-500 selection:text-white dark:text-white">
+              Select this text to see selection:bg-pink-500 selection:text-white. Lorem ipsum dolor
+              sit amet, consectetur adipiscing elit.
+            </p>
+            <p
+              class="text-gray-900 selection:bg-green-300 selection:text-green-900 dark:text-white"
+            >
+              Select this text for green selection. Ut enim ad minim veniam, quis nostrud
+              exercitation.
+            </p>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 21: Combined States (Multi-variant) -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="combined-states"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">21.</span> Combined States (Multi-variant)
+          </h2>
+          <div class="flex flex-wrap gap-4">
+            <button
+              class="rounded-lg bg-gray-200 px-6 py-3 text-gray-900 transition-colors hover:bg-blue-500 hover:text-white dark:bg-gray-700 dark:text-white dark:hover:bg-blue-600"
+            >
+              dark:hover:bg-blue-600
+            </button>
+            <button
+              class="rounded-lg bg-gray-200 px-6 py-3 text-gray-900 transition-colors md:bg-blue-500 md:text-white lg:hover:bg-green-500"
+            >
+              md:bg-blue-500 lg:hover:bg-green-500
+            </button>
+            <button
+              class="rounded-lg bg-gray-500 px-6 py-3 text-white first:bg-red-500 last:bg-blue-500 hover:first:bg-red-700 hover:last:bg-blue-700"
+            >
+              hover:first:bg-red-700
+            </button>
+            <div class="group">
+              <button
+                class="rounded-lg bg-purple-500 px-6 py-3 text-white transition-colors group-hover:bg-purple-700 dark:group-hover:bg-purple-400"
+              >
+                dark:group-hover:bg-purple-400
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 22: Gradients -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="gradients"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">22.</span> Gradients
+          </h2>
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div
+              class="rounded-lg bg-gradient-to-r from-red-500 to-yellow-500 p-4 text-center text-white"
+            >
+              bg-gradient-to-r from-red-500 to-yellow-500
+            </div>
+            <div
+              class="rounded-lg bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 p-4 text-center text-white"
+            >
+              from-purple-500 via-pink-500 to-red-500
+            </div>
+            <div
+              class="rounded-lg border border-green-500 bg-gradient-to-t from-green-500/50 to-emerald-500/50 p-4 text-center text-white"
+            >
+              from-green-500/50 to-emerald-500/50
+            </div>
+            <div
+              class="rounded-lg bg-gradient-to-l from-blue-600 from-10% via-sky-500 via-30% to-cyan-400 to-90% p-4 text-center text-white"
+            >
+              from-10% via-30% to-90%
+            </div>
+            <div
+              class="rounded-lg bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-red-500 via-yellow-500 to-green-500 p-4 text-center text-white"
+            >
+              conic-gradient
+            </div>
+            <div
+              class="rounded-lg bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-500 to-indigo-900 p-4 text-center text-white"
+            >
+              radial-gradient
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 23: Filters & Backdrop -->
+        <!-- ============================================== -->
+        <section class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800" data-testid="filters">
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">23.</span> Filters & Backdrop
+          </h2>
+          <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+            <div class="rounded-lg bg-blue-500 p-4 text-center text-white blur-sm">blur-sm</div>
+            <div class="rounded-lg bg-green-500 p-4 text-center text-white brightness-150">
+              brightness-150
+            </div>
+            <div class="rounded-lg bg-red-500 p-4 text-center text-white contrast-200">
+              contrast-200
+            </div>
+            <div class="rounded-lg bg-purple-500 p-4 text-center text-white grayscale">
+              grayscale
+            </div>
+            <div class="rounded-lg bg-orange-500 p-4 text-center text-white hue-rotate-90">
+              hue-rotate-90
+            </div>
+            <div class="rounded-lg bg-cyan-500 p-4 text-center text-white invert">invert</div>
+            <div class="rounded-lg bg-pink-500 p-4 text-center text-white saturate-200">
+              saturate-200
+            </div>
+            <div class="rounded-lg bg-lime-500 p-4 text-center text-white sepia">sepia</div>
+          </div>
+          <div
+            class="relative mt-4 h-32 overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-purple-500"
+          >
+            <div
+              class="absolute inset-4 flex items-center justify-center rounded-lg bg-white/30 font-semibold text-white backdrop-blur-md backdrop-brightness-150"
+            >
+              backdrop-blur-md backdrop-brightness-150
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 24: Transforms -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="transforms"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">24.</span> Transforms
+          </h2>
+          <div class="flex flex-wrap gap-8 p-8">
+            <div class="w-24 rotate-45 rounded-lg bg-red-500 p-4 text-center text-white">
+              rotate-45
+            </div>
+            <div class="w-24 scale-125 rounded-lg bg-blue-500 p-4 text-center text-white">
+              scale-125
+            </div>
+            <div class="w-24 skew-x-12 rounded-lg bg-green-500 p-4 text-center text-white">
+              skew-x-12
+            </div>
+            <div
+              class="w-24 translate-x-4 translate-y-4 rounded-lg bg-yellow-500 p-4 text-center text-black"
+            >
+              translate
+            </div>
+            <div
+              class="w-24 origin-top-left rotate-12 rounded-lg bg-purple-500 p-4 text-center text-white"
+            >
+              origin-top-left
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 25: Transitions & Animations -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="transitions-animations"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">25.</span> Transitions & Animations
+          </h2>
+          <div class="flex flex-wrap gap-4">
+            <button
+              class="rounded-lg bg-blue-500 px-6 py-3 text-white transition-all duration-300 ease-in-out hover:scale-105 hover:bg-blue-700 hover:shadow-xl"
+            >
+              transition-all duration-300 ease-in-out
+            </button>
+            <div
+              class="h-12 w-12 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"
+            ></div>
+            <div class="h-12 w-12 animate-ping rounded-full bg-green-500"></div>
+            <div class="animate-pulse rounded-lg bg-purple-500 px-6 py-3 text-white">
+              animate-pulse
+            </div>
+            <div class="animate-bounce rounded-lg bg-orange-500 px-6 py-3 text-white">
+              animate-bounce
+            </div>
+          </div>
+          <div class="mt-4 flex gap-4">
+            <div
+              class="rounded-lg bg-gray-500 px-6 py-3 text-white transition-colors delay-150 duration-700 hover:bg-red-500"
+            >
+              delay-150 duration-700
+            </div>
+            <div
+              class="rounded-lg bg-cyan-500 px-6 py-3 text-white transition ease-linear hover:translate-x-4"
+            >
+              ease-linear
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 26: Custom @apply Components -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="custom-components"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">26.</span> Custom @apply Components
+          </h2>
+          <div class="flex flex-wrap gap-4">
+            <button class="btn btn-primary">btn btn-primary</button>
+            <button class="btn btn-secondary">btn btn-secondary</button>
+            <div class="card p-6">
+              <p class="text-gray-900 dark:text-white">Custom .card component</p>
+            </div>
+            <span class="badge">badge</span>
+            <span class="badge-success">badge-success</span>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 27: Spacing with fractions -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="spacing-fractions"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">27.</span> Spacing with Fractions
+          </h2>
+          <div class="space-y-4">
+            <div class="flex gap-2">
+              <div class="w-1/4 rounded bg-blue-500 p-2 text-center text-sm text-white">w-1/4</div>
+              <div class="w-1/2 rounded bg-blue-600 p-2 text-center text-sm text-white">w-1/2</div>
+              <div class="w-1/4 rounded bg-blue-500 p-2 text-center text-sm text-white">w-1/4</div>
+            </div>
+            <div class="flex gap-2">
+              <div class="w-1/3 rounded bg-green-500 p-2 text-center text-sm text-white">w-1/3</div>
+              <div class="w-2/3 rounded bg-green-600 p-2 text-center text-sm text-white">w-2/3</div>
+            </div>
+            <div class="flex gap-2">
+              <div class="w-2/5 rounded bg-purple-500 p-2 text-center text-sm text-white">
+                w-2/5
+              </div>
+              <div class="w-3/5 rounded bg-purple-600 p-2 text-center text-sm text-white">
+                w-3/5
+              </div>
+            </div>
+            <div class="relative h-24 rounded-lg bg-gray-200 dark:bg-gray-700">
+              <div
+                class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded bg-red-500 p-2 text-sm text-white"
+              >
+                top-1/2 left-1/2
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 28: Typography -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="typography"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">28.</span> Typography
+          </h2>
+          <div class="space-y-4">
+            <p class="text-xs text-gray-600 dark:text-gray-400">text-xs (12px)</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400">text-sm (14px)</p>
+            <p class="text-base text-gray-600 dark:text-gray-400">text-base (16px)</p>
+            <p class="text-lg text-gray-600 dark:text-gray-400">text-lg (18px)</p>
+            <p class="text-xl text-gray-600 dark:text-gray-400">text-xl (20px)</p>
+            <div class="flex flex-wrap gap-4">
+              <span class="font-thin text-gray-900 dark:text-white">font-thin</span>
+              <span class="font-light text-gray-900 dark:text-white">font-light</span>
+              <span class="font-normal text-gray-900 dark:text-white">font-normal</span>
+              <span class="font-medium text-gray-900 dark:text-white">font-medium</span>
+              <span class="font-semibold text-gray-900 dark:text-white">font-semibold</span>
+              <span class="font-bold text-gray-900 dark:text-white">font-bold</span>
+              <span class="font-extrabold text-gray-900 dark:text-white">font-extrabold</span>
+            </div>
+            <div class="flex flex-wrap gap-4">
+              <span class="italic text-gray-900 dark:text-white">italic</span>
+              <span class="text-gray-900 underline dark:text-white">underline</span>
+              <span class="text-gray-900 line-through dark:text-white">line-through</span>
+              <span class="uppercase text-gray-900 dark:text-white">uppercase</span>
+              <span class="lowercase text-gray-900 dark:text-white">LOWERCASE</span>
+              <span class="capitalize text-gray-900 dark:text-white">capitalize text</span>
+            </div>
+            <p class="tracking-tight text-gray-900 dark:text-white">
+              tracking-tight (letter-spacing)
+            </p>
+            <p class="tracking-widest text-gray-900 dark:text-white">
+              tracking-widest (letter-spacing)
+            </p>
+            <p class="leading-tight text-gray-900 dark:text-white">
+              leading-tight (line-height) - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <p class="leading-loose text-gray-900 dark:text-white">
+              leading-loose (line-height) - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 29: Flexbox & Grid -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="flexbox-grid"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">29.</span> Flexbox & Grid
+          </h2>
+          <div class="space-y-6">
+            <!-- Flexbox -->
+            <div>
+              <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Flexbox:</p>
+              <div
+                class="flex items-center justify-between gap-2 rounded-lg bg-gray-100 p-4 dark:bg-gray-700"
+              >
+                <div class="flex-none rounded bg-blue-500 p-2 text-sm text-white">flex-none</div>
+                <div class="flex-1 rounded bg-blue-600 p-2 text-center text-sm text-white">
+                  flex-1
+                </div>
+                <div class="flex-auto rounded bg-blue-500 p-2 text-sm text-white">flex-auto</div>
+                <div class="grow rounded bg-blue-700 p-2 text-center text-sm text-white">grow</div>
+                <div class="shrink-0 rounded bg-blue-500 p-2 text-sm text-white">shrink-0</div>
+              </div>
+            </div>
+            <!-- Grid -->
+            <div>
+              <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Grid:</p>
+              <div
+                class="grid grid-cols-4 grid-rows-2 gap-2 rounded-lg bg-gray-100 p-4 dark:bg-gray-700"
+              >
+                <div class="col-span-2 rounded bg-green-500 p-2 text-center text-sm text-white">
+                  col-span-2
+                </div>
+                <div
+                  class="row-span-2 flex items-center justify-center rounded bg-green-600 p-2 text-center text-sm text-white"
+                >
+                  row-span-2
+                </div>
+                <div class="rounded bg-green-500 p-2 text-center text-sm text-white">1</div>
+                <div
+                  class="col-start-1 col-end-3 rounded bg-green-700 p-2 text-center text-sm text-white"
+                >
+                  col-start-1 col-end-3
+                </div>
+              </div>
+            </div>
+            <!-- Auto grid -->
+            <div>
+              <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Auto-fit grid:</p>
+              <div
+                class="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] gap-2 rounded-lg bg-gray-100 p-4 dark:bg-gray-700"
+              >
+                <div class="rounded bg-purple-500 p-2 text-center text-sm text-white">Auto 1</div>
+                <div class="rounded bg-purple-500 p-2 text-center text-sm text-white">Auto 2</div>
+                <div class="rounded bg-purple-500 p-2 text-center text-sm text-white">Auto 3</div>
+                <div class="rounded bg-purple-500 p-2 text-center text-sm text-white">Auto 4</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SECTION 30: Borders & Rings -->
+        <!-- ============================================== -->
+        <section
+          class="rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-800"
+          data-testid="borders-rings"
+        >
+          <h2
+            class="mb-4 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-white"
+          >
+            <span class="text-green-500">30.</span> Borders & Rings
+          </h2>
+          <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+            <div
+              class="rounded-lg border border-gray-300 p-4 text-center text-sm text-gray-900 dark:border-gray-600 dark:text-white"
+            >
+              border
+            </div>
+            <div
+              class="rounded-lg border-2 border-blue-500 p-4 text-center text-sm text-gray-900 dark:text-white"
+            >
+              border-2 border-blue-500
+            </div>
+            <div
+              class="rounded-lg border-4 border-dashed border-green-500 p-4 text-center text-sm text-gray-900 dark:text-white"
+            >
+              border-dashed
+            </div>
+            <div
+              class="border-t-4 border-red-500 bg-gray-100 p-4 text-center text-sm text-gray-900 dark:bg-gray-700 dark:text-white"
+            >
+              border-t-4
+            </div>
+            <div
+              class="rounded-lg p-4 text-center text-sm text-gray-900 ring-2 ring-purple-500 dark:text-white"
+            >
+              ring-2 ring-purple-500
+            </div>
+            <div
+              class="rounded-lg p-4 text-center text-sm text-gray-900 ring-4 ring-pink-500 ring-offset-2 ring-offset-white dark:text-white dark:ring-offset-gray-800"
+            >
+              ring-offset-2
+            </div>
+            <div
+              class="rounded-lg p-4 text-center text-sm text-gray-900 outline outline-2 outline-offset-2 outline-cyan-500 dark:text-white"
+            >
+              outline outline-offset-2
+            </div>
+            <div
+              class="divide-y divide-gray-300 overflow-hidden rounded-lg bg-gray-100 dark:divide-gray-600 dark:bg-gray-700"
+            >
+              <div class="p-2 text-center text-sm text-gray-900 dark:text-white">divide-y</div>
+              <div class="p-2 text-center text-sm text-gray-900 dark:text-white">Item 2</div>
+              <div class="p-2 text-center text-sm text-gray-900 dark:text-white">Item 3</div>
+            </div>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-4">
+            <div class="rounded-none bg-blue-500 p-4 text-sm text-white">rounded-none</div>
+            <div class="rounded-sm bg-blue-500 p-4 text-sm text-white">rounded-sm</div>
+            <div class="rounded bg-blue-500 p-4 text-sm text-white">rounded</div>
+            <div class="rounded-lg bg-blue-500 p-4 text-sm text-white">rounded-lg</div>
+            <div class="rounded-xl bg-blue-500 p-4 text-sm text-white">rounded-xl</div>
+            <div class="rounded-2xl bg-blue-500 p-4 text-sm text-white">rounded-2xl</div>
+            <div class="rounded-full bg-blue-500 p-4 text-sm text-white">rounded-full</div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

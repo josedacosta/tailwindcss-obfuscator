@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 210 40">
+  <!-- Tailwind wave icon -->
+  <g transform="translate(0, 4)">
+    <path fill="#38bdf8" fill-rule="evenodd" clip-rule="evenodd" d="M27 0c-7.2 0-11.7 3.6-13.5 10.8 2.7-3.6 5.85-4.95 9.45-4.05 2.054.513 3.522 2.004 5.147 3.653C30.744 13.09 33.808 16.2 40.5 16.2c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C36.756 3.11 33.692 0 27 0zM13.5 16.2C6.3 16.2 1.8 19.8 0 27c2.7-3.6 5.85-4.95 9.45-4.05 2.054.514 3.522 2.004 5.147 3.653C17.244 29.29 20.308 32.4 27 32.4c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C23.256 19.31 20.192 16.2 13.5 16.2z"/>
+    <!-- Obfuscation bars (centered) -->
+    <rect x="10.5" y="9" width="33" height="3.75" rx="1.875" fill="#0f172a" opacity="0.85"/>
+    <rect x="16.5" y="14" width="21" height="3.75" rx="1.875" fill="#0f172a" opacity="0.85"/>
+    <rect x="22.5" y="19" width="9" height="3.75" rx="1.875" fill="#0f172a" opacity="0.85"/>
+  </g>
+
+  <!-- "Tailwind CSS" text -->
+  <text x="62" y="16" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="500" fill="#0f172a">
+    <tspan>Tailwind CSS</tspan>
+  </text>
+  <!-- "OBFUSCATOR" text -->
+  <text x="62" y="34" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" letter-spacing="1" fill="#0f172a">
+    <tspan>OBFUSCATOR</tspan>
+  </text>
+</svg>

@@ -1,0 +1,62 @@
+name: Docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - ".github/workflows/docs.yml"
+  workflow_dispatch:
+
+# Allow only one concurrent deployment per branch
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+# Required for GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    name: Build VitePress site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # required by lastUpdated
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      # The docs site only needs the root workspace + the obfuscator package
+      # (for VitePress + the TS types it references). Installing the sample
+      # apps would trigger Nuxt / Next prepare scripts that depend on a
+      # built `dist/` and slow the workflow down.
+      - name: Install root + package dependencies only
+        run: pnpm install --frozen-lockfile --filter "tailwindcss-obfuscator..." --filter "tailwindcss-obfuscation"
+
+      - name: Build VitePress site
+        run: pnpm docs:build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/.vitepress/dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,25 @@
+{
+  "name": "test-qwik",
+  "version": "1.0.0",
+  "description": "Test app for tailwindcss-obfuscator with Qwik + Tailwind v4",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --mode ssr",
+    "build": "vite build",
+    "preview": "vite preview --open",
+    "start": "serve dist"
+  },
+  "dependencies": {
+    "@builder.io/qwik": "^1.19.2",
+    "@builder.io/qwik-city": "^1.19.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.4",
+    "tailwindcss": "^4.2.4",
+    "tailwindcss-obfuscator": "workspace:*",
+    "typescript": "^5.8.3",
+    "vite": "^8.0.10",
+    "serve": "^14.2.4"
+  }
+}

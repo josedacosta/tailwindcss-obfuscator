@@ -1,0 +1,78 @@
+# --- Dependencies ---------------------------------------------------------
+node_modules
+.pnpm-store
+
+# --- Build outputs --------------------------------------------------------
+dist
+build
+out
+.next
+.nuxt
+.output
+.nitro
+.svelte-kit
+.astro
+.qwik
+.solid
+.react-router
+.vinxi
+.vercel
+.netlify
+
+# --- Turbo / build caches -------------------------------------------------
+.turbo
+.cache
+.vite
+.vite-temp
+.rollup.cache
+*.tsbuildinfo
+
+# --- Environment ----------------------------------------------------------
+.env
+.env.local
+.env.*.local
+
+# --- IDE & OS -------------------------------------------------------------
+.idea
+.vscode
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- Logs -----------------------------------------------------------------
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Testing & coverage ---------------------------------------------------
+coverage
+.playwright-mcp
+test-results
+playwright-report
+
+# --- Obfuscator artifacts -------------------------------------------------
+.tw-obfuscation
+.tw-patch
+
+# --- VitePress ------------------------------------------------------------
+docs/.vitepress/dist
+docs/.vitepress/cache
+
+# --- Maintainer-only directories (not for public consumption) -------------
+jose/
+reports/
+github/
+
+# --- AI agent instruction files (kept local, not for public consumption) --
+# These three files must stay identical (project policy) and live in each
+# maintainer's local checkout. The public-facing convention rules are
+# documented in CONTRIBUTING.md instead.
+CLAUDE.md
+AGENTS.md
+GEMINI.md
+
+# --- Claude Code runtime state -------------------------------------------
+.claude/
