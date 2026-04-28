@@ -132,10 +132,10 @@ npm login --scope= --auth-type=web
 # (opens a browser, log in as josedacosta)
 
 pnpm pkg:publish:dry             # last sanity check
-pnpm pkg:publish                 # actually publishes 1.0.0 to npm
+pnpm pkg:publish                 # actually publishes the bootstrap version to npm
 ```
 
-After this command, <https://www.npmjs.com/package/tailwindcss-obfuscator> displays version 1.0.0.
+After this command, <https://www.npmjs.com/package/tailwindcss-obfuscator> displays the freshly published version (the bootstrap publish was `2.0.0`; subsequent releases are batched by Changesets — see `RELEASING.md`).
 
 #### 3. Create the npm automation token
 

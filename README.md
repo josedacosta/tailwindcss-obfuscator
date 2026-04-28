@@ -577,7 +577,7 @@ pnpm install
 # 2. Build the main package
 pnpm --filter tailwindcss-obfuscator build
 
-# 3. Run the test suite (360+ tests)
+# 3. Run the test suite (395 tests at v2.0.1, growing)
 pnpm --filter tailwindcss-obfuscator test
 ```
 
@@ -875,7 +875,7 @@ pnpm install                                          # if you haven't yet
 pnpm lint && pnpm format:check                        # zero errors / zero warnings
 pnpm --filter tailwindcss-obfuscator typecheck        # strict TypeScript
 pnpm test                                             # full Vitest suite
-node scripts/verify-obfuscation.mjs                   # 17/17 sample apps obfuscate at 100%
+node scripts/verify-obfuscation.mjs                   # 20+ sample apps obfuscate at 100%
 pnpm changeset                                        # if your change is user-facing
 ```
 
