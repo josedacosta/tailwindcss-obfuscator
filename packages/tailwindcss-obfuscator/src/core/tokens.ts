@@ -207,7 +207,7 @@ export function groupTokensByFile(
     let filePath = token.file;
 
     if (options.relativeTo) {
-      filePath = path.relative(options.relativeTo, filePath);
+      filePath = path.relative(options.relativeTo, filePath).split(path.sep).join("/");
     }
 
     const existing = grouped.get(filePath) || [];
