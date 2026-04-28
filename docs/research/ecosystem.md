@@ -144,11 +144,11 @@ Understanding this ecosystem is crucial for our `tailwindcss-obfuscator` because
 We have downloaded the source code for analysis:
 
 ```
-./github/tailwindcss-mangle/packages/tailwindcss-patch/
-./github/tailwindcss-mangle/packages/unplugin-tailwindcss-mangle/
+./jose/github/tailwindcss-mangle/packages/tailwindcss-patch/
+./jose/github/tailwindcss-mangle/packages/unplugin-tailwindcss-mangle/
 ```
 
-See `./github/README.md` for download instructions.
+See `./jose/github/README.md` for download instructions (the `jose/` directory is gitignored — refresh with `pnpm dlx tsx jose/github/download_github_repositories.ts`).
 
 ## References
 

@@ -30,9 +30,6 @@ yarn.lock
 *.min.js
 *.min.css
 
-# Reverse-engineering refs (read-only sources)
-github/
-
-# French-only directories (per CLAUDE.md)
+# Local-only directories (per CLAUDE.md) — includes jose/github/ reverse-engineering refs
 jose/
 reports/
