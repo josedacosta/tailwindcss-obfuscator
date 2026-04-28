@@ -1,6 +1,7 @@
 import { defineConfig } from "vitepress";
+import { withMermaid } from "vitepress-plugin-mermaid";
 
-export default defineConfig({
+export default withMermaid({
   title: "tailwindcss-obfuscator",
   description:
     "Obfuscate Tailwind CSS class names at build time. Vite, Webpack, Rollup, esbuild, Next.js, Nuxt, SvelteKit, Astro, Solid, Qwik, React Router 7, TanStack Router. Tailwind v3 + v4.",
@@ -73,6 +74,14 @@ export default defineConfig({
     sidebar: {
       "/guide/": [
         {
+          text: "📚 Sections",
+          items: [
+            { text: "📖 Guide", link: "/guide/getting-started" },
+            { text: "📘 Reference", link: "/reference/overview" },
+            { text: "🔬 Research", link: "/research/comparison" },
+          ],
+        },
+        {
           text: "Introduction",
           items: [
             { text: "What is tailwindcss-obfuscator?", link: "/guide/what-is-it" },
@@ -125,6 +134,14 @@ export default defineConfig({
       ],
       "/reference/": [
         {
+          text: "📚 Sections",
+          items: [
+            { text: "📖 Guide", link: "/guide/getting-started" },
+            { text: "📘 Reference", link: "/reference/overview" },
+            { text: "🔬 Research", link: "/research/comparison" },
+          ],
+        },
+        {
           text: "API Reference",
           items: [
             { text: "Overview", link: "/reference/overview" },
@@ -141,6 +158,14 @@ export default defineConfig({
         },
       ],
       "/research/": [
+        {
+          text: "📚 Sections",
+          items: [
+            { text: "📖 Guide", link: "/guide/getting-started" },
+            { text: "📘 Reference", link: "/reference/overview" },
+            { text: "🔬 Research", link: "/research/comparison" },
+          ],
+        },
         {
           text: "Comparison",
           items: [{ text: "Full comparison (all manglers)", link: "/research/comparison" }],

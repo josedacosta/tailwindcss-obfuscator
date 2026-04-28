@@ -6,29 +6,18 @@ The `tailwindcss-patch` and `unplugin-tailwindcss-mangle` packages are **two sep
 
 ## Package Relationship
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                 sonofmagic/tailwindcss-mangle                   │
-│                      (GitHub Monorepo)                          │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌─────────────────────┐      ┌─────────────────────────────┐  │
-│  │  tailwindcss-patch  │ ───► │ unplugin-tailwindcss-mangle │  │
-│  │     (npm package)   │      │       (npm package)         │  │
-│  └─────────────────────┘      └─────────────────────────────┘  │
-│           │                              │                      │
-│           │ Exposes Tailwind             │ Uses extracted       │
-│           │ internal APIs                │ classes to mangle    │
-│           │                              │                      │
-│           ▼                              ▼                      │
-│  ┌─────────────────────┐      ┌─────────────────────────────┐  │
-│  │ - Patches Tailwind  │      │ - Vite plugin               │  │
-│  │ - Extracts classes  │      │ - Webpack plugin            │  │
-│  │ - Runtime context   │      │ - Rollup plugin             │  │
-│  └─────────────────────┘      │ - Nuxt module               │  │
-│                               └─────────────────────────────┘  │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart LR
+  subgraph monorepo[" sonofmagic/tailwindcss-mangle (GitHub monorepo) "]
+    direction LR
+    patch["📦 tailwindcss-patch<br/><sub>npm package</sub><br/><br/>• Patches Tailwind<br/>• Extracts classes<br/>• Runtime context"]
+    plugin["📦 unplugin-tailwindcss-mangle<br/><sub>npm package</sub><br/><br/>• Vite plugin<br/>• Webpack plugin<br/>• Rollup plugin<br/>• Nuxt module"]
+    patch -->|"exposes internal APIs<br/>+ extracted classes"| plugin
+  end
+
+  style patch fill:#1e293b,stroke:#38bdf8,color:#fff
+  style plugin fill:#1e293b,stroke:#10b981,color:#fff
+  style monorepo fill:#0f172a,stroke:#475569,color:#cbd5e1
 ```
 
 ## tailwindcss-patch
