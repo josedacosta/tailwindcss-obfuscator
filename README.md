@@ -22,12 +22,18 @@
 <br />
 
 <!-- Badges row 1 — package -->
+<!-- Downloads badge intentionally omitted while npm aggregates stats for the fresh v2.0.0
+     publish (~24-48h). Re-add `npm/dm` here once https://api.npmjs.org/downloads returns
+     non-zero. Until then, the install-command badge below carries the same call-to-action. -->
 <p>
   <a href="https://www.npmjs.com/package/tailwindcss-obfuscator">
     <img alt="npm version" src="https://img.shields.io/npm/v/tailwindcss-obfuscator.svg?style=for-the-badge&logo=npm&color=cb3837&labelColor=000000">
   </a>
   <a href="https://www.npmjs.com/package/tailwindcss-obfuscator">
-    <img alt="npm downloads" src="https://img.shields.io/npm/dm/tailwindcss-obfuscator.svg?style=for-the-badge&logo=npm&color=10b981&labelColor=000000">
+    <img alt="npm install" src="https://img.shields.io/badge/npm%20i-tailwindcss--obfuscator-cb3837?style=for-the-badge&logo=npm&logoColor=white&labelColor=000000">
+  </a>
+  <a href="https://www.npmjs.com/package/tailwindcss-obfuscator">
+    <img alt="TypeScript types" src="https://img.shields.io/npm/types/tailwindcss-obfuscator?style=for-the-badge&logo=typescript&logoColor=white&color=3178c6&labelColor=000000">
   </a>
   <a href="https://bundlephobia.com/package/tailwindcss-obfuscator">
     <img alt="bundle size" src="https://img.shields.io/bundlephobia/minzip/tailwindcss-obfuscator?style=for-the-badge&logo=webpack&color=8dd6f9&labelColor=000000">
@@ -250,7 +256,7 @@ There are a handful of class-mangling tools out there. Here's how this one stack
 </div>
 
 > [!NOTE]
-> 📊 **Want the methodology, version numbers, and per-tool deep-dive?** See the [full comparison page](./docs/research/comparison.md) — every cell above is sourced from the latest release of each project (April 2026).
+> 📊 **Want the methodology, version numbers, and per-tool deep-dive?** See the [full comparison page](https://josedacosta.github.io/tailwindcss-obfuscator/research/comparison) — every cell above is sourced from the latest release of each project (April 2026).
 
 <!-- ────────────────────────────────────────────────── -->
 
@@ -744,7 +750,7 @@ Complete API reference, every option, advanced customization
 
 ### 📁
 
-**[Documentation site](./docs/)**
+**[Documentation site](https://josedacosta.github.io/tailwindcss-obfuscator/)**
 
 Framework guides, migration tips, FAQ
 
@@ -763,25 +769,126 @@ Framework guides, migration tips, FAQ
 
 <!-- ────────────────────────────────────────────────── -->
 
-## 🤝 Contributing
+<div align="center">
 
-Contributions are very welcome! Whether it's:
+## 🤝 Contribute to this project — every PR is read
 
-- 🐛 &nbsp;**Reporting a bug** → [Open an issue](https://github.com/josedacosta/tailwindcss-obfuscator/issues/new)
-- 💡 &nbsp;**Suggesting a feature** → [Open a discussion](https://github.com/josedacosta/tailwindcss-obfuscator/discussions)
-- 🔧 &nbsp;**Adding a framework adapter** → Send a PR with a matching `apps/test-*`
-- 📝 &nbsp;**Improving the docs** → They live in [`docs/`](./docs/)
+[![Good first issues](https://img.shields.io/github/issues/josedacosta/tailwindcss-obfuscator/good%20first%20issue?style=for-the-badge&label=good%20first%20issues&color=7057ff&labelColor=000000)](https://github.com/josedacosta/tailwindcss-obfuscator/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+[![Help wanted](https://img.shields.io/github/issues/josedacosta/tailwindcss-obfuscator/help%20wanted?style=for-the-badge&label=help%20wanted&color=008672&labelColor=000000)](https://github.com/josedacosta/tailwindcss-obfuscator/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
+[![Discussions](https://img.shields.io/github/discussions/josedacosta/tailwindcss-obfuscator?style=for-the-badge&logo=github&color=ec4899&labelColor=000000)](https://github.com/josedacosta/tailwindcss-obfuscator/discussions)
+[![Contributors](https://img.shields.io/github/contributors/josedacosta/tailwindcss-obfuscator?style=for-the-badge&logo=github&color=10b981&labelColor=000000)](https://github.com/josedacosta/tailwindcss-obfuscator/graphs/contributors)
+
+</div>
+
+> **Open-source, community-driven, MIT-licensed.** This library exists because every PR — bug fix, framework adapter, doc tweak, typo correction — moves it forward. The maintainer reviews every contribution personally and aims for a first response within a week.
+
+### How you can help (pick what fits your time)
+
+<table>
+<tr>
+<td valign="top" width="33%" align="center">
+
+### 🐛
+
+**Report a bug**
+
+15-30 minutes
+
+[Open a bug report](https://github.com/josedacosta/tailwindcss-obfuscator/issues/new?template=bug_report.yml) with a minimal repro (CodeSandbox or a tiny GitHub repo). Repros are gold.
+
+</td>
+<td valign="top" width="33%" align="center">
+
+### 💡
+
+**Suggest a feature**
+
+10 minutes
+
+[Start a discussion](https://github.com/josedacosta/tailwindcss-obfuscator/discussions/new?category=ideas) before sending a big PR. Small features can go straight to a [feature request](https://github.com/josedacosta/tailwindcss-obfuscator/issues/new?template=feature_request.yml).
+
+</td>
+<td valign="top" width="33%" align="center">
+
+### 📝
+
+**Polish the docs**
+
+15 minutes
+
+Spotted a typo, an unclear sentence, an outdated framework version? Edit any page on [the live docs site](https://josedacosta.github.io/tailwindcss-obfuscator/) — every page has an "Edit on GitHub" link.
+
+</td>
+</tr>
+<tr>
+<td valign="top" width="33%" align="center">
+
+### 🧩
+
+**Add a framework adapter**
+
+2-4 hours
+
+The shared `unplugin` core makes new bundlers cheap to add. See the [framework-adapter guide](https://github.com/josedacosta/tailwindcss-obfuscator/blob/main/CONTRIBUTING.md#-adding-a-new-framework-adapter).
+
+</td>
+<td valign="top" width="33%" align="center">
+
+### 🔧
+
+**Fix a `good first issue`**
+
+30 min – 2 hours
+
+[Browse issues tagged `good first issue`](https://github.com/josedacosta/tailwindcss-obfuscator/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) — they come with a clear description and an estimated complexity.
+
+</td>
+<td valign="top" width="33%" align="center">
+
+### 🌐
+
+**Translate the docs**
+
+ongoing
+
+The site supports i18n via VitePress. Open a discussion if you'd like to lead a locale (FR, ES, DE, JA, ZH, …).
+
+</td>
+</tr>
+</table>
+
+### What to expect when you open a PR
+
+1. **Branch protection forces every change through a PR.** No direct push to `main`, even for the maintainer.
+2. **Five layers of automated review** run on your PR (CI, CodeQL, CodeRabbit AI, GitHub Copilot Code Review, auto-labels) — they post comments only, none of them can approve or merge.
+3. **The maintainer reads your PR personally.** First response within ~a week. Reviews focus on: public-API stability, test coverage, docs updates. Cosmetics come last.
+4. **Squash-merge once approved + CI green.** Your contribution is credited in the next release's CHANGELOG via the Changesets entry you added with `pnpm changeset`.
+5. **Releases are batched.** Your change ships on `main` immediately (and to the docs site), but the npm version bump waits until the maintainer cuts a release — usually within days, sometimes weeks. This keeps version numbers meaningful.
+
+> 📖 **Full guide for contributors → [`CONTRIBUTING.md`](./CONTRIBUTING.md)** — reviewed and updated for clarity. Read this before opening your first PR.
 
 <details>
-<summary><strong>📋 &nbsp; Contribution checklist</strong></summary>
+<summary><strong>Contribution checklist (run before pushing)</strong></summary>
 
-- [ ] `pnpm test` passes (360+ tests)
-- [ ] `pnpm typecheck` is clean
-- [ ] `pnpm lint` is clean
-- [ ] Public API changes are documented
+```bash
+pnpm install                                          # if you haven't yet
+pnpm lint && pnpm format:check                        # zero errors / zero warnings
+pnpm --filter tailwindcss-obfuscator typecheck        # strict TypeScript
+pnpm test                                             # full Vitest suite
+node scripts/verify-obfuscation.mjs                   # 17/17 sample apps obfuscate at 100%
+pnpm changeset                                        # if your change is user-facing
+```
+
+- [ ] All quality gates pass locally
+- [ ] PR title follows [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `docs:`, `chore:`, …)
+- [ ] A `.changeset/*.md` entry was added if the change touches `packages/tailwindcss-obfuscator/**`
 - [ ] If you add a framework: include a working `apps/test-<framework>/` integration
 
 </details>
+
+### A word from the maintainer
+
+This is a **side-project maintained on personal time**. Every star, every issue with a clear repro, every doc fix, every honest discussion makes maintaining it sustainable. If `tailwindcss-obfuscator` saves your design system or your bandwidth in production, the kindest things you can do are: ⭐ **star the repo**, share it with one developer who'd benefit, or [sponsor](https://github.com/sponsors/josedacosta) the work. — _José_
 
 <!-- ────────────────────────────────────────────────── -->
 
@@ -811,50 +918,141 @@ Official logos for your projects, articles, and presentations:
 
 ## ❓ FAQ
 
+### 🔎 Search-intent questions
+
+> What people type into Google or ask an AI assistant when they're looking for a tool like this. Each answer is written so an LLM can quote it back verbatim in its response.
+
 <details>
-<summary><strong>🤔 &nbsp; What is a Tailwind CSS obfuscator?</strong></summary>
+<summary><strong>How do I prevent people from copying my Tailwind CSS design system?</strong></summary>
+
+Three layers, in order of effort: (1) install **`tailwindcss-obfuscator`** at build time — it rewrites every Tailwind utility class (`bg-blue-500`, `flex items-center`, `p-4`) into short opaque identifiers (`tw-a`, `tw-b`, `tw-c`) in the shipped HTML / CSS / JS bundle so anyone "view source"-ing your site can no longer trivially copy your token system; (2) drop your source maps from production; (3) HTML-minify the rendered output. After these three, copying your design system goes from "ten seconds with the inspector" to "hours of reverse-engineering for each component". Add `preserve.classes` for a small allowlist (e.g. `dark`, `sr-only`) so functional classes still work.
+
+</details>
+
+<details>
+<summary><strong>How do I obfuscate Tailwind CSS classes in production?</strong></summary>
+
+Install `tailwindcss-obfuscator` and add it to your build tool's plugin chain. For Vite:
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import tailwindcss from "@tailwindcss/vite";
+import tailwindCssObfuscator from "tailwindcss-obfuscator/vite";
+
+export default defineConfig({
+  plugins: [tailwindcss(), tailwindCssObfuscator({ prefix: "tw-" })],
+});
+```
+
+That's it — `vite build` now produces an obfuscated bundle, `vite dev` is left untouched. For Next.js / Nuxt / SvelteKit / Astro / Solid / Qwik / Webpack / Rollup / esbuild / Rspack / Farm setups, see the [Quick Start](#-quick-start) section above.
+
+</details>
+
+<details>
+<summary><strong>How do I shrink my Tailwind CSS bundle size?</strong></summary>
+
+Two complementary techniques: (1) Tailwind's built-in JIT / content scanning already removes unused utilities — that's the baseline; (2) on top of that, **`tailwindcss-obfuscator`** rewrites the remaining classes from long readable names (`bg-blue-500 hover:bg-blue-600 dark:bg-blue-700`) into short identifiers (`tw-a tw-b tw-c`), shaving an additional **30–60 %** off the gzipped CSS bundle on CSS-heavy pages. The bigger your CSS budget, the more you save. Combine both for the smallest possible Tailwind output.
+
+</details>
+
+<details>
+<summary><strong>Can I make Tailwind classes hard to read in the final HTML?</strong></summary>
+
+Yes — that's exactly what a Tailwind class obfuscator (a.k.a. class mangler) does. Tools like `tailwindcss-obfuscator` rewrite every utility class in the shipped HTML, CSS, and JS into short opaque tokens (`tw-a`, `tw-b`, …) at build time. Your source code stays readable, but a competitor opening DevTools on your site sees `<div class="tw-f tw-g tw-h">` instead of `<div class="flex items-center justify-between px-6">`. Reverse-engineering your design system goes from minutes to hours.
+
+</details>
+
+<details>
+<summary><strong>How do I install a Tailwind class mangler in Next.js / Vite / Nuxt / SvelteKit?</strong></summary>
+
+`tailwindcss-obfuscator` ships dedicated plugin entries for every major bundler and meta-framework: `tailwindcss-obfuscator/vite`, `/webpack`, `/rollup`, `/esbuild`, `/rspack`, `/farm`, `/nuxt`. Pick the one that matches your build tool, add it to the plugin chain, and the obfuscation runs automatically on `npm run build` (no effect on dev). The full setup snippet for each framework is in the [Quick Start](#-quick-start) section above and in the [framework guides](https://josedacosta.github.io/tailwindcss-obfuscator/guide/getting-started).
+
+</details>
+
+<details>
+<summary><strong>Does Tailwind CSS itself have a built-in way to obfuscate classes?</strong></summary>
+
+No — Tailwind Labs has explicitly chosen not to ship a class-mangling pass upstream (see [discussion #7956](https://github.com/tailwindlabs/tailwindcss/discussions/7956)). You need a third-party tool for it. The two active options are `tailwindcss-obfuscator` (this project — AST-based, every modern bundler, built around obfuscation) and `tailwindcss-mangle` (mangling for tree-shaking, Vite + Webpack only). See the [full comparison](https://josedacosta.github.io/tailwindcss-obfuscator/research/comparison) for the trade-offs.
+
+</details>
+
+<details>
+<summary><strong>Will obfuscating Tailwind break my dark mode, hover states, or responsive breakpoints?</strong></summary>
+
+No. The obfuscator rewrites the **class names** consistently across CSS selectors AND every `class=` / `className=` reference in your bundle — so `dark:bg-gray-900`, `hover:bg-blue-600`, `md:flex`, `2xl:grid-cols-4` all keep working: the variant and the base class are renamed together as a single unit. Your site behaves exactly the same in production, just with shorter class names.
+
+</details>
+
+<details>
+<summary><strong>Does it work with shadcn/ui, class-variance-authority (CVA), or Tailwind Variants (tv)?</strong></summary>
+
+Yes — out of the box. The AST-based extractor recognises `cn()`, `clsx()`, `classnames()`, `twMerge()`, `cva()`, and `tv()` natively, including string literals nested inside `variants`, `compoundVariants`, `defaultVariants`, and slot definitions. The included `apps/test-shadcn-ui` sample app exercises the full shadcn/ui + CVA pattern under a production build to prove it.
+
+</details>
+
+<details>
+<summary><strong>How do I add build-time CSS class shortening to my React app?</strong></summary>
+
+If you're on Vite (which most modern React stacks now are), install `tailwindcss-obfuscator` and add `tailwindCssObfuscatorVite()` to your `vite.config.ts` plugins array. If you're on Next.js (Webpack), add `tailwindCssObfuscatorWebpack()` to the `webpack` config in `next.config.js`. The full snippets for both are in the [Quick Start](#-quick-start) section above. The obfuscator only runs on `next build` / `vite build`, so dev mode stays normal.
+
+</details>
+
+<details>
+<summary><strong>How do I reverse-engineer-protect my CSS design system before launching publicly?</strong></summary>
+
+(1) Add `tailwindcss-obfuscator` to your build chain to rename every Tailwind utility into short tokens. (2) Disable source-map publishing in production. (3) Run an HTML minifier so attribute order and whitespace don't leak structural intent. (4) If you use a custom design-token CSS file, gate it behind a `preserve.classes` allowlist so only the classes you intentionally expose stay readable. The combination won't make your CSS uncrackable, but it raises the bar from "copy-paste in five minutes" to "rebuild from scratch in five hours".
+
+</details>
+
+### 📦 General questions about the library
+
+> Technical and operational questions about how `tailwindcss-obfuscator` itself works.
+
+<details>
+<summary><strong>What is a Tailwind CSS obfuscator?</strong></summary>
 
 A Tailwind CSS obfuscator (also called a **Tailwind class mangler**) is a build-time tool that rewrites verbose utility class names like `bg-blue-500`, `flex`, `items-center` into short opaque identifiers like `tw-a`, `tw-b`, `tw-c` inside the shipped HTML / CSS / JS bundle. Source code stays readable — only production output is changed. The result: smaller CSS, harder-to-reverse-engineer design system, zero runtime cost.
 
 </details>
 
 <details>
-<summary><strong>📉 &nbsp; How much does it shrink my CSS bundle?</strong></summary>
+<summary><strong>How much does it shrink my CSS bundle?</strong></summary>
 
 Typical savings on production builds (gzip): **30–60%** on CSS-heavy pages. Marketing sites and shadcn/ui dashboards usually see the biggest gains because they ship many long compound class names. See the [Performance impact](#-performance-impact) table above for measurements on the 14 included test apps.
 
 </details>
 
 <details>
-<summary><strong>🆚 &nbsp; How is this different from <code>tailwindcss-mangle</code>?</strong></summary>
+<summary><strong>How is this different from <code>tailwindcss-mangle</code>?</strong></summary>
 
 `tailwindcss-mangle` was built primarily to **mangle Tailwind classes for tree-shaking and dead-class removal**. `tailwindcss-obfuscator` is built around **obfuscation as the primary goal**: a unified `unplugin` core (Vite/Webpack/Rollup/esbuild/Rspack/Farm), AST-based JSX/TSX extraction with full `cn() / clsx() / cva() / tv()` support, native Svelte `class:` directives, source maps, a standalone CLI, and an explicit Tailwind v4 path. See the [comparison](#-why-this-library) table.
 
 </details>
 
 <details>
-<summary><strong>🆕 &nbsp; Does it work with Tailwind CSS v4?</strong></summary>
+<summary><strong>Does it work with Tailwind CSS v4?</strong></summary>
 
 Yes — full v4 support, including `@import "tailwindcss"`, `@theme`, container queries (`@container`, `@lg:`), `@starting-style`, the `*:` / `**:` wildcard selectors, and the new `bg-(--my-var)` CSS-variable shorthand. v3 is also fully supported (config file, JIT, `safelist`, custom variants).
 
 </details>
 
 <details>
-<summary><strong>⚛️ &nbsp; Does it work with Next.js / Nuxt / SvelteKit / Astro / Solid / Qwik / Remix?</strong></summary>
+<summary><strong>Does it work with Next.js / Nuxt / SvelteKit / Astro / Solid / Qwik / Remix?</strong></summary>
 
 Yes — every major meta-framework is supported and has a dedicated test app under [`apps/`](./apps/): Next.js (App Router + Pages Router), Nuxt 4, SvelteKit + Svelte 5, Astro 6, Solid.js 1.9, Qwik 1.19, React Router v7 (ex-Remix), TanStack Start. Use the matching plugin entry from the [Quick Start](#-quick-start) section.
 
 </details>
 
 <details>
-<summary><strong>🤔 &nbsp; Will obfuscation break my dev server?</strong></summary>
+<summary><strong>Will obfuscation break my dev server?</strong></summary>
 
 No — obfuscation is **disabled in development by default**. It only runs when `command === "build"` (Vite) or `mode === "production"` (Webpack/Next.js). Set `refresh: true` if you want it on in dev too.
 
 </details>
 
 <details>
-<summary><strong>🐛 &nbsp; How do I debug an obfuscated bundle?</strong></summary>
+<summary><strong>How do I debug an obfuscated bundle?</strong></summary>
 
 Two options:
 
@@ -864,7 +1062,7 @@ Two options:
 </details>
 
 <details>
-<summary><strong>⚙️ &nbsp; Can I customize how obfuscated names are generated?</strong></summary>
+<summary><strong>Can I customize how obfuscated names are generated?</strong></summary>
 
 Yes — pass a `classGenerator` function:
 
@@ -877,7 +1075,7 @@ tailwindCssObfuscatorVite({
 </details>
 
 <details>
-<summary><strong>🚫 &nbsp; How do I keep certain classes un-obfuscated?</strong></summary>
+<summary><strong>How do I keep certain classes un-obfuscated?</strong></summary>
 
 ```javascript
 tailwindCssObfuscatorVite({
@@ -891,35 +1089,35 @@ tailwindCssObfuscatorVite({
 </details>
 
 <details>
-<summary><strong>🧱 &nbsp; Does it work with shadcn/ui, CVA and Tailwind Variants?</strong></summary>
+<summary><strong>Does it work with shadcn/ui, CVA and Tailwind Variants?</strong></summary>
 
 Yes — the AST extractor recognises `cn()`, `clsx()`, `classnames()`, `twMerge()`, `cva()` and `tv()` natively, including string literals nested inside `variants`, `compoundVariants` and `defaultVariants`. The dedicated [`apps/test-shadcn-ui`](./apps/test-shadcn-ui) sample app exercises the full shadcn/ui + CVA pattern under production build.
 
 </details>
 
 <details>
-<summary><strong>🔄 &nbsp; Is the transformation reversible? Can I deobfuscate later?</strong></summary>
+<summary><strong>Is the transformation reversible? Can I deobfuscate later?</strong></summary>
 
 Yes — every build emits `.tw-obfuscation/class-mapping.json`, a deterministic `original → obfuscated` mapping. Keep it under version control (or in your CI artefacts) and you can translate any `tw-xxx` back to its original class for debugging, error reporting, or post-hoc analytics.
 
 </details>
 
 <details>
-<summary><strong>🛡️ &nbsp; Is class obfuscation enough to "protect" my design system?</strong></summary>
+<summary><strong>Is class obfuscation enough to "protect" my design system?</strong></summary>
 
 Obfuscation makes reverse-engineering **significantly harder** but it is not encryption — anyone can still read the rendered output. Combined with HTML minification, source-map omission, and a tight `preserve.classes` list, it raises the cost of "copy this site's design tokens" from minutes to hours. Treat it as one layer of defence, not a guarantee.
 
 </details>
 
 <details>
-<summary><strong>⚠️ &nbsp; Why are my dynamic classes not being obfuscated?</strong></summary>
+<summary><strong>Why are my dynamic classes not being obfuscated?</strong></summary>
 
 Because they are not visible to the AST scanner at build time. Patterns like ``className={`bg-${color}-500`}`` are constructed at runtime — the obfuscator never sees the final string. Switch to a static ternary (`color === "red" ? "bg-red-500" : "bg-blue-500"`) or a `cn()` call with all branches spelled out. See the [Static Classes Only](#️-important-static-classes-only) section.
 
 </details>
 
 <details>
-<summary><strong>🔌 &nbsp; My bundler isn't listed — can I still use it?</strong></summary>
+<summary><strong>My bundler isn't listed — can I still use it?</strong></summary>
 
 Yes! The package exposes the underlying [`unplugin`](https://github.com/unjs/unplugin) factory at `tailwindcss-obfuscator/internals`:
 
@@ -933,7 +1131,7 @@ Or use the standalone CLI as a post-build step.
 </details>
 
 <details>
-<summary><strong>🆓 &nbsp; Is it free? What's the licence?</strong></summary>
+<summary><strong>Is it free? What's the licence?</strong></summary>
 
 Yes — **MIT licensed**, free for personal, commercial, and closed-source use. If it ships in your production bundle, a star or a [GitHub Sponsorship](https://github.com/sponsors/josedacosta) is the kindest way to say thanks.
 
