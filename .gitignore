@@ -64,7 +64,6 @@ docs/.vitepress/cache
 # --- Maintainer-only directories (not for public consumption) -------------
 jose/
 reports/
-github/
 
 # --- AI agent instruction files (kept local, not for public consumption) --
 # These three files must stay identical (project policy) and live in each
