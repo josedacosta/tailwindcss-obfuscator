@@ -16,6 +16,7 @@
 import { Command } from "commander";
 import * as fs from "fs";
 import * as path from "path";
+import { createRequire } from "module";
 import pc from "picocolors";
 import type { ObfuscatorOptions } from "../core/types.js";
 import {
@@ -31,7 +32,17 @@ import { createLogger, logSummary } from "../utils/logger.js";
 import { extractClasses, extractFromCssFiles, getExtractionStats } from "../extractors/index.js";
 import { transformDirectory, transformFile } from "../transformers/index.js";
 
-const VERSION = "1.0.0";
+// Read the live package version at runtime so the CLI never drifts from the
+// published package.json. Resolves the package's own package.json from the
+// installed location (works under npm / yarn / pnpm / bun).
+const VERSION: string = (() => {
+  try {
+    const require = createRequire(import.meta.url);
+    return (require("../../package.json") as { version: string }).version;
+  } catch {
+    return "0.0.0-unknown";
+  }
+})();
 
 /**
  * Resolve options from CLI flags + an optional `--config` file.
