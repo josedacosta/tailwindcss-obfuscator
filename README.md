@@ -799,6 +799,41 @@ Official logos for your projects, articles, and presentations:
 ## ❓ FAQ
 
 <details>
+<summary><strong>🤔 &nbsp; What is a Tailwind CSS obfuscator?</strong></summary>
+
+A Tailwind CSS obfuscator (also called a **Tailwind class mangler**) is a build-time tool that rewrites verbose utility class names like `bg-blue-500`, `flex`, `items-center` into short opaque identifiers like `tw-a`, `tw-b`, `tw-c` inside the shipped HTML / CSS / JS bundle. Source code stays readable — only production output is changed. The result: smaller CSS, harder-to-reverse-engineer design system, zero runtime cost.
+
+</details>
+
+<details>
+<summary><strong>📉 &nbsp; How much does it shrink my CSS bundle?</strong></summary>
+
+Typical savings on production builds (gzip): **30–60%** on CSS-heavy pages. Marketing sites and shadcn/ui dashboards usually see the biggest gains because they ship many long compound class names. See the [Performance impact](#-performance-impact) table above for measurements on the 14 included test apps.
+
+</details>
+
+<details>
+<summary><strong>🆚 &nbsp; How is this different from <code>tailwindcss-mangle</code>?</strong></summary>
+
+`tailwindcss-mangle` was built primarily to **mangle Tailwind classes for tree-shaking and dead-class removal**. `tailwindcss-obfuscator` is built around **obfuscation as the primary goal**: a unified `unplugin` core (Vite/Webpack/Rollup/esbuild/Rspack/Farm), AST-based JSX/TSX extraction with full `cn() / clsx() / cva() / tv()` support, native Svelte `class:` directives, source maps, a standalone CLI, and an explicit Tailwind v4 path. See the [comparison](#-why-this-library) table.
+
+</details>
+
+<details>
+<summary><strong>🆕 &nbsp; Does it work with Tailwind CSS v4?</strong></summary>
+
+Yes — full v4 support, including `@import "tailwindcss"`, `@theme`, container queries (`@container`, `@lg:`), `@starting-style`, the `*:` / `**:` wildcard selectors, and the new `bg-(--my-var)` CSS-variable shorthand. v3 is also fully supported (config file, JIT, `safelist`, custom variants).
+
+</details>
+
+<details>
+<summary><strong>⚛️ &nbsp; Does it work with Next.js / Nuxt / SvelteKit / Astro / Solid / Qwik / Remix?</strong></summary>
+
+Yes — every major meta-framework is supported and has a dedicated test app under [`apps/`](./apps/): Next.js (App Router + Pages Router), Nuxt 4, SvelteKit + Svelte 5, Astro 6, Solid.js 1.9, Qwik 1.19, React Router v7 (ex-Remix), TanStack Start. Use the matching plugin entry from the [Quick Start](#-quick-start) section.
+
+</details>
+
+<details>
 <summary><strong>🤔 &nbsp; Will obfuscation break my dev server?</strong></summary>
 
 No — obfuscation is **disabled in development by default**. It only runs when `command === "build"` (Vite) or `mode === "production"` (Webpack/Next.js). Set `refresh: true` if you want it on in dev too.
@@ -843,9 +878,30 @@ tailwindCssObfuscatorVite({
 </details>
 
 <details>
-<summary><strong>🆕 &nbsp; Does it work with Tailwind v4?</strong></summary>
+<summary><strong>🧱 &nbsp; Does it work with shadcn/ui, CVA and Tailwind Variants?</strong></summary>
 
-Yes — full v4 support, including `@theme`, container queries, `@starting-style`, the `*:` / `**:` wildcard selectors, and the new `bg-(--my-var)` CSS-variable shorthand.
+Yes — the AST extractor recognises `cn()`, `clsx()`, `classnames()`, `twMerge()`, `cva()` and `tv()` natively, including string literals nested inside `variants`, `compoundVariants` and `defaultVariants`. The dedicated [`apps/test-shadcn-ui`](./apps/test-shadcn-ui) sample app exercises the full shadcn/ui + CVA pattern under production build.
+
+</details>
+
+<details>
+<summary><strong>🔄 &nbsp; Is the transformation reversible? Can I deobfuscate later?</strong></summary>
+
+Yes — every build emits `.tw-obfuscation/class-mapping.json`, a deterministic `original → obfuscated` mapping. Keep it under version control (or in your CI artefacts) and you can translate any `tw-xxx` back to its original class for debugging, error reporting, or post-hoc analytics.
+
+</details>
+
+<details>
+<summary><strong>🛡️ &nbsp; Is class obfuscation enough to "protect" my design system?</strong></summary>
+
+Obfuscation makes reverse-engineering **significantly harder** but it is not encryption — anyone can still read the rendered output. Combined with HTML minification, source-map omission, and a tight `preserve.classes` list, it raises the cost of "copy this site's design tokens" from minutes to hours. Treat it as one layer of defence, not a guarantee.
+
+</details>
+
+<details>
+<summary><strong>⚠️ &nbsp; Why are my dynamic classes not being obfuscated?</strong></summary>
+
+Because they are not visible to the AST scanner at build time. Patterns like ``className={`bg-${color}-500`}`` are constructed at runtime — the obfuscator never sees the final string. Switch to a static ternary (`color === "red" ? "bg-red-500" : "bg-blue-500"`) or a `cn()` call with all branches spelled out. See the [Static Classes Only](#️-important-static-classes-only) section.
 
 </details>
 
@@ -860,6 +916,13 @@ import { obfuscatorUnplugin } from "tailwindcss-obfuscator/internals";
 ```
 
 Or use the standalone CLI as a post-build step.
+
+</details>
+
+<details>
+<summary><strong>🆓 &nbsp; Is it free? What's the licence?</strong></summary>
+
+Yes — **MIT licensed**, free for personal, commercial, and closed-source use. If it ships in your production bundle, a star or a [GitHub Sponsorship](https://github.com/sponsors/josedacosta) is the kindest way to say thanks.
 
 </details>
 
@@ -889,6 +952,47 @@ Built and maintained by **José DA COSTA**.
 </table>
 
 If `tailwindcss-obfuscator` ships in your production bundle, a star or a sponsorship is the kindest way to say thanks.
+
+<!-- ────────────────────────────────────────────────── -->
+
+## 🔎 Keywords & search terms
+
+<details>
+<summary><strong>🔍 &nbsp; What people search for when they need this library</strong></summary>
+
+<br />
+
+If a search engine or LLM brought you here, here are the queries this project answers. Use them to verify it fits your use case — and to help others find it.
+
+**Core intent**
+
+`tailwindcss obfuscator` · `tailwind css obfuscator` · `tailwind obfuscator` · `obfuscate tailwind classes` · `obfuscate tailwind css` · `tailwind class obfuscation` · `obfuscate tailwind utility classes` · `hide tailwind classes` · `protect tailwind design system` · `tailwind reverse engineering protection` · `make tailwind classes unreadable`
+
+**Mangling alternatives**
+
+`tailwind mangle` · `tailwindcss mangle` · `tailwind class mangler` · `tailwindcss-mangle alternative` · `unplugin-tailwindcss-mangle alternative` · `tailwindcss-patch alternative` · `tailwindcss-mangle vs obfuscator` · `tailwindcss-mangle tailwind v4`
+
+**Bundle size**
+
+`shrink tailwind css bundle` · `reduce tailwind css size` · `tailwind css minifier` · `tailwind class shortener` · `smaller tailwind bundle` · `tailwind css bundle 30%` · `tailwind css bundle 50%` · `optimize tailwind css production`
+
+**Bundlers**
+
+`tailwind vite plugin obfuscate` · `tailwind webpack plugin obfuscate` · `tailwind rollup plugin obfuscate` · `tailwind esbuild plugin obfuscate` · `tailwind rspack plugin` · `tailwind farm plugin` · `unplugin tailwind obfuscator`
+
+**Frameworks**
+
+`next.js tailwind obfuscator` · `next.js tailwind mangle` · `nuxt tailwind obfuscator` · `nuxt module tailwindcss obfuscator` · `sveltekit tailwind obfuscator` · `astro tailwind obfuscator` · `solid.js tailwind obfuscator` · `qwik tailwind obfuscator` · `react router tailwind obfuscator` · `tanstack router tailwind obfuscator` · `remix tailwind obfuscator` · `shadcn ui obfuscate` · `cva obfuscate` · `tailwind variants obfuscate`
+
+**Tailwind versions**
+
+`tailwind v3 obfuscator` · `tailwind v4 obfuscator` · `tailwind v4 mangle` · `tailwind v4 class shortener` · `tailwind v4 class obfuscation oxide` · `@tailwindcss/vite obfuscator` · `@tailwindcss/postcss obfuscator`
+
+**Use cases**
+
+`hide design tokens from competitors` · `obscure tailwind theme` · `prevent tailwind copy paste` · `protect css ip` · `tailwind class names production only` · `class mangling source maps`
+
+</details>
 
 <!-- ────────────────────────────────────────────────── -->
 
