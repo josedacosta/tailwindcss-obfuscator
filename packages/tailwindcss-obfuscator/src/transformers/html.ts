@@ -9,10 +9,21 @@ import MagicString from "magic-string";
 import type { TransformResult } from "../core/types.js";
 
 /**
- * Pattern to match class attribute in HTML
- * Captures: attribute name, quote character, class values
+ * Pattern to match `class` attribute in HTML in any of the three syntactic
+ * forms allowed by HTML5 :
+ *   - double-quoted   `class="foo bar"`     → quote = `"`,  value via group 2
+ *   - single-quoted   `class='foo bar'`     → quote = `'`,  value via group 2
+ *   - unquoted        `class=foo`           → quote = `''`, value via group 3
+ *
+ * Group layout:
+ *   1. The opening quote (`"` or `'`) when present, empty for unquoted.
+ *   2. The attribute value when quoted (single class string).
+ *   3. The attribute value when unquoted (single token, no whitespace).
+ *
+ * Without the unquoted branch, `class=foo` in static HTML silently goes
+ * un-obfuscated even though the extractor finds the class.
  */
-const HTML_CLASS_ATTR_PATTERN = /\bclass\s*=\s*(["'])([^"']*)\1/gi;
+const HTML_CLASS_ATTR_PATTERN = /(?:^|[\s<])class\s*=\s*(?:(["'])([^"']*)\1|()([^\s"'=<>`]+))/gi;
 
 /**
  * Transform HTML content by replacing class values
@@ -31,9 +42,16 @@ export function transformHtml(
 
   let match;
   while ((match = HTML_CLASS_ATTR_PATTERN.exec(content)) !== null) {
-    const quote = match[1];
-    const classValue = match[2];
-    const classStart = match.index + match[0].indexOf(quote) + 1;
+    // Two branches: quoted (groups 1+2) or unquoted (groups 3+4).
+    const isQuoted = match[1] !== undefined;
+    const classValue = isQuoted ? match[2] : (match[4] ?? "");
+    if (!classValue) continue;
+
+    // For quoted values, the value starts AFTER the opening quote.
+    // For unquoted values, the value starts at match[0].lastIndexOf(value).
+    const classStart = isQuoted
+      ? match.index + match[0].indexOf(match[1]!) + 1
+      : match.index + match[0].lastIndexOf(classValue);
 
     // Split classes and transform each one
     const classes = classValue.split(/\s+/);
@@ -97,12 +115,15 @@ export function transformHtmlWithDataAttrs(
   const replacements: string[] = [];
   let replacementCount = 0;
 
-  // Transform standard class attribute
+  // Transform standard class attribute (all 3 quote forms — same logic as transformHtml).
   let match;
   while ((match = HTML_CLASS_ATTR_PATTERN.exec(content)) !== null) {
-    const quote = match[1];
-    const classValue = match[2];
-    const classStart = match.index + match[0].indexOf(quote) + 1;
+    const isQuoted = match[1] !== undefined;
+    const classValue = isQuoted ? match[2] : (match[4] ?? "");
+    if (!classValue) continue;
+    const classStart = isQuoted
+      ? match.index + match[0].indexOf(match[1]!) + 1
+      : match.index + match[0].lastIndexOf(classValue);
 
     const classes = classValue.split(/\s+/);
     const transformedClasses: string[] = [];
