@@ -24,25 +24,30 @@ PostCSS minifiers and Tailwind itself are routinely confused with class manglers
 
 ## Quick-glance matrix
 
-| Capability                                                 | 🛡️ tailwindcss-obfuscator |  🔧 tailwindcss-mangle   |        🌐 Obfustail        | ⚙️ PostCSS minifiers | 🅒 Tailwind CSS |
-| ---------------------------------------------------------- | :-----------------------: | :----------------------: | :------------------------: | :------------------: | :------------: |
-| Renames classes in HTML / JS / CSS                         |            ✅             |            ✅            |             ✅             |          ❌          |       ❌       |
-| Tailwind v3 support                                        |            ✅             |            ✅            |             ❌             |         n/a          |      n/a       |
-| Tailwind v4 support                                        |         ✅ Native         | ✅ via CSS scan (v9.0.0) |             ✅             |         n/a          |      n/a       |
-| Doesn't modify your source files                           |            ✅             |            ✅            |    ❌ rewrites in place    |          ✅          |       ✅       |
-| Per-utility obfuscation (smaller output)                   |            ✅             |            ✅            | ❌ per-string (less reuse) |          ❌          |       ❌       |
-| AST-based JSX/TSX extraction                               |         ✅ Babel          |         ⚠️ Regex         |          ❌ Regex          |         n/a          |      n/a       |
-| Vue SFC + Svelte `class:` directive                        |            ✅             |        ⚠️ Partial        |             ❌             |         n/a          |      n/a       |
-| `cn()` / `clsx()` / `cva()` / `tv()` extraction            |        ✅ All six         |          ⚠️ Two          |         ❌ Manual          |          ❌          |       ❌       |
-| Unified `unplugin` core (Vite/Webpack/Rollup/...)          |            ✅             |      ⚠️ Per-bundler      |      ❌ Build script       |          ❌          |       ❌       |
-| Bundlers shipped (Vite/Webpack/Rollup/esbuild/Rspack/Farm) |           6 / 6           |          2 / 6           |           0 / 6            |         n/a          |      n/a       |
-| Standalone CLI                                             |    ✅ `tw-obfuscator`     |      ✅ `tw-patch`       |   ❌ inline node script    |          ✅          |       ✅       |
-| Source maps for transformed files                          |            ✅             |            ⚠️            |             ❌             |          ✅          |       ✅       |
-| Reversible mapping file emitted                            |            ✅             |            ✅            |             ✅             |          ❌          |       ❌       |
-| Per-build randomisation (no global state)                  |            ✅             |            ❌            |             ✅             |         n/a          |      n/a       |
-| Type-safe config (strict TypeScript)                       |            ✅             |         ⚠️ Loose         |         ❌ Pure JS         |         n/a          |      n/a       |
-| Active framework coverage (sample apps)                    |       **20+ apps**        |            ~5            |        1 (Next.js)         |         n/a          |      n/a       |
-| Licence                                                    |            MIT            |           MIT            |            MIT             |         MIT          |      MIT       |
+| Capability                                                 | 🛡️ tailwindcss-obfuscator |  🔧 tailwindcss-mangle   |         🌐 Obfustail         | ⚙️ PostCSS minifiers | 🅒 Tailwind CSS |
+| ---------------------------------------------------------- | :-----------------------: | :----------------------: | :--------------------------: | :------------------: | :------------: |
+| Renames classes in HTML / JS / CSS                         |            ✅             |            ✅            |              ✅              |          ❌          |       ❌       |
+| Tailwind v3 support                                        |            ✅             |            ✅            |              ❌              |         n/a          |      n/a       |
+| Tailwind v4 support                                        |         ✅ Native         | ✅ via CSS scan (v9.0.0) |              ✅              |         n/a          |      n/a       |
+| Doesn't modify your source files                           |            ✅             |            ✅            |     ❌ rewrites in place     |          ✅          |       ✅       |
+| Per-utility obfuscation (smaller output)                   |            ✅             |            ✅            |  ❌ per-string (less reuse)  |          ❌          |       ❌       |
+| AST-based JSX/TSX extraction                               |         ✅ Babel          |         ⚠️ Regex         |           ❌ Regex           |         n/a          |      n/a       |
+| Vue SFC + Svelte `class:` directive                        |            ✅             |        ⚠️ Partial        |              ❌              |         n/a          |      n/a       |
+| `cn()` / `clsx()` / `cva()` / `tv()` extraction            |        ✅ All six         |          ⚠️ Two          |          ❌ Manual           |          ❌          |       ❌       |
+| Unified `unplugin` core (Vite/Webpack/Rollup/...)          |            ✅             |      ⚠️ Per-bundler      |       ❌ Build script        |          ❌          |       ❌       |
+| Bundlers shipped (Vite/Webpack/Rollup/esbuild/Rspack/Farm) |           6 / 6           |          2 / 6           |            0 / 6             |         n/a          |      n/a       |
+| Standalone CLI                                             |    ✅ `tw-obfuscator`     |      ✅ `tw-patch`       |    ❌ inline node script     |          ✅          |       ✅       |
+| Source maps for transformed files                          |            ✅             |            ⚠️            |              ❌              |          ✅          |       ✅       |
+| Reversible mapping file emitted                            |            ✅             |            ✅            |              ✅              |          ❌          |       ❌       |
+| Per-build randomisation (no global state)                  |            ✅             |            ❌            |              ✅              |         n/a          |      n/a       |
+| Type-safe config (strict TypeScript)                       |            ✅             |         ⚠️ Loose         |          ❌ Pure JS          |         n/a          |      n/a       |
+| Active framework coverage (sample apps)                    |       **20+ apps**        |            ~5            |         1 (Next.js)          |         n/a          |      n/a       |
+| **Unquoted HTML attributes** (HTML5 `class=foo`)           |      ✅ since v2.0.1      |            ❌            |              ❌              |         n/a          |      n/a       |
+| **Next.js Turbopack** (post-build CLI, tested)             |      ✅ since v2.0.1      |            ❌            | ⚠️ accidental (Next + Turbo) |         n/a          |      n/a       |
+| **npm publish with provenance** (Sigstore / OIDC)          |            ✅             |            ❌            |              ❌              |        varies        |      n/a       |
+| **OpenSSF Scorecard** published weekly                     |            ✅             |            ❌            |              ❌              |         n/a          |      n/a       |
+| **SBOM (SPDX-JSON)** attached to every GitHub release      |            ✅             |            ❌            |              ❌              |         n/a          |      n/a       |
+| Licence                                                    |            MIT            |           MIT            |             MIT              |         MIT          |      MIT       |
 
 ## Per-tool deep-dive
 
