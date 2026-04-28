@@ -1,0 +1,61 @@
+# tailwindcss-obfuscator
+
+> Build-time Tailwind CSS class obfuscator (also known as a Tailwind class mangler). Rewrites verbose utility classes (`bg-blue-500`, `flex`, `items-center`) into short opaque identifiers (`tw-a`, `tw-b`, `tw-c`) inside the shipped HTML / CSS / JS bundle. Source code stays readable. Cuts CSS bundle size by 30–60% on CSS-heavy pages and makes design systems much harder to reverse-engineer. Works with Tailwind CSS v3 and v4, every major bundler (Vite, Webpack, Rollup, esbuild, Rspack, Farm) and every major framework (Next.js, Nuxt, SvelteKit, Astro, Solid, Qwik, React Router 7, TanStack Router).
+
+## What it does
+
+- Build-time only — runs during `vite build` / `next build` / `webpack --mode=production`. Dev servers are untouched.
+- Zero runtime overhead — no JavaScript is added to the shipped bundle, only the strings change.
+- AST-based — uses Babel for JSX/TSX, PostCSS for CSS, and dedicated parsers for Vue SFC / Svelte / Astro / HTML.
+- Unified `unplugin` core — one shared pipeline, six bundler adapters (Vite, Webpack, Rollup, esbuild, Rspack, Farm) plus a Nuxt module and a Node CLI binary (`tw-obfuscator`).
+- Recognises `cn()`, `clsx()`, `classnames()`, `twMerge()`, `cva()`, `tv()` out of the box.
+- Tailwind v3 (config-file, JIT) and Tailwind v4 (CSS-first, `@theme`, container queries, `@starting-style`, CSS variable shorthand) are both supported.
+- Persists a deterministic mapping at `.tw-obfuscation/class-mapping.json` so builds stay debuggable.
+
+## Install
+
+```bash
+pnpm add -D tailwindcss-obfuscator
+# or: npm install --save-dev tailwindcss-obfuscator
+# or: yarn add --dev tailwindcss-obfuscator
+# or: bun add -D tailwindcss-obfuscator
+```
+
+## Quick start (Vite)
+
+```ts
+import { defineConfig } from "vite";
+import tailwindcss from "@tailwindcss/vite";
+import tailwindCssObfuscator from "tailwindcss-obfuscator/vite";
+
+export default defineConfig({
+  plugins: [tailwindcss(), tailwindCssObfuscator({ prefix: "tw-" })],
+});
+```
+
+## Documentation
+
+- Site: https://josedacosta.github.io/tailwindcss-obfuscator/
+- Repository: https://github.com/josedacosta/tailwindcss-obfuscator
+- npm: https://www.npmjs.com/package/tailwindcss-obfuscator
+- License: MIT
+- Author: José DA COSTA — https://www.josedacosta.info
+
+## Plugin entry points
+
+- `tailwindcss-obfuscator/vite` — Vite plugin
+- `tailwindcss-obfuscator/webpack` — Webpack plugin
+- `tailwindcss-obfuscator/rollup` — Rollup plugin
+- `tailwindcss-obfuscator/esbuild` — esbuild plugin
+- `tailwindcss-obfuscator/rspack` — Rspack plugin
+- `tailwindcss-obfuscator/farm` — Farm plugin
+- `tailwindcss-obfuscator/nuxt` — Nuxt module
+- `tailwindcss-obfuscator/internals` — `obfuscatorUnplugin` factory for any other bundler
+- `tw-obfuscator` — standalone CLI binary
+
+## Frequently asked
+
+- Is it different from tailwindcss-mangle? Yes — `tailwindcss-mangle` mangles class names for tree-shaking and dead-class removal; `tailwindcss-obfuscator` is built around obfuscation: short opaque identifiers, AST extraction across every modern framework, and a unified `unplugin` core.
+- Does it work with Tailwind v4? Yes, including `@theme`, container queries, `@starting-style`, the `*:` / `**:` wildcards, and the new `bg-(--my-var)` CSS-variable shorthand.
+- Does it break dev mode? No — obfuscation only runs on production builds by default.
+- Static classes only? Yes — classes must be complete string literals at build time. Dynamic interpolation (`` `bg-${color}-500` ``) is left alone.

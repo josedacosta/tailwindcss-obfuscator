@@ -7,8 +7,9 @@
 <h1 align="center">tailwindcss-obfuscator</h1>
 
 <p align="center">
-  Obfuscate Tailwind CSS class names at build time —<br/>
-  Vite · Webpack · Rollup · esbuild · Next.js · Nuxt · SvelteKit · Astro · Solid · Qwik · React Router 7 · TanStack Router.<br/>
+  <strong>Obfuscate, mangle and shrink Tailwind CSS class names at build time.</strong><br/>
+  Cuts your CSS bundle by <strong>30–60%</strong> and protects your design system from copy-paste reverse-engineering.<br/>
+  Vite · Webpack · Rollup · esbuild · Rspack · Farm · Next.js · Nuxt · SvelteKit · Astro · Solid · Qwik · React Router 7 · TanStack Router.<br/>
   Tailwind <strong>v3</strong> &amp; <strong>v4</strong>.
 </p>
 
@@ -92,6 +93,73 @@ For Webpack / Rollup / esbuild / Next.js / Nuxt / SvelteKit / Astro / Solid / Qw
 | **React Router**    | v7 (ex-Remix) |
 | **TanStack Router** | v1.168+       |
 | **Node.js**         | ≥ 18          |
+
+## FAQ
+
+<details>
+<summary><strong>What is a Tailwind CSS obfuscator (a.k.a. Tailwind class mangler)?</strong></summary>
+
+A build-time tool that rewrites verbose Tailwind classes (`bg-blue-500`, `flex`, `items-center`) into short opaque identifiers (`tw-a`, `tw-b`, `tw-c`) inside the shipped HTML / CSS / JS bundle. Source code stays readable; only production output is changed. Net effect: **30–60% smaller CSS** and a **much harder-to-reverse-engineer** design system, with zero runtime cost.
+
+</details>
+
+<details>
+<summary><strong>How is it different from <code>tailwindcss-mangle</code>?</strong></summary>
+
+`tailwindcss-mangle` was built primarily to mangle classes for tree-shaking. `tailwindcss-obfuscator` is built around obfuscation as the primary goal: a unified `unplugin` core (Vite/Webpack/Rollup/esbuild/Rspack/Farm), AST extraction with full `cn() / clsx() / cva() / tv()` support, native Svelte `class:` directives, source maps, a standalone CLI (`tw-obfuscator`) and explicit Tailwind v4 support.
+
+</details>
+
+<details>
+<summary><strong>Does it work with Tailwind CSS v4?</strong></summary>
+
+Yes — full v4 support, including `@import "tailwindcss"`, `@theme`, container queries, `@starting-style`, the `*:` / `**:` wildcards, and the new `bg-(--my-var)` shorthand. v3 (config file, JIT, `safelist`) is also fully supported.
+
+</details>
+
+<details>
+<summary><strong>Does it work with Next.js / Nuxt / SvelteKit / Astro / Solid / Qwik / Remix?</strong></summary>
+
+Yes — every major meta-framework has a dedicated test app and a documented setup recipe. Use the matching plugin entry from the table above, or read the [framework guides](https://josedacosta.github.io/tailwindcss-obfuscator/).
+
+</details>
+
+<details>
+<summary><strong>Will it break my dev server?</strong></summary>
+
+No — obfuscation only runs on production builds (`vite build` / `next build` / `webpack --mode=production`). Dev servers stay untouched.
+
+</details>
+
+<details>
+<summary><strong>Is the transformation reversible?</strong></summary>
+
+Yes — every build emits `.tw-obfuscation/class-mapping.json`, a deterministic mapping you can keep around to translate any `tw-xxx` back to its original class.
+
+</details>
+
+<details>
+<summary><strong>Does it support shadcn/ui, CVA, Tailwind Variants?</strong></summary>
+
+Yes — `cn()`, `clsx()`, `classnames()`, `twMerge()`, `cva()` and `tv()` are recognised natively, including string literals nested inside `variants`, `compoundVariants` and `defaultVariants`.
+
+</details>
+
+<details>
+<summary><strong>What's the licence?</strong></summary>
+
+MIT — free for personal, commercial, and closed-source use.
+
+</details>
+
+## Keywords
+
+<details>
+<summary><strong>Search terms this project answers</strong></summary>
+
+`tailwindcss obfuscator` · `tailwind css obfuscator` · `tailwind mangle` · `tailwindcss-mangle alternative` · `obfuscate tailwind classes` · `tailwind class shortener` · `shrink tailwind css bundle` · `tailwind v4 obfuscator` · `tailwind v3 obfuscator` · `tailwind vite plugin obfuscate` · `tailwind webpack plugin obfuscate` · `tailwind rollup plugin obfuscate` · `tailwind esbuild plugin obfuscate` · `tailwind rspack plugin` · `tailwind farm plugin` · `next.js tailwind obfuscator` · `nuxt tailwindcss obfuscator` · `sveltekit tailwind obfuscator` · `astro tailwind obfuscator` · `solid.js tailwind obfuscator` · `qwik tailwind obfuscator` · `react router tailwind obfuscator` · `tanstack router tailwind obfuscator` · `remix tailwind obfuscator` · `shadcn ui obfuscate` · `cva obfuscate` · `protect tailwind design system` · `hide tailwind classes` · `tailwind reverse engineering protection`
+
+</details>
 
 ## Author
 
