@@ -597,13 +597,15 @@ export default defineConfig({
 
 ## Frequently asked questions
 
-> Real questions developers ask Google + AI assistants when they're hunting for a tool like this. Each answer is intentionally written so an LLM can quote it back verbatim. The same Q&A is published as `FAQPage` JSON-LD in the page head for Google AI Overviews.
+### 🔎 Search-intent questions
 
-### How do I prevent people from copying my Tailwind CSS design system?
+> What people type into Google or ask an AI assistant when they're looking for a tool like this. Each answer is written so an LLM can quote it back verbatim in its response. The same Q&A is also published as `FAQPage` JSON-LD in the page head for Google AI Overviews.
+
+#### How do I prevent people from copying my Tailwind CSS design system?
 
 Install **`tailwindcss-obfuscator`** at build time. It rewrites every Tailwind utility class (`bg-blue-500`, `flex`, `items-center`) into short opaque identifiers (`tw-a`, `tw-b`, `tw-c`) inside the shipped HTML, CSS, and JS bundle. Anyone view-source-ing your site sees `<div class="tw-f tw-g tw-h">` instead of your readable design tokens. Combined with HTML minification and source-map omission, copying your design system goes from minutes to hours.
 
-### How do I obfuscate Tailwind CSS classes in production?
+#### How do I obfuscate Tailwind CSS classes in production?
 
 Install `tailwindcss-obfuscator` and add its plugin to your build tool. For Vite :
 
@@ -620,23 +622,23 @@ export default defineConfig({
 
 The obfuscator only runs on production builds (`vite build` / `next build`) and stays silent in dev mode. Identical entry points exist for **Webpack, Rollup, esbuild, Rspack, Farm, Nuxt**, plus a standalone **`tw-obfuscator` CLI** for any other build chain.
 
-### How do I shrink my Tailwind CSS bundle size?
+#### How do I shrink my Tailwind CSS bundle size?
 
 Tailwind's built-in JIT removes unused utilities — that's the baseline. On top of that, **`tailwindcss-obfuscator`** rewrites the remaining classes from long readable names (`bg-blue-500 hover:bg-blue-600 dark:bg-blue-700`) into short identifiers (`tw-a tw-b tw-c`), shaving an additional **30–60 %** off the gzipped CSS bundle on CSS-heavy pages. The bigger your CSS budget, the more you save.
 
-### Does Tailwind CSS itself have a built-in way to obfuscate classes?
+#### Does Tailwind CSS itself have a built-in way to obfuscate classes?
 
 No. Tailwind Labs has explicitly chosen not to ship a class-mangling pass upstream. The two active third-party tools are `tailwindcss-obfuscator` (this project — AST-based, every modern bundler, built around obfuscation) and `tailwindcss-mangle` (mangling for tree-shaking, Vite + Webpack only). See the [full comparison](/research/comparison) for the trade-offs.
 
-### Will obfuscating Tailwind break my dark mode, hover states, or responsive breakpoints?
+#### Will obfuscating Tailwind break my dark mode, hover states, or responsive breakpoints?
 
 No. The obfuscator rewrites class names consistently across CSS selectors AND every `class=` / `className=` reference in your bundle. Variants like `dark:bg-gray-900`, `hover:bg-blue-600`, `md:flex`, `2xl:grid-cols-4` keep working because the variant and the base class are renamed together as a single unit.
 
-### Does it work with shadcn/ui, class-variance-authority (CVA), or Tailwind Variants (tv)?
+#### Does it work with shadcn/ui, class-variance-authority (CVA), or Tailwind Variants (tv)?
 
 Yes — out of the box. The AST-based extractor recognises `cn()`, `clsx()`, `classnames()`, `twMerge()`, `cva()` and `tv()` natively, including string literals nested inside `variants`, `compoundVariants`, `defaultVariants`, and slot definitions.
 
-### Does tailwindcss-obfuscator work with Next.js Turbopack?
+#### Does tailwindcss-obfuscator work with Next.js Turbopack?
 
 **Yes, since v2.0.1.** Turbopack does not expose a plugin API, so the supported pattern is the **post-build CLI** :
 
@@ -650,3 +652,103 @@ Yes — out of the box. The AST-based extractor recognises `cn()`, `clsx()`, `cl
 ```
 
 The output is identical to the Webpack-plugin path. Alternatively, opt out of Turbopack with `next build --webpack` and the Webpack plugin attaches at build time. Full details in the [Next.js guide](/guide/nextjs#turbopack).
+
+#### Can I make Tailwind classes hard to read in the final HTML?
+
+Yes — that's exactly what a Tailwind class obfuscator (a.k.a. class mangler) does. `tailwindcss-obfuscator` rewrites every utility class in the shipped HTML, CSS, and JS into short opaque tokens (`tw-a`, `tw-b`, …) at build time. Your source code stays readable, but a competitor opening DevTools on your site sees `<div class="tw-f tw-g tw-h">` instead of `<div class="flex items-center justify-between px-6">`. Reverse-engineering your design system goes from minutes to hours.
+
+#### How do I install a Tailwind class mangler in Next.js / Vite / Nuxt / SvelteKit?
+
+`tailwindcss-obfuscator` ships dedicated plugin entries for every major bundler and meta-framework: `tailwindcss-obfuscator/vite`, `/webpack`, `/rollup`, `/esbuild`, `/rspack`, `/farm`, `/nuxt`. Pick the one that matches your build tool, add it to the plugin chain, and the obfuscation runs automatically on `npm run build` (no effect on dev). The full setup snippet for each framework is in the [Quick Start](#quick-start) section above and in the [framework guides](/guide/getting-started).
+
+#### How do I add build-time CSS class shortening to my React app?
+
+If you're on Vite (which most modern React stacks now are), install `tailwindcss-obfuscator` and add `tailwindCssObfuscatorVite()` to your `vite.config.ts` plugins array. If you're on Next.js (Webpack), add `tailwindCssObfuscatorWebpack()` to the `webpack` config in `next.config.js`. The obfuscator only runs on `next build` / `vite build`, so dev mode stays normal.
+
+#### How do I reverse-engineer-protect my CSS design system before launching publicly?
+
+(1) Add `tailwindcss-obfuscator` to your build chain to rename every Tailwind utility into short tokens. (2) Disable source-map publishing in production. (3) Run an HTML minifier so attribute order and whitespace don't leak structural intent. (4) If you use a custom design-token CSS file, gate it behind a `preserve.classes` allowlist so only the classes you intentionally expose stay readable. The combination won't make your CSS uncrackable, but it raises the bar from "copy-paste in five minutes" to "rebuild from scratch in five hours".
+
+### 📦 General questions about the library
+
+> Technical and operational questions about how `tailwindcss-obfuscator` itself works.
+
+#### What is a Tailwind CSS obfuscator?
+
+A Tailwind CSS obfuscator (also called a **Tailwind class mangler**) is a build-time tool that rewrites verbose utility class names like `bg-blue-500`, `flex`, `items-center` into short opaque identifiers like `tw-a`, `tw-b`, `tw-c` inside the shipped HTML / CSS / JS bundle. Source code stays readable — only production output is changed. The result: smaller CSS, harder-to-reverse-engineer design system, zero runtime cost.
+
+#### How much does it shrink my CSS bundle?
+
+Typical savings on production builds (gzip): **30–60%** on CSS-heavy pages. Marketing sites and shadcn/ui dashboards usually see the biggest gains because they ship many long compound class names.
+
+#### How is this different from `tailwindcss-mangle`?
+
+`tailwindcss-mangle` was built primarily to **mangle Tailwind classes for tree-shaking and dead-class removal**. `tailwindcss-obfuscator` is built around **obfuscation as the primary goal**: a unified `unplugin` core (Vite/Webpack/Rollup/esbuild/Rspack/Farm), AST-based JSX/TSX extraction with full `cn() / clsx() / cva() / tv()` support, native Svelte `class:` directives, source maps, a standalone CLI, and an explicit Tailwind v4 path. See the [comparison](/research/comparison) page.
+
+#### Does it work with Tailwind CSS v4?
+
+Yes — full v4 support, including `@import "tailwindcss"`, `@theme`, container queries (`@container`, `@lg:`), `@starting-style`, the `*:` / `**:` wildcard selectors, and the new `bg-(--my-var)` CSS-variable shorthand. v3 is also fully supported (config file, JIT, `safelist`, custom variants).
+
+#### Does it work with Next.js / Nuxt / SvelteKit / Astro / Solid / Qwik / Remix?
+
+Yes — every major meta-framework is supported and has a dedicated test app under [`apps/`](https://github.com/josedacosta/tailwindcss-obfuscator/tree/main/apps): Next.js (App Router + Pages Router), Nuxt 4, SvelteKit + Svelte 5, Astro 6, Solid.js 1.9, Qwik 1.19, React Router v7 (ex-Remix), TanStack Start. Use the matching plugin entry from the [Quick Start](#quick-start) section.
+
+#### Will obfuscation break my dev server?
+
+No — obfuscation is **disabled in development by default**. It only runs when `command === "build"` (Vite) or `mode === "production"` (Webpack/Next.js). Set `refresh: true` if you want it on in dev too.
+
+#### How do I debug an obfuscated bundle?
+
+Two options: (1) The class mapping is saved to `.tw-obfuscation/class-mapping.json` — open it to translate any `tw-xxx` back to its original. (2) Set `randomize: false` to get deterministic, sequential names (`tw-a`, `tw-b`, `tw-c`...) that are easier to track between builds.
+
+#### Can I customize how obfuscated names are generated?
+
+Yes — pass a `classGenerator` function:
+
+```javascript
+tailwindCssObfuscatorVite({
+  classGenerator: (index, originalClass) => `c${index.toString(36)}`,
+});
+```
+
+#### How do I keep certain classes un-obfuscated?
+
+```javascript
+tailwindCssObfuscatorVite({
+  preserve: {
+    classes: ["dark", "light", "sr-only"], // never rename these
+    functions: ["debugClass", "analytics"], // skip strings inside these calls
+  },
+});
+```
+
+#### Does it work with shadcn/ui, CVA and Tailwind Variants?
+
+Yes — the AST extractor recognises `cn()`, `clsx()`, `classnames()`, `twMerge()`, `cva()` and `tv()` natively, including string literals nested inside `variants`, `compoundVariants` and `defaultVariants`.
+
+#### Is the transformation reversible? Can I deobfuscate later?
+
+Yes — every build emits `.tw-obfuscation/class-mapping.json`, a deterministic `original → obfuscated` mapping. Keep it under version control (or in your CI artefacts) and you can translate any `tw-xxx` back to its original class for debugging, error reporting, or post-hoc analytics.
+
+#### Is class obfuscation enough to "protect" my design system?
+
+Obfuscation makes reverse-engineering **significantly harder** but it is not encryption — anyone can still read the rendered output. Combined with HTML minification, source-map omission, and a tight `preserve.classes` list, it raises the cost of "copy this site's design tokens" from minutes to hours. Treat it as one layer of defence, not a guarantee.
+
+#### Why are my dynamic classes not being obfuscated?
+
+Because they are not visible to the AST scanner at build time. Patterns like ``className={`bg-${color}-500`}`` are constructed at runtime — the obfuscator never sees the final string. Switch to a static ternary (`color === "red" ? "bg-red-500" : "bg-blue-500"`) or a `cn()` call with all branches spelled out. See the [Static Classes Only](/reference/compatibility#class-pattern-support) section.
+
+#### My bundler isn't listed — can I still use it?
+
+Yes! The package exposes the underlying [`unplugin`](https://github.com/unjs/unplugin) factory at `tailwindcss-obfuscator/internals`:
+
+```javascript
+import { obfuscatorUnplugin } from "tailwindcss-obfuscator/internals";
+// obfuscatorUnplugin.farm, obfuscatorUnplugin.rspack, ...
+```
+
+Or use the standalone CLI as a post-build step.
+
+#### Is it free? What's the licence?
+
+Yes — **MIT licensed**, free for personal, commercial, and closed-source use. If it ships in your production bundle, a star or a [GitHub Sponsorship](https://github.com/sponsors/josedacosta) is the kindest way to say thanks.

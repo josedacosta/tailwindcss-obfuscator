@@ -115,7 +115,7 @@ pnpm install
 # 3. Build the obfuscator package
 pnpm --filter tailwindcss-obfuscator build
 
-# 4. Run the test suite (360+ tests)
+# 4. Run the test suite (395 tests at v2.0.1, growing)
 pnpm --filter tailwindcss-obfuscator test
 ```
 
@@ -160,7 +160,7 @@ Before opening a PR, please make sure the following all pass locally:
 ```bash
 pnpm --filter tailwindcss-obfuscator typecheck   # TypeScript clean
 pnpm --filter tailwindcss-obfuscator lint        # ESLint clean
-pnpm --filter tailwindcss-obfuscator test        # 360+ unit tests
+pnpm --filter tailwindcss-obfuscator test        # 395 unit tests at v2.0.1, growing
 pnpm --filter tailwindcss-obfuscator bench       # (Optional) perf benchmarks
 ```
 
