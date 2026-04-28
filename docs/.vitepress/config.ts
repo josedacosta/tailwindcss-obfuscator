@@ -94,6 +94,9 @@ export default defineConfig({
           text: "Vite-based Frameworks",
           items: [
             { text: "Vite", link: "/guide/vite" },
+            { text: "Vue 3", link: "/guide/vue" },
+            { text: "Solid.js", link: "/guide/solid" },
+            { text: "Qwik", link: "/guide/qwik" },
             { text: "TanStack Router", link: "/guide/tanstack-router" },
           ],
         },
@@ -102,6 +105,9 @@ export default defineConfig({
           items: [
             { text: "Webpack", link: "/guide/webpack-standalone" },
             { text: "Rollup", link: "/guide/rollup-standalone" },
+            { text: "esbuild", link: "/guide/esbuild" },
+            { text: "Rspack", link: "/guide/rspack" },
+            { text: "Farm", link: "/guide/farm" },
           ],
         },
         {
