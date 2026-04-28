@@ -1,12 +1,14 @@
 # Mangle Tailwind v4 Issues
 
-> Technical issues with `tailwindcss-patch` and `unplugin-tailwindcss-mangle` on Tailwind CSS v4
+> Technical issues with `tailwindcss-patch` v8.x and `unplugin-tailwindcss-mangle` on Tailwind CSS v4
 
-**Date:** December 8, 2025
-**Project:** tailwindcss-obfuscation
+**Original investigation:** December 8, 2025 against Tailwind v4.1.17 + Next.js 15.5.7.
+**Refresh:** April 28, 2026 — Tailwind v4 is now at 4.2.4 and `tailwindcss-patch` shipped v9.0.0 with first-class v4 support via CSS scanning. The issues below remain accurate for the **v8.x branch**; the architectural objections (Oxide engine in Rust, no PostCSS hook) are why v9.0.0 had to switch mechanism. See [/research/tailwindcss-patch](./tailwindcss-patch.md) for the up-to-date positioning.
+
+**Project:** tailwindcss-obfuscator
 **App:** tailwind_v4_react_nextjs
-**Tailwind Version:** 4.1.17
-**Next.js Version:** 15.5.7
+**Tailwind Version (refreshed):** 4.2.4
+**Next.js Version (refreshed):** 16.x
 
 ---
 
@@ -309,7 +311,11 @@ The `unplugin-tailwindcss-mangle` maintainers need to:
 2. Fix the CSS loader context serialization bug
 3. Test with `@tailwindcss/postcss`
 
-**GitHub Issue to Watch:** https://github.com/sonofmagic/tailwindcss-mangle/issues
+**GitHub Issue to Watch:** <https://github.com/sonofmagic/tailwindcss-mangle/issues>
+
+::: info Update — April 2026
+`tailwindcss-mangle` released v9.0.0 in April 2026 with Tailwind v4 support through CSS scanning (the `--css` flag), confirming the diagnosis below: the v8.x runtime-patching path could not be fixed and a different mechanism was needed. The new approach works for tree-shaking but doesn't ship a full obfuscation pipeline; see [/research/tailwindcss-patch](./tailwindcss-patch.md) for the comparison.
+:::
 
 ### 8.3 Long-Term: Custom Solution
 

@@ -1,5 +1,9 @@
 # Lab Analysis: tailwindcss-patch + unplugin-tailwindcss-mangle
 
+::: warning Snapshot from December 2025 — refreshed April 2026
+This page reverse-engineered `tailwindcss-patch` **v8.x** and `unplugin-tailwindcss-mangle` **v5.0.x**. In April 2026 the upstream shipped `tailwindcss-patch@9.0.0` with explicit Tailwind v4 support via CSS scanning (the `--css` flag). The architectural finding below — runtime patching can't work on Tailwind v4's Oxide engine — is still correct; v9.0.0 sidesteps it by switching to a different mechanism. For the up-to-date positioning of both projects, read [/research/tailwindcss-patch](./tailwindcss-patch.md).
+:::
+
 This document presents a comprehensive reverse engineering analysis of `tailwindcss-patch` and `unplugin-tailwindcss-mangle` packages, testing their compatibility with Tailwind CSS v3 and v4.
 
 ## Executive Summary
@@ -26,8 +30,9 @@ This document presents a comprehensive reverse engineering analysis of `tailwind
 
 **Version Compatibility**:
 
-- **v3.0.x**: Works with Tailwind CSS v3 (PostCSS-based)
-- **v8.4.x**: Claims to support Tailwind CSS v4, but has critical issues
+- **v9.0.0+** (April 2026): Tailwind v3 (runtime patching) **and** v4 (CSS scanning via `--css` flag). Released after this lab analysis.
+- **v8.4.x** (this analysis): Claims to support Tailwind v4 but has critical issues (documented below).
+- **v3.0.x**: Tailwind v3 only (PostCSS-based runtime patch).
 
 ### unplugin-tailwindcss-mangle
 

@@ -2,7 +2,16 @@
 
 ## Executive Summary
 
-The `tailwindcss-patch` library claims "first-class support for Tailwind CSS v4", but in practice, **its extraction functionality is broken** for v4 projects. This document explains the technical issues and why we created `tailwindcss-obfuscator` as a complete alternative.
+`tailwindcss-patch` and `tailwindcss-obfuscator` are often compared because both touch Tailwind class names at build time, but they solve **different problems** and use **different mechanisms**:
+
+- `tailwindcss-patch` (v9.0.0+) **mangles** class names to shrink the production bundle. It collects classes via runtime patching on Tailwind v3 and via CSS scanning on Tailwind v4 (the `--css` flag, added in v9.0.0).
+- `tailwindcss-obfuscator` **obfuscates** class names everywhere — source files, CSS, build artefacts — to make the design system hard to reverse-engineer. It uses an AST transformer (Babel) and a PostCSS pass, and never patches `node_modules`.
+
+This page collects the technical history (the v8.x → v9.0.0 transition explains a lot of the design space) and ends with a head-to-head feature comparison.
+
+::: warning Historical context
+Sections "The Problem with tailwindcss-patch" through "How tailwindcss-patch Works" describe `tailwindcss-patch` v8.x, where the v4 support was broken (this is what motivated `tailwindcss-obfuscator`). v9.0.0 fixed it via CSS scanning, but kept the mangling-only goal. The Feature Comparison and "Why we still differ" sections below cover v9.0.0+ and are the up-to-date reference.
+:::
 
 ## The Problem with tailwindcss-patch
 
@@ -110,19 +119,30 @@ This works because:
 
 ## Feature Comparison
 
-| Feature               | tailwindcss-patch        | tailwindcss-obfuscator |
-| --------------------- | ------------------------ | ---------------------- |
-| Tailwind v3 support   | ✅ Yes                   | ✅ Yes                 |
-| Tailwind v4 support   | ❌ No                    | ✅ Yes                 |
-| Requires patching     | Yes (`tw-patch install`) | No                     |
-| Build tool support    | Limited                  | All (via unplugin)     |
-| React/Next.js         | ✅ Yes                   | ✅ Yes                 |
-| Vue/Nuxt              | ⚠️ Partial               | ✅ Yes                 |
-| Svelte/SvelteKit      | ⚠️ Partial               | ✅ Yes                 |
-| Astro                 | ❌ No                    | ✅ Yes                 |
-| Class utility support | ❌ No                    | ✅ cn, clsx, cva, tv   |
-| Source maps           | ❌ No                    | ✅ Yes                 |
-| Persistent mapping    | ⚠️ Basic                 | ✅ Full with merge     |
+| Feature                                                                  | tailwindcss-patch (v9.0.0+)     | tailwindcss-obfuscator                                      |
+| ------------------------------------------------------------------------ | ------------------------------- | ----------------------------------------------------------- |
+| Goal                                                                     | Mangle classes for tree-shaking | Obfuscate classes (rewrite source + bundles end-to-end)     |
+| Tailwind v3 support                                                      | ✅ Yes (runtime patching)       | ✅ Yes                                                      |
+| Tailwind v4 support                                                      | ✅ Yes (CSS scanning, v9.0.0+)  | ✅ Yes (AST + PostCSS)                                      |
+| Requires patching `node_modules`                                         | Yes for v3 (`tw-patch install`) | ❌ Never                                                    |
+| Build-tool support                                                       | Limited                         | All (via unplugin: Vite/Webpack/Rollup/esbuild/Rspack/Farm) |
+| React/Next.js                                                            | ✅                              | ✅                                                          |
+| Vue/Nuxt                                                                 | ⚠️ Partial                      | ✅                                                          |
+| Svelte/SvelteKit                                                         | ⚠️ Partial                      | ✅                                                          |
+| Astro                                                                    | ❌                              | ✅                                                          |
+| Class-utility extraction (`cn`/`clsx`/`classnames`/`twMerge`/`cva`/`tv`) | ❌                              | ✅ All six                                                  |
+| AST-based JSX/TSX transform                                              | ❌                              | ✅ Babel                                                    |
+| Source maps                                                              | ❌                              | ✅                                                          |
+| Persistent mapping                                                       | ⚠️ Basic                        | ✅ With merge strategy                                      |
+
+> **Why we still differ from `tailwindcss-patch` v9.0.0**
+>
+> The two libraries solve adjacent but distinct problems:
+>
+> - **`tailwindcss-patch`** scans CSS output and content sources to collect Tailwind class names, then mangles them for **bundle size optimisation**. It's a shorter-cycle tool and stops once the class list is collected.
+> - **`tailwindcss-obfuscator`** rewrites class names everywhere — source files (JSX, Vue, Svelte, Astro), CSS selectors, build artefacts — to make the design system **uncopyable**. It needs an AST transformer, a PostCSS pass, and a full mapping persistence layer because every output file is touched.
+>
+> If you only care about bundle size and you're willing to accept the runtime patching for v3, `tailwindcss-patch` is lighter. If you need to ship a build whose CSS is genuinely hard to reverse-engineer, that's the `tailwindcss-obfuscator` use case.
 
 ## Build Output Comparison
 

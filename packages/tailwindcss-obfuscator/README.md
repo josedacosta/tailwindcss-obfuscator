@@ -8,7 +8,7 @@
 
 <p align="center">
   Obfuscate Tailwind CSS class names at build time —<br/>
-  Vite · Webpack · Rollup · esbuild · Next.js · Nuxt · SvelteKit · Astro · Solid · Qwik · React Router 7 · TanStack Router.<br/>
+  Vite · Webpack · Rollup · esbuild · Rspack · Farm · Next.js · Nuxt · SvelteKit · Astro · Solid · Qwik · Vue · React Router 7 · TanStack Router.<br/>
   Tailwind <strong>v3</strong> &amp; <strong>v4</strong>.
 </p>
 
@@ -58,7 +58,7 @@ export default defineConfig({
 
 That's it. Run `vite build` and your bundle is obfuscated. `vite dev` is left untouched so the dev experience stays normal.
 
-For Webpack / Rollup / esbuild / Next.js / Nuxt / SvelteKit / Astro / Solid / Qwik / React Router 7 / TanStack Router setups, see the **[full documentation](https://josedacosta.github.io/tailwindcss-obfuscator/)**.
+For Webpack / Rollup / esbuild / Rspack / Farm / Next.js / Nuxt / SvelteKit / Astro / Solid / Qwik / Vue / React Router 7 / TanStack Router setups, see the **[full documentation](https://josedacosta.github.io/tailwindcss-obfuscator/)**.
 
 ## Plugin entry points
 
@@ -68,6 +68,8 @@ For Webpack / Rollup / esbuild / Next.js / Nuxt / SvelteKit / Astro / Solid / Qw
 | Webpack             | `tailwindcss-obfuscator/webpack`   |
 | Rollup              | `tailwindcss-obfuscator/rollup`    |
 | esbuild             | `tailwindcss-obfuscator/esbuild`   |
+| Rspack              | `tailwindcss-obfuscator/rspack`    |
+| Farm                | `tailwindcss-obfuscator/farm`      |
 | Nuxt module         | `tailwindcss-obfuscator/nuxt`      |
 | CLI binary          | `tw-obfuscator` (after install)    |
 | Internal pipeline   | `tailwindcss-obfuscator/internals` |
@@ -81,6 +83,8 @@ For Webpack / Rollup / esbuild / Next.js / Nuxt / SvelteKit / Astro / Solid / Qw
 | **Webpack**         | v5            |
 | **Rollup**          | v3 → v4       |
 | **esbuild**         | ≥ 0.17        |
+| **Rspack**          | v1+           |
+| **Farm**            | v1+           |
 | **Next.js**         | v13 → v16     |
 | **Nuxt**            | v3 · v4       |
 | **SvelteKit**       | v2            |

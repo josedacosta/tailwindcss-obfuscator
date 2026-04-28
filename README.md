@@ -88,6 +88,8 @@
 
 <!-- ────────────────────────────────────────────────── -->
 
+---
+
 ## 📖 Documentation
 
 <div align="center">
@@ -101,6 +103,8 @@ Setup guide for every framework · complete options reference · the patterns th
 | Hosted on GitHub Pages, rebuilt on every push to `main`                        | Edit a page, open a PR              |
 
 </div>
+
+---
 
 <!-- ────────────────────────────────────────────────── -->
 
@@ -215,21 +219,24 @@ There are a handful of class-mangling tools out there. Here's how this one stack
 
 <div align="center">
 
-| Capability                                            | 🛡️&nbsp;&nbsp;**tailwindcss-obfuscator** | 🔧&nbsp;&nbsp;tailwindcss-mangle | ⚙️&nbsp;&nbsp;PostCSS minifiers |
-| ----------------------------------------------------- | :--------------------------------------: | :------------------------------: | :-----------------------------: |
-| Tailwind v4 (CSS-first) support                       |                ✅ Native                 |            ⚠️ Partial            |               ❌                |
-| Unified `unplugin` core (Vite/Webpack/Rollup/esbuild) |                    ✅                    |          ⚠️ Per-bundler          |               ❌                |
-| AST-based JSX/TSX transformer                         |                 ✅ Babel                 |             ⚠️ Regex             |               ❌                |
-| Svelte `class:directive` support                      |                    ✅                    |                ❌                |               ❌                |
-| `cn()` / `clsx()` / `cva()` / `tv()` extraction       |               ✅ All five                |              ⚠️ Two              |               ❌                |
-| Type-safe options + typed errors                      |               ✅ Strict TS               |             ⚠️ Loose             |               n/a               |
-| Source maps for transformed files                     |                    ✅                    |                ⚠️                |               ✅                |
-| Standalone CLI (any project)                          |            ✅ `tw-obfuscator`            |                ❌                |               ❌                |
-| Per-build randomization (no global state)             |                    ✅                    |                ❌                |               n/a               |
-| Tailwind config validator                             |                    ✅                    |                ❌                |               ❌                |
-| Active framework coverage                             |               **13+ apps**               |                ~5                |               n/a               |
+| Capability                                                                    | 🛡️&nbsp;&nbsp;**tailwindcss-obfuscator** | 🔧&nbsp;&nbsp;tailwindcss-mangle | ⚙️&nbsp;&nbsp;PostCSS minifiers |
+| ----------------------------------------------------------------------------- | :--------------------------------------: | :------------------------------: | :-----------------------------: |
+| Tailwind v4 (CSS-first) support                                               |        ✅ Native (AST + PostCSS)         |  ✅ via CSS scanning (v9.0.0+)   |               ❌                |
+| Unified `unplugin` core (Vite/Webpack/Rollup/esbuild/**Rspack**/**Farm**)     |                    ✅                    |          ⚠️ Per-bundler          |               ❌                |
+| AST-based JSX/TSX transformer                                                 |                 ✅ Babel                 |             ⚠️ Regex             |               ❌                |
+| Svelte `class:directive` support                                              |                    ✅                    |                ❌                |               ❌                |
+| Class-utility extraction (`cn`, `clsx`, `classnames`, `twMerge`, `cva`, `tv`) |                ✅ All six                |              ⚠️ Two              |               ❌                |
+| Type-safe options + typed errors                                              |               ✅ Strict TS               |             ⚠️ Loose             |               n/a               |
+| Source maps for transformed files                                             |                    ✅                    |                ⚠️                |               ✅                |
+| Standalone CLI (any project)                                                  |            ✅ `tw-obfuscator`            |                ❌                |               ❌                |
+| Per-build randomization (no global state)                                     |                    ✅                    |                ❌                |               n/a               |
+| Tailwind config validator                                                     |                    ✅                    |                ❌                |               ❌                |
+| Active framework coverage                                                     |               **20+ apps**               |                ~5                |               n/a               |
 
 </div>
+
+> [!NOTE]
+> **About `tailwindcss-mangle`** — its `tailwindcss-patch@9.0.0` release added Tailwind v4 support via CSS scanning, but the goal is class **mangling for tree-shaking**, not full **obfuscation** (it doesn't rewrite source files end-to-end and has no AST transformer). For a side-by-side technical breakdown see [`/docs/research/tailwindcss-patch.md`](./docs/research/tailwindcss-patch.md).
 
 <!-- ────────────────────────────────────────────────── -->
 
@@ -734,7 +741,7 @@ Framework guides, migration tips, FAQ
 
 **[Example apps](./apps/)**
 
-13+ working examples, one per supported framework
+20+ working examples, one per supported framework
 
 </td>
 </tr>

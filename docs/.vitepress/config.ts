@@ -114,7 +114,10 @@ export default defineConfig({
         },
         {
           text: "Resources",
-          items: [{ text: "Brand Assets", link: "/guide/brand-assets" }],
+          items: [
+            { text: "Brand Assets", link: "/guide/brand-assets" },
+            { text: "Maintainers' Checklist", link: "/maintainers" },
+          ],
         },
       ],
       "/reference/": [

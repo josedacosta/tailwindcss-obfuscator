@@ -54,12 +54,13 @@ Patches Tailwind CSS source code at install time to expose internal APIs that ar
 
 ### Tailwind Version Support
 
-| tailwindcss-patch | Tailwind CSS |
-| ----------------- | ------------ |
-| v3.x              | v3.x         |
-| v2.x              | v3.x (older) |
+| tailwindcss-patch | Tailwind CSS      | Method                                         |
+| ----------------- | ----------------- | ---------------------------------------------- |
+| v9.0.0+           | v3.x · v4.x       | Runtime patching (v3) + CSS scanning (v4)      |
+| v8.x              | v3.x · v4 partial | Limited Oxide support, several blocking issues |
+| v3.x              | v3.x              | Classic runtime patching (legacy)              |
 
-**Important**: As of now, `tailwindcss-patch` does NOT support Tailwind CSS v4 due to the complete architectural rewrite (Oxide engine in Rust).
+**v9.0.0 update (April 2026)**: `tailwindcss-patch` shipped first-class Tailwind v4 support, but through a **CSS-scanning** approach (`--css` flag): it parses the compiled CSS to discover which classes Tailwind generated, instead of patching the v3 runtime. This works around the Oxide rewrite but it's a fundamentally different method from `tailwindcss-obfuscator`'s AST + PostCSS pipeline. See [/research/tailwindcss-patch](./tailwindcss-patch.md) for the side-by-side breakdown.
 
 ## unplugin-tailwindcss-mangle
 
@@ -125,19 +126,22 @@ sonofmagic/tailwindcss-mangle/
 
 Understanding this ecosystem is crucial for our `tailwindcss-obfuscator` because:
 
-1. **Same problem domain**: We're solving the same problem (class obfuscation)
-2. **Reference implementation**: Their approach to class extraction and transformation is valuable
-3. **Tailwind v4 gap**: Neither package supports Tailwind v4 yet - this is our opportunity
-4. **Architecture insights**: Their monorepo structure and plugin patterns are good references
+1. **Adjacent problem domain**: `tailwindcss-mangle` mangles classes for tree-shaking; we obfuscate them for design-system protection. Same input, different output goal.
+2. **Reference implementation**: Their approach to class extraction informed our pattern catalog.
+3. **Tailwind v4 gap (now closed differently)**: Until v9.0.0 (April 2026), neither package supported Tailwind v4. v9.0.0 added v4 support via CSS scanning — a different mechanism from our AST + PostCSS pipeline. We now coexist rather than fill a void.
+4. **Architecture insights**: Their monorepo + unplugin layout is a useful baseline.
 
 ## Key Differences from Our Approach
 
-| Aspect            | tailwindcss-mangle | Our tailwindcss-obfuscator |
-| ----------------- | ------------------ | -------------------------- |
-| Tailwind v4       | Not supported      | Supported                  |
-| Patching required | Yes (`tw-patch`)   | No                         |
-| Class extraction  | Runtime via patch  | Static analysis            |
-| Build tools       | unplugin-based     | unplugin-based             |
+| Aspect                   | tailwindcss-mangle (v9.0.0+)           | Our tailwindcss-obfuscator                            |
+| ------------------------ | -------------------------------------- | ----------------------------------------------------- |
+| Goal                     | Class mangling for bundle tree-shaking | Full obfuscation (design-system protection)           |
+| Tailwind v4              | ✅ via CSS scanning                    | ✅ via AST + PostCSS (transforms source files too)    |
+| Patching `node_modules`  | Yes for v3 (`tw-patch install`)        | ❌ Never                                              |
+| Class extraction         | Runtime patch (v3) / CSS scan (v4)     | Static analysis of source files                       |
+| Build tools              | Vite / Webpack / Rollup / Nuxt         | Vite / Webpack / Rollup / esbuild / Rspack / Farm     |
+| AST-based JSX/TSX        | ❌                                     | ✅ Babel                                              |
+| Class-utility extraction | 2 of 6                                 | All 6 (`cn`/`clsx`/`classnames`/`twMerge`/`cva`/`tv`) |
 
 ## Local Code for Reverse Engineering
 
