@@ -150,12 +150,26 @@ describe("transformHtmlWithDataAttrs", () => {
     ["bg-red-500", "tw-c"],
   ]);
 
-  it("should transform both class and data attributes", () => {
+  it("should transform both class and data attributes when data-class is opted in", () => {
+    const html = `<div class="flex" data-class="items-center">Hello</div>`;
+    const result = transformHtmlWithDataAttrs(html, "index.html", mapping, {
+      dataAttributes: ["data-class"],
+    });
+
+    expect(result.transformed).toContain('class="tw-a"');
+    expect(result.transformed).toContain('data-class="tw-b"');
+  });
+
+  it("does NOT transform data-class when not opted in (regression: tightened class boundary)", () => {
+    // Previously, the loose `\bclass\s*=` regex incorrectly matched the
+    // `class=` substring inside `data-class=`. The tightened pattern
+    // `(?:^|[\s<])class\s*=` correctly skips it. Users who *want* the
+    // data-* attribute transformed must opt in via `dataAttributes`.
     const html = `<div class="flex" data-class="items-center">Hello</div>`;
     const result = transformHtmlWithDataAttrs(html, "index.html", mapping);
 
     expect(result.transformed).toContain('class="tw-a"');
-    expect(result.transformed).toContain('data-class="tw-b"');
+    expect(result.transformed).toContain('data-class="items-center"');
   });
 
   it("should handle elements with class attribute", () => {
@@ -175,9 +189,11 @@ describe("transformHtmlWithDataAttrs", () => {
     expect(result.transformed).toContain("tw-b");
   });
 
-  it("should handle elements with only data attributes", () => {
+  it("should handle elements with only data attributes when opted in", () => {
     const html = `<div data-class="flex">Hello</div>`;
-    const result = transformHtmlWithDataAttrs(html, "index.html", mapping);
+    const result = transformHtmlWithDataAttrs(html, "index.html", mapping, {
+      dataAttributes: ["data-class"],
+    });
 
     expect(result.transformed).toContain('data-class="tw-a"');
   });
