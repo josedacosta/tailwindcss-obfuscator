@@ -62,6 +62,19 @@
   </a>
 </p>
 
+<!-- Badges row 4 — security & supply chain -->
+<p>
+  <a href="https://scorecard.dev/viewer/?uri=github.com/josedacosta/tailwindcss-obfuscator">
+    <img alt="OpenSSF Scorecard" src="https://img.shields.io/ossf-scorecard/github.com/josedacosta/tailwindcss-obfuscator?style=for-the-badge&label=OpenSSF%20Scorecard&color=10b981&labelColor=000000">
+  </a>
+  <a href="https://github.com/josedacosta/tailwindcss-obfuscator/security">
+    <img alt="CodeQL" src="https://img.shields.io/badge/CodeQL-active-10b981?style=for-the-badge&logo=github&logoColor=white&labelColor=000000">
+  </a>
+  <a href="https://www.npmjs.com/package/tailwindcss-obfuscator">
+    <img alt="npm provenance" src="https://img.shields.io/badge/npm-provenance-cb3837?style=for-the-badge&logo=npm&logoColor=white&labelColor=000000">
+  </a>
+</p>
+
 <br />
 
 <p>

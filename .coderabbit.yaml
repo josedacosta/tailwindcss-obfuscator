@@ -48,36 +48,185 @@ reviews:
     - "!jose/**" # local-only maintainer notes (gitignored anyway)
     - "!reports/**" # local audit outputs (gitignored anyway)
 
+  # =========================================================================
+  # SECURITY-FIRST REVIEW POSTURE
+  # =========================================================================
+  # This is a public OSS package shipped on npm. Every PR (and especially
+  # external-fork PRs) must be reviewed with the assumption that the
+  # contributor MAY be hostile — supply-chain attacks via OSS dependencies
+  # have happened (event-stream, ua-parser-js, colors.js, xz). Treat this
+  # repo as a potential injection target, never as a safe space.
+  #
+  # The maintainer (@josedacosta) makes the final call; CodeRabbit's job is
+  # to surface every possible smell so the maintainer doesn't have to grep.
+  # =========================================================================
+
   path_instructions:
+    # ----- ALL FILES (global security pass on every PR) -----
+    - path: "**/*"
+      instructions: |
+        SECURITY-FIRST review on every change. For each diff, explicitly check
+        and flag the following classes of concern, even on tiny PRs:
+
+        1. **Code execution via untrusted input** — `eval()`, `Function()`,
+           `vm.runInNewContext`, `child_process.exec*` with non-literal args,
+           dynamic `require()` / `import()` whose argument depends on user
+           input or a network response, `unescape()` of remote data.
+        2. **Shell injection** — backticks, template literals or string
+           concatenation passed to `exec`, `execSync`, `spawn`, shell scripts.
+        3. **Network exfiltration** — any new fetch/http(s)/dns lookup, any
+           new outbound domain, any obfuscated URL (base64-encoded,
+           hex-encoded, char-code-built strings, URL split across constants),
+           any "telemetry" / "analytics" / "phone-home" code added to a
+           library that has none.
+        4. **Filesystem reach beyond the project root** — `../`-walking,
+           `os.homedir()`, `~`, reading `~/.ssh/`, `~/.aws/`, `~/.npmrc`,
+           `~/.config`, environment variables holding tokens
+           (`NPM_TOKEN`, `GITHUB_TOKEN`, `AWS_*`, `*_API_KEY`).
+        5. **Postinstall / lifecycle hooks** — any new `postinstall`,
+           `preinstall`, `install`, `prepare`, `prepublishOnly` script in
+           any `package.json`. These run on `npm install` of downstream
+           consumers — extremely high blast radius.
+        6. **New dependencies** — every added line in `package.json` /
+           `pnpm-lock.yaml`. Check the package's npm page (downloads,
+           maintainers, last update, GitHub stars). Flag typosquats
+           (`reqeust`, `axios-http`, `loadash`), namespace squats
+           (`@types/whatever-fake`), packages younger than 6 months without
+           a clear track record.
+        7. **Encoded payloads** — base64 / hex / unicode-escape / char-code
+           strings longer than ~40 chars without a documented reason. These
+           are the canonical hiding place for malicious payloads.
+        8. **Disabled checks** — any `// eslint-disable-next-line`,
+           `// @ts-ignore`, `// @ts-expect-error`, `if (process.env.CI)`
+           bypass, `--no-verify`, `skip` test markers. Each must have a
+           justification in the PR description.
+        9. **Workflow / CI permission grabs** — see `.github/workflows/**`
+           rule below.
+        10. **Author trust signals** — first-time contributor? Commit signed?
+            GitHub account age < 1 year? Few public repos? Note these
+            facts in the review summary so the maintainer can weight risk.
+
+        For every flagged item, post an inline comment with:
+        - the exact line(s) of concern,
+        - the attack class it could enable,
+        - whether the diff actually exploits it or just *could* in a future
+          change (severity gradient: "definitely malicious" >> "smells bad"
+          >> "lint-style nit").
+
     - path: "packages/tailwindcss-obfuscator/src/**"
       instructions: |
-        This is the published package source. Be strict on:
-        - Public API stability (types, function signatures, plugin entry points).
-        - Tailwind v3 + v4 compatibility.
-        - Whether a `.changeset/*.md` accompanies any user-facing change.
-        - Edge cases for AST extraction (Babel) and CSS transformation (PostCSS).
-        - That the change does not break `cn() / clsx() / cva() / tv()` recognition.
+        This is the **published package source**. Be paranoid:
+
+        - Every change here ships to thousands of downstream consumers via
+          npm. A backdoor in this code propagates to every project using the
+          obfuscator.
+        - Verify the change does not introduce ANY of the SECURITY classes
+          above. If it does and the change is necessary, demand explicit
+          maintainer sign-off in the PR description.
+        - Public API stability: types, function signatures, plugin entry
+          points must not break without a `major` Changeset bump.
+        - Tailwind v3 + v4 compatibility: any new code path must consider
+          both versions.
+        - AST extraction (Babel) + CSS transformation (PostCSS) edge cases.
+        - That the change does not break `cn() / clsx() / cva() / tv()`
+          recognition.
+        - A `.changeset/*.md` MUST accompany any user-facing change.
+
     - path: "packages/tailwindcss-obfuscator/tests/**"
       instructions: |
-        Verify new tests cover the intended behaviour and edge cases.
-        Flag any test that imports from `dist/` instead of `src/`.
+        - Verify new tests cover the intended behaviour AND adversarial cases
+          (malformed input, deeply nested patterns, very long class lists).
+        - Flag any test that imports from `dist/` instead of `src/` (means
+          the test is validating the wrong artefact).
+        - Flag any test that disables timeouts, mocks the file system in a
+          way that hides side effects, or writes to paths outside the
+          project tree.
+
+    - path: "**/package.json"
+      instructions: |
+        EVERY change to a package.json must be scrutinised:
+
+        - New dependency added? Verify the package on npm: download count,
+          maintainer reputation, last publish date, source repo link, open
+          issues with security tags. Flag anything fishy.
+        - New `scripts` entry, especially `postinstall` / `preinstall` /
+          `install` / `prepare` / `prepublishOnly`? These run on every
+          downstream `npm install` — flag in red unless the rationale is
+          documented in the PR description.
+        - Version bumps to existing deps: pin format change (e.g. `^1.0.0`
+          becoming `*` or `latest`)? Major bump? Flag.
+        - New `bin` entries, new `exports` paths? Confirm they are the
+          intended public API surface.
+        - `engines` relaxed? Could introduce env-specific bugs.
+
+    - path: "pnpm-lock.yaml"
+      instructions: |
+        - Spot-check NEW transitive deps that appeared in this lockfile diff
+          but are not declared in any `package.json`. These are the indirect
+          deps that get pulled in by direct ones — a classic supply-chain
+          attack vector.
+        - Flag any version of a popular package downgrading to a much older
+          version (could be a maintainer-takeover repackage trick).
+        - Resolved URLs pointing anywhere other than
+          `https://registry.npmjs.org/...` are highly suspicious.
+
+    - path: ".github/workflows/**"
+      instructions: |
+        Workflow changes are EXTREMELY sensitive — they run with repo
+        secrets and can publish to npm. Flag any:
+
+        - Use of `pull_request_target` without an explicit comment
+          explaining why. This trigger gives the workflow access to the
+          base repo's secrets even on PRs from forks — the #1 vector for
+          GitHub Actions supply-chain attacks (see "pwn request" attacks).
+        - Missing `permissions:` block at job or workflow level (defaults
+          to `write-all` token — too broad).
+        - Use of unpinned third-party actions. The whitelist requires
+          `actions/*`, `pnpm/action-setup@*`, `changesets/action@*`,
+          `github/codeql-action/*` — anything else is REJECTED unless added
+          to the org-level allowlist first.
+        - Secret usage (`${{ secrets.* }}`) inside a step that uses
+          `pull_request_target` or any third-party action that hasn't been
+          audited.
+        - `actions/checkout@v4` with `ref: ${{ github.event.pull_request.head.sha }}`
+          combined with `pull_request_target` — pulls the attacker's code
+          into a privileged context. Never allowed without explicit reason.
+        - Shell scripts (`run: |`) that interpolate `${{ github.event.* }}`
+          values (PR title, branch name, body) directly into commands.
+          That's command injection via PR metadata.
+        - New workflow that runs on `issue_comment` and acts on
+          `/comment-trigger` style commands — make sure the trigger checks
+          the commenter's permissions.
+
+    - path: ".github/CODEOWNERS"
+      instructions: |
+        ANY change to CODEOWNERS is a privileged action. Flag if anyone
+        other than @josedacosta is added as a code owner — this would let
+        them satisfy the CODEOWNER review gate and bypass the maintainer.
+        Never approve such a change without explicit maintainer sign-off.
+
+    - path: "scripts/**"
+      instructions: |
+        Build / verification scripts. Flag the same SECURITY classes as
+        above — these scripts run with the maintainer's local creds and CI
+        secrets. Filesystem reach beyond the repo, network egress, and
+        shell injection are all HIGH severity here.
+
     - path: "docs/**"
       instructions: |
         Docs are deployed automatically to GitHub Pages on every merge.
-        Verify links resolve, code samples are syntactically valid for the framework
-        they target, and the `outline: deep` frontmatter is set on guide pages.
-    - path: ".github/workflows/**"
-      instructions: |
-        Workflow changes are sensitive. Flag any:
-        - Use of `pull_request_target` without explaining why (security implication).
-        - Missing `permissions:` block (defaults are too broad).
-        - Use of unpinned third-party actions (always pin to a SHA or major version).
-        - Secret usage that might leak in fork-triggered runs.
+        Verify links resolve, code samples are syntactically valid for the
+        framework they target, and the `outline: deep` frontmatter is set
+        on guide pages. Flag any `<script>` tag injected into Markdown
+        (VitePress allows it) that fetches from an external domain.
+
     - path: "apps/**"
       instructions: |
-        Sample apps are not published. Focus on whether the app correctly
-        demonstrates the obfuscator integration and whether `pnpm build` still
-        produces obfuscated output.
+        Sample apps are not published to npm. Focus on whether the app
+        correctly demonstrates the obfuscator integration and whether
+        `pnpm build` still produces obfuscated output. Still apply the
+        global SECURITY checks — sample apps run on the maintainer's
+        machine during integration tests.
 
   # Don't flood every PR with a checklist; only when truly relevant.
   tools:
