@@ -234,24 +234,29 @@ There are a handful of class-mangling tools out there. Here's how this one stack
 
 <div align="center">
 
-| Capability                                                          | 🛡️&nbsp;**tailwindcss-obfuscator** | 🔧&nbsp;tailwindcss-mangle |   🌐&nbsp;Obfustail   | ⚙️&nbsp;PostCSS minifiers | 🅒&nbsp;Tailwind CSS itself |
-| ------------------------------------------------------------------- | :--------------------------------: | :------------------------: | :-------------------: | :-----------------------: | :------------------------: |
-| Tailwind v4 (CSS-first) support                                     |             ✅ Native              |    ✅ via CSS scan (v9)    |      ✅ v4 only       |            n/a            |             ✅             |
-| Tailwind v3 (config-file) support                                   |                 ✅                 |             ✅             |          ❌           |            n/a            |             ✅             |
-| Renames classes (HTML / JS / CSS)                                   |                 ✅                 |             ✅             |          ✅           |            ❌             |             ❌             |
-| Doesn't modify your source files                                    |                 ✅                 |             ✅             | ❌ rewrites in place  |            ✅             |             ✅             |
-| Per-utility obfuscation (vs. per-string)                            |                 ✅                 |             ✅             |  ❌ per-full-string   |            n/a            |            n/a             |
-| Unified `unplugin` core (Vite/Webpack/Rollup/esbuild/Rspack/Farm)   |             ✅ All six             |   ⚠️ Vite + Webpack only   | ❌ build-time script  |            ❌             |             ❌             |
-| AST-based JSX/TSX transformer                                       |              ✅ Babel              |          ⚠️ Regex          |       ❌ Regex        |            n/a            |            n/a             |
-| Vue SFC + Svelte `class:` directive                                 |                 ✅                 |         ⚠️ Partial         |          ❌           |            n/a            |            n/a             |
-| `cn()` / `clsx()` / `classnames()` / `twMerge()` / `cva()` / `tv()` |             ✅ All six             |           ⚠️ Two           | ❌ Manual `safelist`  |            ❌             |             ❌             |
-| Type-safe options + typed errors                                    |            ✅ Strict TS            |          ⚠️ Loose          |      ❌ Pure JS       |            n/a            |            n/a             |
-| Source maps for transformed files                                   |                 ✅                 |             ⚠️             |          ❌           |            ✅             |             ✅             |
-| Reversible mapping file emitted                                     |                 ✅                 |             ✅             |          ✅           |            ❌             |             ❌             |
-| Standalone CLI (any project)                                        |         ✅ `tw-obfuscator`         |       ✅ `tw-patch`        | ❌ inline node script |            ✅             |             ✅             |
-| Per-build randomization (no global state)                           |                 ✅                 |             ❌             |          ✅           |            n/a            |            n/a             |
-| Tailwind config validator                                           |                 ✅                 |             ❌             |          ❌           |            ❌             |             ❌             |
-| Active framework coverage                                           |            **20+ apps**            |             ~5             |      1 (Next.js)      |            n/a            |            n/a             |
+| Capability                                                            | 🛡️&nbsp;**tailwindcss-obfuscator** | 🔧&nbsp;tailwindcss-mangle |        🌐&nbsp;Obfustail        | ⚙️&nbsp;PostCSS minifiers | 🅒&nbsp;Tailwind CSS itself |
+| --------------------------------------------------------------------- | :--------------------------------: | :------------------------: | :-----------------------------: | :-----------------------: | :------------------------: |
+| Tailwind v4 (CSS-first) support                                       |             ✅ Native              |    ✅ via CSS scan (v9)    |           ✅ v4 only            |            n/a            |             ✅             |
+| Tailwind v3 (config-file) support                                     |                 ✅                 |             ✅             |               ❌                |            n/a            |             ✅             |
+| Renames classes (HTML / JS / CSS)                                     |                 ✅                 |             ✅             |               ✅                |            ❌             |             ❌             |
+| Doesn't modify your source files                                      |                 ✅                 |             ✅             |      ❌ rewrites in place       |            ✅             |             ✅             |
+| Per-utility obfuscation (vs. per-string)                              |                 ✅                 |             ✅             |       ❌ per-full-string        |            n/a            |            n/a             |
+| Unified `unplugin` core (Vite/Webpack/Rollup/esbuild/Rspack/Farm)     |             ✅ All six             |   ⚠️ Vite + Webpack only   |      ❌ build-time script       |            ❌             |             ❌             |
+| AST-based JSX/TSX transformer                                         |              ✅ Babel              |          ⚠️ Regex          |            ❌ Regex             |            n/a            |            n/a             |
+| Vue SFC + Svelte `class:` directive                                   |                 ✅                 |         ⚠️ Partial         |               ❌                |            n/a            |            n/a             |
+| `cn()` / `clsx()` / `classnames()` / `twMerge()` / `cva()` / `tv()`   |             ✅ All six             |           ⚠️ Two           |      ❌ Manual `safelist`       |            ❌             |             ❌             |
+| Type-safe options + typed errors                                      |            ✅ Strict TS            |          ⚠️ Loose          |           ❌ Pure JS            |            n/a            |            n/a             |
+| Source maps for transformed files                                     |                 ✅                 |             ⚠️             |               ❌                |            ✅             |             ✅             |
+| Reversible mapping file emitted                                       |                 ✅                 |             ✅             |               ✅                |            ❌             |             ❌             |
+| Standalone CLI (any project)                                          |         ✅ `tw-obfuscator`         |       ✅ `tw-patch`        |      ❌ inline node script      |            ✅             |             ✅             |
+| Per-build randomization (no global state)                             |                 ✅                 |             ❌             |               ✅                |            n/a            |            n/a             |
+| Tailwind config validator                                             |                 ✅                 |             ❌             |               ❌                |            ❌             |             ❌             |
+| Active framework coverage                                             |            **20+ apps**            |             ~5             |           1 (Next.js)           |            n/a            |            n/a             |
+| **Unquoted HTML attributes** (`class=foo`, HTML5 spec)                |          ✅ since v2.0.1           |             ❌             |               ❌                |            n/a            |            n/a             |
+| **Next.js Turbopack** (post-build CLI workaround documented + tested) |          ✅ since v2.0.1           |             ❌             | ⚠️ accidental (Next.js + Turbo) |            n/a            |            n/a             |
+| **npm publish with provenance** (Sigstore / OIDC attestation)         |                 ✅                 |             ❌             |               ❌                |          varies           |            n/a             |
+| **OpenSSF Scorecard published**                                       |             ✅ weekly              |             ❌             |               ❌                |            n/a            |            n/a             |
+| **SBOM (SPDX-JSON) attached to every GitHub release**                 |                 ✅                 |             ❌             |               ❌                |            n/a            |            n/a             |
 
 </div>
 
