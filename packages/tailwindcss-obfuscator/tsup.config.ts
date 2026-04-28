@@ -54,6 +54,24 @@ export default defineConfig([
     sourcemap: true,
     external: ["esbuild"],
   },
+  // Rspack plugin
+  {
+    entry: ["src/plugins/rspack.ts"],
+    format: ["esm", "cjs"],
+    dts: true,
+    outDir: "dist/plugins",
+    sourcemap: true,
+    external: ["@rspack/core"],
+  },
+  // Farm plugin
+  {
+    entry: ["src/plugins/farm.ts"],
+    format: ["esm", "cjs"],
+    dts: true,
+    outDir: "dist/plugins",
+    sourcemap: true,
+    external: ["@farmfe/core"],
+  },
   // Nuxt plugin
   {
     entry: ["src/plugins/nuxt.ts"],

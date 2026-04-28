@@ -12,6 +12,8 @@ import {
 } from "../src/plugins/webpack.js";
 import { tailwindCssObfuscatorRollup } from "../src/plugins/rollup.js";
 import { tailwindCssObfuscatorEsbuild } from "../src/plugins/esbuild.js";
+import { tailwindCssObfuscatorRspack } from "../src/plugins/rspack.js";
+import { tailwindCssObfuscatorFarm } from "../src/plugins/farm.js";
 
 describe("Vite Plugin", () => {
   it("should create a plugin with the correct name", () => {
@@ -177,6 +179,37 @@ describe("esbuild Plugin", () => {
 
     expect(mockBuild.onStart).toHaveBeenCalled();
     expect(mockBuild.onEnd).toHaveBeenCalled();
+  });
+});
+
+describe("Rspack Plugin", () => {
+  it("should expose an apply method (Rspack plugin contract)", () => {
+    const plugin = tailwindCssObfuscatorRspack();
+    expect(typeof (plugin as { apply: unknown }).apply).toBe("function");
+  });
+
+  it("should accept custom options without throwing", () => {
+    expect(() =>
+      tailwindCssObfuscatorRspack({
+        prefix: "x-",
+        verbose: true,
+      })
+    ).not.toThrow();
+  });
+});
+
+describe("Farm Plugin", () => {
+  it("should create a plugin with the correct name", () => {
+    const plugin = tailwindCssObfuscatorFarm();
+    expect(plugin.name).toBe("tailwindcss-obfuscator");
+  });
+
+  it("should accept custom options", () => {
+    const plugin = tailwindCssObfuscatorFarm({
+      prefix: "x-",
+      verbose: true,
+    });
+    expect(plugin.name).toBe("tailwindcss-obfuscator");
   });
 });
 
