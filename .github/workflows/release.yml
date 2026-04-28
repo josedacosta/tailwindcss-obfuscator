@@ -23,6 +23,14 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Make the version-bump commit + the GitHub release land under the maintainer's
+      # identity instead of the default `github-actions[bot]` author. Otherwise the
+      # bot accumulates in the GitHub "Contributors" panel on every release.
+      - name: Configure git as maintainer
+        run: |
+          git config --global user.name "José DA COSTA"
+          git config --global user.email "contact@josedacosta.info"
+
       - uses: pnpm/action-setup@v4
 
       - uses: actions/setup-node@v4
@@ -43,6 +51,10 @@ jobs:
           version: pnpm changeset version
           commit: "chore(release): version packages"
           title: "chore(release): version packages"
+          # Don't let the action overwrite the git user we configured above.
+          setupGitUser: false
+          # Have the action create the GitHub release under the maintainer's identity.
+          createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
