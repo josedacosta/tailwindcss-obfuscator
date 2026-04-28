@@ -1,5 +1,41 @@
 ---
 layout: home
+title: tailwindcss-obfuscator — Mangle, Obfuscate & Shrink Tailwind CSS Classes at Build Time
+description: Build-time Tailwind CSS class obfuscator (mangler) for Vite, Webpack, Rollup, esbuild, Next.js, Nuxt, SvelteKit, Astro, Solid, Qwik. Tailwind v3 & v4. Cuts CSS bundle size by 30–60% and protects your design system.
+head:
+  - - meta
+    - name: description
+      content: Build-time Tailwind CSS class obfuscator and mangler. Shrink your CSS bundle by 30–60% and protect your design system. Vite, Webpack, Rollup, esbuild, Next.js, Nuxt, SvelteKit, Astro, Solid, Qwik. Tailwind v3 & v4.
+  - - meta
+    - name: keywords
+      content: tailwindcss obfuscator, tailwind css obfuscator, tailwind mangle, tailwindcss-mangle, css class obfuscation, css minifier, css class shortener, tailwind v4, tailwind v3, vite plugin, webpack plugin, rollup plugin, esbuild plugin, next.js, nuxt, sveltekit, astro, solid, qwik, react router, tanstack router, shrink css, design system protection, reverse engineering protection
+  - - meta
+    - property: og:title
+      content: tailwindcss-obfuscator — Mangle & Shrink Tailwind CSS Classes
+  - - meta
+    - property: og:description
+      content: Cut your Tailwind CSS bundle by 30–60% at build time. Works with Vite, Webpack, Rollup, esbuild, Next.js, Nuxt, SvelteKit, Astro, Solid, Qwik. Tailwind v3 & v4.
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: og:url
+      content: https://josedacosta.github.io/tailwindcss-obfuscator/
+  - - meta
+    - property: og:image
+      content: https://josedacosta.github.io/tailwindcss-obfuscator/images/tailwindcss-obfuscator/logo-horizontal.svg
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: tailwindcss-obfuscator — Mangle & Shrink Tailwind CSS Classes
+  - - meta
+    - name: twitter:description
+      content: Build-time Tailwind class obfuscator. Shrink CSS by 30–60%, protect your design system. Vite, Webpack, Rollup, esbuild, Next.js, Nuxt, SvelteKit, Astro, Solid, Qwik.
+  - - link
+    - rel: canonical
+      href: https://josedacosta.github.io/tailwindcss-obfuscator/
 
 hero:
   name: tailwindcss-obfuscator
@@ -15,7 +51,7 @@ hero:
       link: /guide/getting-started
     - theme: alt
       text: View on GitHub
-      link: https://github.com/josedacosta/tailwindcss-obfuscation
+      link: https://github.com/josedacosta/tailwindcss-obfuscator
 
 features:
   - icon:
