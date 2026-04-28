@@ -30,7 +30,6 @@ export default tseslint.config(
       "**/out/**",
       "**/public/build/**",
       "jose/**",
-      "github/**",
       "reports/**",
       "docs/.vitepress/dist/**",
       "docs/.vitepress/cache/**",
