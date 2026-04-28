@@ -42,13 +42,13 @@ export default defineConfig({
 
 ## Solid patterns the plugin handles
 
-| Pattern                                                         | Status                  |
-| --------------------------------------------------------------- | ----------------------- |
-| `<div class="flex items-center gap-2" />`                       | ✅ Static string        |
-| `<div classList={{ 'bg-red-500': hasError() }} />`              | ✅ `classList` object   |
-| `<Dynamic class={isError() ? 'bg-red-500' : 'bg-green-500'} />` | ✅ Static ternary       |
-| `<div class={cn('flex', active() && 'ring-2')} />`              | ✅ via `cn()`           |
-| `<div class={\`bg-\${color}-500\`} />`                          | ❌ Dynamic — kept as-is |
+| Pattern                                                                   | Status                  |
+| ------------------------------------------------------------------------- | ----------------------- |
+| `<div class="flex items-center gap-2" />`                                 | ✅ Static string        |
+| <code v-pre>&lt;div classList={{ 'bg-red-500': hasError() }} /&gt;</code> | ✅ `classList` object   |
+| `<Dynamic class={isError() ? 'bg-red-500' : 'bg-green-500'} />`           | ✅ Static ternary       |
+| `<div class={cn('flex', active() && 'ring-2')} />`                        | ✅ via `cn()`           |
+| `<div class={\`bg-\${color}-500\`} />`                                    | ❌ Dynamic — kept as-is |
 
 ::: tip
 Solid's reactivity model means class strings are recomputed on signal change, but they're still **string literals at AST time** — the plugin sees and rewrites them at build time, not runtime. No special configuration needed.

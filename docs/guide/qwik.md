@@ -59,13 +59,13 @@ export default defineConfig({
 
 ## Qwik patterns the plugin handles
 
-| Pattern                                                | Status                                                |
-| ------------------------------------------------------ | ----------------------------------------------------- |
-| `<div class="flex items-center gap-2" />`              | ✅ Static string                                      |
-| `<div class={["flex", "items-center"]} />`             | ✅ Array of strings                                   |
-| `<div class={{ "bg-red-500": hasError.value }} />`     | ✅ Object syntax                                      |
-| `<div class$={() => useSignal().value && "ring-2"} />` | ✅ Reactive — string literals inside still obfuscated |
-| `<div class={\`bg-\${color}-500\`} />`                 | ❌ Dynamic interpolation — kept as-is                 |
+| Pattern                                                                   | Status                                                |
+| ------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `<div class="flex items-center gap-2" />`                                 | ✅ Static string                                      |
+| `<div class={["flex", "items-center"]} />`                                | ✅ Array of strings                                   |
+| <code v-pre>&lt;div class={{ "bg-red-500": hasError.value }} /&gt;</code> | ✅ Object syntax                                      |
+| `<div class$={() => useSignal().value && "ring-2"} />`                    | ✅ Reactive — string literals inside still obfuscated |
+| `<div class={\`bg-\${color}-500\`} />`                                    | ❌ Dynamic interpolation — kept as-is                 |
 
 ::: tip
 `class$()` is Qwik's lazy reactive class binding (the `$` suffix marks it as a serialised closure). The plugin reads the **string literals** inside the closure body at AST time and rewrites them; the reactivity at runtime is preserved.
