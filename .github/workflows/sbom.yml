@@ -1,0 +1,36 @@
+name: SBOM (Software Bill of Materials)
+
+# Generates an SBOM in SPDX format on every published GitHub release and
+# attaches it as a release asset. Downstream consumers can verify the exact
+# tree of dependencies that shipped with each version — supply-chain
+# transparency, OpenSSF Scorecard prerequisite.
+#
+# Triggered when a release is published (typically by changesets/action
+# during the release workflow), or manually for backfill.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write # to upload SBOM as a release asset
+
+jobs:
+  generate:
+    name: Generate SPDX SBOM and attach to release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo at release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || github.ref }}
+
+      - name: Generate SBOM with anchore/sbom-action (Syft)
+        uses: anchore/sbom-action@v0
+        with:
+          path: ./packages/tailwindcss-obfuscator
+          format: spdx-json
+          output-file: tailwindcss-obfuscator.spdx.json
+          upload-artifact: true
+          upload-release-assets: true # attaches to the GitHub release

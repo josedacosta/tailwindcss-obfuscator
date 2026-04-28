@@ -1,0 +1,58 @@
+name: OpenSSF Scorecard
+
+# Audit the repo's security posture against the OpenSSF Scorecard checks
+# (branch protection, signed releases, pinned dependencies, code review,
+# token permissions, etc.). Free for public repos.
+#
+# Results land in:
+#   - the Security tab → Code scanning (as SARIF alerts)
+#   - the OpenSSF Scorecard public dashboard at scorecard.dev
+#   - the badge that we'll add to the README
+#
+# Runs weekly + on push to main + on demand.
+
+on:
+  branch_protection_rule: # re-audits when protection rules change
+  schedule:
+    - cron: "0 6 * * 1" # every Monday at 06:00 UTC
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: read-all
+
+jobs:
+  analysis:
+    name: Scorecard analysis
+    runs-on: ubuntu-latest
+    permissions:
+      # required for uploading SARIF results
+      security-events: write
+      # required to read the actions metadata
+      id-token: write
+      contents: read
+      actions: read
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Run analysis
+        uses: ossf/scorecard-action@v2.4.0
+        with:
+          results_file: results.sarif
+          results_format: sarif
+          publish_results: true # opt-in: publishes the score to the public scorecard.dev dashboard
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SARIF file
+          path: results.sarif
+          retention-days: 5
+
+      - name: Upload to code-scanning dashboard
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif
