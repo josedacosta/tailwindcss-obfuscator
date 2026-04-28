@@ -1,6 +1,6 @@
 {
   "name": "tailwindcss-obfuscator",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Obfuscate Tailwind CSS class names at build time. Vite, Webpack, Rollup, esbuild, Next.js, Nuxt, SvelteKit, Astro, Solid, Qwik, React Router 7, TanStack Router. Tailwind v3 + v4.",
   "author": {
     "name": "José DA COSTA",
