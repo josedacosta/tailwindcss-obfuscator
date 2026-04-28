@@ -23,12 +23,12 @@ This document provides a comprehensive compatibility matrix for Tailwind CSS cla
 
 ### HTML Patterns
 
-| Pattern       | Example                             | Extraction | Obfuscation |
-| ------------- | ----------------------------------- | ---------- | ----------- |
-| Double quotes | `class="bg-blue-500"`               | ✅         | ✅          |
-| Single quotes | `class='bg-blue-500'`               | ✅         | ✅          |
-| Multi-line    | `class="bg-blue-500\n  text-white"` | ✅         | ✅          |
-| No quotes     | `class=bg-blue-500`                 | ❌         | ⚠️          |
+| Pattern       | Example                             | Extraction          | Obfuscation         |
+| ------------- | ----------------------------------- | ------------------- | ------------------- |
+| Double quotes | `class="bg-blue-500"`               | ✅                  | ✅                  |
+| Single quotes | `class='bg-blue-500'`               | ✅                  | ✅                  |
+| Multi-line    | `class="bg-blue-500\n  text-white"` | ✅                  | ✅                  |
+| No quotes     | `class=bg-blue-500`                 | ✅ _(since v2.0.1)_ | ✅ _(since v2.0.1)_ |
 
 ### JSX/React Patterns
 
@@ -125,10 +125,10 @@ This document provides a comprehensive compatibility matrix for Tailwind CSS cla
 | ------------------ | ---------------------- | ---------- | ----------- |
 | Arbitrary color    | `bg-[#1da1f2]`         | ✅         | ✅          |
 | Arbitrary spacing  | `p-[13px]`             | ✅         | ✅          |
-| Arbitrary property | `[color:red]`          | ✅         | ⚠️          |
-| CSS functions      | `bg-[url('/img.png')]` | ✅         | ⚠️          |
-| calc()             | `w-[calc(100%-20px)]`  | ✅         | ⚠️          |
-| CSS variables      | `bg-[var(--my-color)]` | ✅         | ⚠️          |
+| Arbitrary property | `[color:red]`          | ✅         | ✅          |
+| CSS functions      | `bg-[url('/img.png')]` | ✅         | ✅          |
+| calc()             | `w-[calc(100%-20px)]`  | ✅         | ✅          |
+| CSS variables      | `bg-[var(--my-color)]` | ✅         | ✅          |
 
 ### Opacity Modifiers
 
