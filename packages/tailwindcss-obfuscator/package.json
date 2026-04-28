@@ -47,6 +47,16 @@
       "import": "./dist/plugins/esbuild.js",
       "require": "./dist/plugins/esbuild.cjs"
     },
+    "./rspack": {
+      "types": "./dist/plugins/rspack.d.ts",
+      "import": "./dist/plugins/rspack.js",
+      "require": "./dist/plugins/rspack.cjs"
+    },
+    "./farm": {
+      "types": "./dist/plugins/farm.d.ts",
+      "import": "./dist/plugins/farm.js",
+      "require": "./dist/plugins/farm.cjs"
+    },
     "./cli": {
       "types": "./dist/cli/index.d.ts",
       "import": "./dist/cli/index.js",
@@ -90,6 +100,8 @@
     "unplugin": "^2.0.0"
   },
   "devDependencies": {
+    "@farmfe/core": "^1.7.11",
+    "@rspack/core": "^2.0.1",
     "@types/babel__traverse": "^7.20.6",
     "@types/node": "^22.10.2",
     "esbuild": "^0.24.2",
@@ -101,6 +113,8 @@
     "webpack": "^5.99.0"
   },
   "peerDependencies": {
+    "@farmfe/core": ">=1.0.0",
+    "@rspack/core": ">=1.0.0",
     "esbuild": ">=0.17.0",
     "rollup": ">=3.0.0",
     "tailwindcss": ">=3.0.0",
@@ -108,6 +122,12 @@
     "webpack": ">=5.0.0"
   },
   "peerDependenciesMeta": {
+    "@farmfe/core": {
+      "optional": true
+    },
+    "@rspack/core": {
+      "optional": true
+    },
     "esbuild": {
       "optional": true
     },
@@ -139,6 +159,10 @@
     "rollup-plugin",
     "esbuild",
     "esbuild-plugin",
+    "rspack",
+    "rspack-plugin",
+    "farm",
+    "farm-plugin",
     "nextjs",
     "next",
     "nuxt",
