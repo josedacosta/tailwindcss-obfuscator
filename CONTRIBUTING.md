@@ -11,6 +11,7 @@ landed.
 ## 📋 Table of Contents
 
 - [Code of Conduct](#-code-of-conduct)
+- [How contributions are reviewed and released](#-how-contributions-are-reviewed-and-released)
 - [Ways to contribute](#-ways-to-contribute)
 - [Development setup](#-development-setup)
 - [Project layout](#-project-layout)
@@ -20,6 +21,49 @@ landed.
 - [Adding a new framework adapter](#-adding-a-new-framework-adapter)
 - [Releasing a new version](#-releasing-a-new-version)
 - [Getting help](#-getting-help)
+
+## 🔒 Maintainer-only actions (technically enforced)
+
+Two actions on this repository are **reserved to the maintainer ([@josedacosta](https://github.com/josedacosta)) and cannot be performed by anyone else**, including bots, automation, and AI agents acting outside the maintainer's session :
+
+1. **Merging a Pull Request into `main`.** Branch protection requires a CODEOWNER review approval. The CODEOWNERS file lists `@josedacosta` as the sole owner of every path, so no contributor (forker, automation, bot) can ever satisfy the gate on their own. This is the final say on whether a contribution enters the codebase.
+2. **Publishing a new version to npm.** The `release.yml` workflow only runs on pushes to `main` (which means a maintainer-merged PR), and the `npm` GitHub Environment requires `@josedacosta` as a named reviewer before any deploy step can run. No contributor can trigger a release, ever — not by merging their own PR, not by adding a changeset, not by any GitHub Action.
+
+These are not honour-system rules — they are enforced by GitHub itself at the infrastructure layer (branch protection, CODEOWNERS, environment protection rules). If you ever see a way around them, that's a bug in the repo configuration; please report it via [SECURITY.md](./SECURITY.md).
+
+## 🧭 How contributions are reviewed and released
+
+This project is maintained by **[@josedacosta](https://github.com/josedacosta)** as the sole owner and CODEOWNER. The review and release flow is intentionally explicit so you know what to expect when you open a PR :
+
+### Review
+
+- **Every PR from a fork is reviewed by the maintainer personally.** Branch protection enforces it: no PR can be merged without a CODEOWNER approval, and self-merge by contributors is blocked at the GitHub level.
+- The maintainer aims to leave a first response within **a week** (often faster). If a PR sits without feedback longer than that, a polite ping in the PR comments is welcome.
+- Reviews focus on : public-API stability, test coverage, docs updates, and conformance to the patterns documented here. Cosmetic / stylistic feedback comes second to substance.
+- Small, focused PRs get reviewed and merged much faster than huge ones. **When in doubt, split.**
+
+### Releases
+
+- Releases go through [Changesets](https://github.com/changesets/changesets). Every user-facing PR includes a `.changeset/*.md` file declaring the bump (`patch` / `minor` / `major`).
+- Merging a feature PR **does not publish a new version on its own**. The Changesets bot keeps a single `chore(release): version packages` PR open at all times, accumulating every pending changeset. **When the maintainer decides it's time to ship**, that PR is merged → a new npm version is published with provenance + a GitHub release is tagged.
+- This means : your contribution lands on `main` quickly (and ships in the next docs deploy if it's a doc change), but the npm version bump may wait a few days or weeks until the maintainer batches it with other changes. **This is by design** — it keeps version numbers meaningful instead of bumping on every commit.
+- **Please don't ask the maintainer to "do a release for my PR".** If you have a deadline pressure (e.g. blocking your own project), say so in the PR — the maintainer will consider it, but the release cadence is the maintainer's call.
+
+### What you can expect from the maintainer
+
+- A response on every PR within ~a week
+- Honest, constructive review focused on the code, never the contributor
+- Clear "needs-changes" / "approved" / "won't-merge" decisions — no PRs left hanging silently
+- Credit in the changelog for every merged contribution (Changesets auto-generates this from your changeset entry)
+- A friendly tone — see [Code of Conduct](./CODE_OF_CONDUCT.md)
+
+### What the maintainer expects from contributors
+
+- Follow this guide — especially [Submitting a pull request](#-submitting-a-pull-request) and [Coding standards](#-coding-standards)
+- Run the [quality gates](#-testing-your-changes) locally **before** pushing
+- Add a [changeset](#-submitting-a-pull-request) for any user-facing change (bug fix, feature, breaking change)
+- Be patient — this is a side-project maintained on personal time, not a corporate-funded effort
+- Be kind in discussions and reviews
 
 ## 🤲 Code of Conduct
 
@@ -124,6 +168,31 @@ If you're touching the public API, add a test in
 > resolution required). Every change goes through a feature branch + Pull Request,
 > even one-line doc fixes. This applies equally to AI-driven contributions.
 
+> [!WARNING]
+> **Only the maintainer ([@josedacosta](https://github.com/josedacosta)) can accept and merge PRs.** Contributors fork the repo, push a branch to their fork, and open a PR — but the merge button itself is reserved to the maintainer (enforced by branch protection + CODEOWNERS). This is true for every PR, including trivial ones, and is a hard rule of the project.
+
+### The flow at a glance
+
+```
+   👤 You (community contributor)              🛡️ @josedacosta (maintainer)
+   ──────────────────────────────              ─────────────────────────────
+   1. Fork github.com/josedacosta/...
+   2. git clone <your fork>
+   3. git checkout -b feat/my-thing
+   4. ... code, test, commit ...
+   5. pnpm changeset                           ──┐
+   6. git push <your fork>                       │
+   7. gh pr create --base main                   ├─► 8. Reviews the PR
+                                                 │   9. Requests changes / approves
+   10. iterate based on feedback ────────────────┤
+                                                 │   11. Merges (squash) when ready
+                                                 │   12. (When batch is ready)
+                                                 │       merges chore(release):
+                                                 │       version packages PR
+                                                 │       → npm publish + GitHub release
+                                                 └──────────────────────────────────
+```
+
 1. **Fork** the repo and create a topic branch:
    ```bash
    git checkout -b fix/extract-vue-class-list
@@ -193,15 +262,16 @@ covers most bundlers automatically. To add a new one:
 
 ## 🏷️ Releasing a new version
 
-Releases are managed via [Changesets](https://github.com/changesets/changesets):
+Releases are managed via [Changesets](https://github.com/changesets/changesets) and **triggered manually by the maintainer**, not by every merge :
 
 1. Every user-facing PR includes a changeset (`pnpm changeset`).
-2. The **Release** workflow opens a PR that bumps versions and updates
-   `CHANGELOG.md` whenever changesets land on `main`.
-3. Merging that PR publishes the new version to npm automatically.
+2. The Changesets bot maintains a single open `chore(release): version packages` PR that aggregates all pending changesets.
+3. **When the maintainer decides it's release time**, that PR is squash-merged. This is the only event that triggers an npm publish.
+4. The `Release` workflow then runs, bumps versions, updates `CHANGELOG.md`, publishes to npm with provenance, and creates a GitHub release tag.
 
-Maintainers — see [`.github/workflows/release.yml`](./.github/workflows/release.yml)
-for the pipeline.
+Contributors do **not** need to (and cannot) trigger releases. Just open your PR with a changeset — the maintainer batches everything into the next release cycle.
+
+See [`.github/workflows/release.yml`](./.github/workflows/release.yml) for the pipeline source.
 
 ## 🆘 Getting help
 

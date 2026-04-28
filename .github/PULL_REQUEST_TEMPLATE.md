@@ -1,5 +1,7 @@
 # Pull Request
 
+> ⚠️ **Heads-up to contributors:** only the maintainer ([@josedacosta](https://github.com/josedacosta)) can merge this PR into `main` (enforced by branch protection + CODEOWNERS), and only the maintainer decides when to cut a release on npm — opening this PR doesn't trigger a publish. Please be patient during review. See [`CONTRIBUTING.md`](../CONTRIBUTING.md#-how-contributions-are-reviewed-and-released) for the full review + release workflow.
+
 ## Summary
 
 <!-- Briefly describe what this PR does and why -->
