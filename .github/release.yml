@@ -1,0 +1,69 @@
+# Configuration for auto-generated GitHub release notes.
+# https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes
+#
+# Triggered when a release is created with `generate_release_notes: true`
+# (changesets/action does this when `createGithubReleases: true`, or
+# `gh release create --generate-notes`).
+#
+# Categorises every merged PR since the last tag into the right section
+# based on its labels (set automatically by .github/workflows/labeler.yml).
+
+changelog:
+  exclude:
+    labels:
+      - "changeset" # the version bump PR itself, never interesting
+      - "chore"
+      - "duplicate"
+      - "wontfix"
+      - "invalid"
+    authors:
+      - "github-actions[bot]" # bot-authored PRs (e.g. release version bumps)
+
+  categories:
+    - title: "💥 Breaking changes"
+      labels:
+        - "breaking-change"
+    - title: "🚀 New features"
+      labels:
+        - "enhancement"
+        - "area: package"
+    - title: "🐛 Bug fixes"
+      labels:
+        - "bug"
+    - title: "🔒 Security"
+      labels:
+        - "security"
+    - title: "⚡ Performance"
+      labels:
+        - "performance"
+    - title: "📦 Bundlers"
+      labels:
+        - "framework: vite"
+        - "framework: webpack"
+        - "framework: rollup"
+        - "framework: esbuild"
+        - "framework: rspack"
+        - "framework: farm"
+    - title: "🧩 Frameworks"
+      labels:
+        - "framework: nextjs"
+        - "framework: nuxt"
+        - "framework: sveltekit"
+        - "framework: astro"
+        - "framework: solid"
+        - "framework: qwik"
+        - "framework: vue"
+    - title: "📚 Documentation"
+      labels:
+        - "area: docs"
+        - "documentation"
+    - title: "🧪 Tests"
+      labels:
+        - "area: tests"
+    - title: "👷 CI / build"
+      labels:
+        - "area: ci"
+        - "area: build"
+    - title: "🔧 Other changes"
+      labels:
+        - "*"
