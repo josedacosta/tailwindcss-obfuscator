@@ -1,0 +1,105 @@
+# Path → label mapping for actions/labeler.
+# A PR gets every label whose `changed-files` glob matches at least one file in the diff.
+# Labels listed here must already exist on the repo (created via gh label create or the GitHub UI).
+
+"area: package":
+  - changed-files:
+      - any-glob-to-any-file: "packages/tailwindcss-obfuscator/**"
+
+"area: docs":
+  - changed-files:
+      - any-glob-to-any-file: ["docs/**", "*.md", "**/*.md"]
+
+"area: ci":
+  - changed-files:
+      - any-glob-to-any-file: [".github/workflows/**", ".github/CODEOWNERS", ".github/labeler.yml"]
+
+"area: build":
+  - changed-files:
+      - any-glob-to-any-file: ["**/tsup.config.ts", "**/tsconfig*.json", "turbo.json"]
+
+"area: tests":
+  - changed-files:
+      - any-glob-to-any-file: ["**/tests/**", "**/*.test.ts", "**/*.spec.ts"]
+
+"area: sample-apps":
+  - changed-files:
+      - any-glob-to-any-file: "apps/**"
+
+"framework: vite":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "packages/tailwindcss-obfuscator/src/plugins/vite.ts"
+          - "docs/guide/vite.md"
+          - "apps/test-vite-*/**"
+
+"framework: webpack":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "packages/tailwindcss-obfuscator/src/plugins/webpack.ts"
+          - "docs/guide/webpack-standalone.md"
+          - "apps/test-webpack-standalone/**"
+
+"framework: rollup":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "packages/tailwindcss-obfuscator/src/plugins/rollup.ts"
+          - "docs/guide/rollup-standalone.md"
+          - "apps/test-rollup-standalone/**"
+
+"framework: esbuild":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "packages/tailwindcss-obfuscator/src/plugins/esbuild.ts"
+          - "docs/guide/esbuild.md"
+
+"framework: rspack":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "packages/tailwindcss-obfuscator/src/plugins/rspack.ts"
+          - "docs/guide/rspack.md"
+
+"framework: farm":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "packages/tailwindcss-obfuscator/src/plugins/farm.ts"
+          - "docs/guide/farm.md"
+
+"framework: nextjs":
+  - changed-files:
+      - any-glob-to-any-file: ["docs/guide/nextjs.md", "apps/test-nextjs/**"]
+
+"framework: nuxt":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "packages/tailwindcss-obfuscator/src/plugins/nuxt.ts"
+          - "docs/guide/nuxt.md"
+          - "apps/test-nuxt/**"
+
+"framework: sveltekit":
+  - changed-files:
+      - any-glob-to-any-file: ["docs/guide/sveltekit.md", "apps/test-sveltekit/**"]
+
+"framework: astro":
+  - changed-files:
+      - any-glob-to-any-file: ["docs/guide/astro.md", "apps/test-astro/**"]
+
+"framework: solid":
+  - changed-files:
+      - any-glob-to-any-file: ["docs/guide/solid.md", "apps/test-solidjs/**"]
+
+"framework: qwik":
+  - changed-files:
+      - any-glob-to-any-file: ["docs/guide/qwik.md", "apps/test-qwik/**"]
+
+"framework: vue":
+  - changed-files:
+      - any-glob-to-any-file: ["docs/guide/vue.md", "apps/test-vite-vue/**"]
+
+"changeset":
+  - changed-files:
+      - any-glob-to-any-file: ".changeset/*.md"
+
+"dependencies":
+  - changed-files:
+      - any-glob-to-any-file: ["**/package.json", "pnpm-lock.yaml"]
