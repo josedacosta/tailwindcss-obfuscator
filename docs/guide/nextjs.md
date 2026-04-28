@@ -140,13 +140,39 @@ export default config;
 
 ## Turbopack
 
-::: warning Status — not supported (April 2026)
-`tailwindcss-obfuscator` does not run under Turbopack today. To use the obfuscator you must opt out of Turbopack with the `--webpack` flag (see workaround below). Turbopack support is on the roadmap; the rest of this section explains exactly what's missing and why.
+::: tip Status — supported via post-build CLI (since v2.0.1)
+Turbopack does not expose a plugin API, so `tailwindcss-obfuscator/webpack` cannot attach to it directly. **The supported workaround is the `tw-obfuscator` CLI run as a post-build step.** Pick whichever pattern fits your project.
 :::
 
-### Workaround — opt out with `--webpack`
+### Pattern A — Post-build CLI (Turbopack-friendly, official)
 
-Next.js 15 made Turbopack stable; Next.js 16 enables it by default for both `next dev` and `next build`. Our plugin is a Webpack 5 plugin, so the simplest path is to keep the supported Webpack pipeline by passing `--webpack` explicitly:
+Let Turbopack do the build, then run the CLI to obfuscate the produced `.next/` output. Works for `next dev` AND `next build`, no `--webpack` flag required.
+
+```jsonc
+// package.json
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && tw-obfuscator run --build-dir .next --content 'app/**/*.{js,jsx,ts,tsx,mdx}' --content 'components/**/*.{js,jsx,ts,tsx,mdx}' --css 'app/**/*.css'",
+  },
+}
+```
+
+What this does, in order:
+
+1. `next build` runs Turbopack normally — no plugin, no obfuscation.
+2. `tw-obfuscator run`:
+   - **Extracts** every Tailwind class from your sources (the `--content` globs).
+   - **Generates** a deterministic mapping (`bg-blue-500 → tw-a`, etc.) and writes it to `.tw-obfuscation/class-mapping.json`.
+   - **Transforms** every `.css`, `.html`, and `.js` chunk under `--build-dir .next` (which covers both `.next/static/**` and `.next/server/**`).
+
+The result is identical to what the Webpack plugin would produce — same mapping, same bundle-size reduction, same source code untouched. The only difference is timing: the obfuscation happens after Turbopack finishes instead of inside it.
+
+A working sample lives in [`apps/test-nextjs`](https://github.com/josedacosta/tailwindcss-obfuscator/tree/main/apps/test-nextjs) under the `build:turbopack` script — run `pnpm --filter test-nextjs build:turbopack` to reproduce.
+
+### Pattern B — Opt out of Turbopack with `--webpack`
+
+If you prefer the Webpack plugin attaching at build time (no post-build step), keep the supported Webpack pipeline:
 
 ```jsonc
 // package.json
@@ -159,14 +185,16 @@ Next.js 15 made Turbopack stable; Next.js 16 enables it by default for both `nex
 ```
 
 ```bash
-# Default in Next 16 — Turbopack runs, no obfuscation, our `webpack:` config is ignored
+# Default in Next 16 — Turbopack runs, no plugin, post-build CLI required
 next dev
 next build
 
-# Opt-in to the supported pipeline — Webpack runs, our plugin attaches normally
+# Webpack opt-in — our plugin attaches normally, no post-build CLI needed
 next dev --webpack
 next build --webpack
 ```
+
+Both patterns produce the same final output. **Pattern A** is the right choice if you want to stay on Turbopack's faster dev experience and don't mind a ~1-second extra step at build time. **Pattern B** is the right choice if you want a single-pass build with no post-processing.
 
 ### Why isn't Turbopack supported?
 
@@ -182,34 +210,33 @@ In other words, the same plugin code that runs unmodified across Vite, Webpack, 
 
 There are three realistic paths, listed by ambition:
 
-1. **Post-build script** — let Turbopack run, then walk `.next/static/**` and `.next/server/**` ourselves and rewrite class strings using the mapping. We already do this for SSG output of the Webpack-mode apps (see [`apps/test-shadcn-ui/scripts/post-build.mjs`](https://github.com/josedacosta/tailwindcss-obfuscator/blob/main/apps/test-shadcn-ui/scripts/post-build.mjs)). It's the smallest change, works today, and can be exposed as a `tailwindcss-obfuscator/postbuild` helper.
+1. ✅ **Post-build CLI** — **shipped in v2.0.1**. Let Turbopack run, then walk `.next/static/**` and `.next/server/**` and rewrite class strings using the mapping. Exposed as `tw-obfuscator run --build-dir .next` (see Pattern A above). Works today on every Next.js version.
 2. **`unplugin-turbopack`** adapter — when [`unplugin`](https://github.com/unjs/unplugin) ships official Turbopack support, our existing plugin can ride on it. As of April 2026 this is being prototyped but not stable.
 3. **Native Turbopack rule** — write a Rust extension when Vercel publishes the public plugin SDK. No ETA from Vercel.
 
-### Should we invest now?
+### Should we invest in 2 and 3 now?
 
 Honest assessment, April 2026:
 
-- **Yes, eventually** — Turbopack is the new default. Projects scaffolded with `create-next-app` after Next 15 use it out of the box. Within 12–18 months, "obfuscation breaks our `pnpm build`" will be a real adoption blocker.
-- **Not blocking today** — `--webpack` is a one-line workaround. Webpack mode in Next 16 is fully supported by Vercel and not deprecated. Real production teams happily ship Next 14/15/16 builds in Webpack mode.
-- **Path 1 (post-build helper) is cheap** and unblocks 100 % of users immediately. We may ship that next.
-- **Paths 2 and 3 are speculative** and gated on upstream work.
+- **Path 1 (post-build CLI) is shipped and unblocks every user immediately** — no `--webpack` flag, no plugin code, just a CLI run after the build. The output is identical to the Webpack-plugin path.
+- **Path 2 (unplugin adapter)** would let us drop the post-build step but doesn't change the output. Low priority while Path 1 works.
+- **Path 3 (native Rust)** is years out — gated entirely on Vercel publishing a public plugin SDK.
 
-If this matters for your project, please [👍 the tracking issue](https://github.com/josedacosta/tailwindcss-obfuscator/issues) (or open one) so we can prioritise.
+If you have specific feedback on the Pattern A flow (slower than expected, missing `--content` glob coverage, etc.), please [open an issue](https://github.com/josedacosta/tailwindcss-obfuscator/issues).
 
-### How to detect that Turbopack just silently bypassed the obfuscator
+### How to detect that obfuscation got skipped
 
-If you forget `--webpack` and Turbopack runs instead, the build succeeds but no classes get obfuscated. The fastest sanity check after a build:
-
-```bash
-node scripts/verify-obfuscation.mjs   # in this repo
-```
-
-Or, in your own project:
+Whether you ran Pattern A or B, verify your bundle was actually obfuscated. The fastest sanity check after a build:
 
 ```bash
+# In your own project — should return nothing once obfuscation worked
 grep -RE 'class="[^"]*\bbg-blue-500\b' .next/server/app | head -3
-# Should return nothing once obfuscation worked.
+
+# Or check the mapping file exists and is non-empty
+cat .tw-obfuscation/class-mapping.json | head -20
 ```
 
-If you see your original Tailwind classes in the output, Turbopack is the likely culprit — switch to `--webpack` mode.
+If you see original Tailwind classes in the output, the obfuscation step didn't run :
+
+- **Pattern A**: confirm the `tw-obfuscator run` command finished successfully (check the `&&` chain in your `build` script). Look for `[tw-obfuscator] transformed N files` in the build log.
+- **Pattern B**: confirm Turbopack didn't sneak back — pure `next build` (no `--webpack` flag) will silently skip the plugin under Next.js 16.
