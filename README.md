@@ -211,25 +211,33 @@ Browser parses smaller selectors → shorter style recalc
 
 ## 🎯 Why this library?
 
-There are a handful of class-mangling tools out there. Here's how this one stacks up:
+There are a handful of class-mangling tools out there. Here's how this one stacks up against every active competitor — `tailwindcss-mangle`, `Obfustail`, PostCSS minifiers, and Tailwind itself:
 
 <div align="center">
 
-| Capability                                            | 🛡️&nbsp;&nbsp;**tailwindcss-obfuscator** | 🔧&nbsp;&nbsp;tailwindcss-mangle | ⚙️&nbsp;&nbsp;PostCSS minifiers |
-| ----------------------------------------------------- | :--------------------------------------: | :------------------------------: | :-----------------------------: |
-| Tailwind v4 (CSS-first) support                       |                ✅ Native                 |            ⚠️ Partial            |               ❌                |
-| Unified `unplugin` core (Vite/Webpack/Rollup/esbuild) |                    ✅                    |          ⚠️ Per-bundler          |               ❌                |
-| AST-based JSX/TSX transformer                         |                 ✅ Babel                 |             ⚠️ Regex             |               ❌                |
-| Svelte `class:directive` support                      |                    ✅                    |                ❌                |               ❌                |
-| `cn()` / `clsx()` / `cva()` / `tv()` extraction       |               ✅ All five                |              ⚠️ Two              |               ❌                |
-| Type-safe options + typed errors                      |               ✅ Strict TS               |             ⚠️ Loose             |               n/a               |
-| Source maps for transformed files                     |                    ✅                    |                ⚠️                |               ✅                |
-| Standalone CLI (any project)                          |            ✅ `tw-obfuscator`            |                ❌                |               ❌                |
-| Per-build randomization (no global state)             |                    ✅                    |                ❌                |               n/a               |
-| Tailwind config validator                             |                    ✅                    |                ❌                |               ❌                |
-| Active framework coverage                             |               **13+ apps**               |                ~5                |               n/a               |
+| Capability                                                          | 🛡️&nbsp;**tailwindcss-obfuscator** | 🔧&nbsp;tailwindcss-mangle |   🌐&nbsp;Obfustail   | ⚙️&nbsp;PostCSS minifiers | 🅒&nbsp;Tailwind CSS itself |
+| ------------------------------------------------------------------- | :--------------------------------: | :------------------------: | :-------------------: | :-----------------------: | :------------------------: |
+| Tailwind v4 (CSS-first) support                                     |             ✅ Native              |    ✅ via CSS scan (v9)    |      ✅ v4 only       |            n/a            |             ✅             |
+| Tailwind v3 (config-file) support                                   |                 ✅                 |             ✅             |          ❌           |            n/a            |             ✅             |
+| Renames classes (HTML / JS / CSS)                                   |                 ✅                 |             ✅             |          ✅           |            ❌             |             ❌             |
+| Doesn't modify your source files                                    |                 ✅                 |             ✅             | ❌ rewrites in place  |            ✅             |             ✅             |
+| Per-utility obfuscation (vs. per-string)                            |                 ✅                 |             ✅             |  ❌ per-full-string   |            n/a            |            n/a             |
+| Unified `unplugin` core (Vite/Webpack/Rollup/esbuild/Rspack/Farm)   |             ✅ All six             |   ⚠️ Vite + Webpack only   | ❌ build-time script  |            ❌             |             ❌             |
+| AST-based JSX/TSX transformer                                       |              ✅ Babel              |          ⚠️ Regex          |       ❌ Regex        |            n/a            |            n/a             |
+| Vue SFC + Svelte `class:` directive                                 |                 ✅                 |         ⚠️ Partial         |          ❌           |            n/a            |            n/a             |
+| `cn()` / `clsx()` / `classnames()` / `twMerge()` / `cva()` / `tv()` |             ✅ All six             |           ⚠️ Two           | ❌ Manual `safelist`  |            ❌             |             ❌             |
+| Type-safe options + typed errors                                    |            ✅ Strict TS            |          ⚠️ Loose          |      ❌ Pure JS       |            n/a            |            n/a             |
+| Source maps for transformed files                                   |                 ✅                 |             ⚠️             |          ❌           |            ✅             |             ✅             |
+| Reversible mapping file emitted                                     |                 ✅                 |             ✅             |          ✅           |            ❌             |             ❌             |
+| Standalone CLI (any project)                                        |         ✅ `tw-obfuscator`         |       ✅ `tw-patch`        | ❌ inline node script |            ✅             |             ✅             |
+| Per-build randomization (no global state)                           |                 ✅                 |             ❌             |          ✅           |            n/a            |            n/a             |
+| Tailwind config validator                                           |                 ✅                 |             ❌             |          ❌           |            ❌             |             ❌             |
+| Active framework coverage                                           |            **20+ apps**            |             ~5             |      1 (Next.js)      |            n/a            |            n/a             |
 
 </div>
+
+> [!NOTE]
+> 📊 **Want the methodology, version numbers, and per-tool deep-dive?** See the [full comparison page](./docs/research/comparison.md) — every cell above is sourced from the latest release of each project (April 2026).
 
 <!-- ────────────────────────────────────────────────── -->
 

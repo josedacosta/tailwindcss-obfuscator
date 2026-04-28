@@ -142,6 +142,10 @@ export default defineConfig({
       ],
       "/research/": [
         {
+          text: "Comparison",
+          items: [{ text: "Full comparison (all manglers)", link: "/research/comparison" }],
+        },
+        {
           text: "Tailwind CSS",
           items: [
             { text: "Tailwind CSS Documentation", link: "/research/sources" },
