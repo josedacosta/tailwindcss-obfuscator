@@ -106,3 +106,28 @@ jobs:
           name: dist
           path: packages/tailwindcss-obfuscator/dist
           retention-days: 7
+
+  audit:
+    # Belt-and-suspenders: Renovate already opens PRs for vulnerable transitive
+    # deps and `pnpm.overrides` patches them on the spot, but we also want a
+    # blocking CI gate so that any PR which would re-introduce a high/critical
+    # advisory cannot land. Threshold matches the project security rule in
+    # CLAUDE.md ("Never ship a PR that increases the audit count").
+    name: Dependency audit
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: pnpm audit (high+critical fail the build)
+        run: pnpm audit --audit-level=high
