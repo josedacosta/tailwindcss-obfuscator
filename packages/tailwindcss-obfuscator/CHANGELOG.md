@@ -1,5 +1,42 @@
 # tailwindcss-obfuscator
 
+## 2.1.0
+
+### Minor Changes
+
+- [#64](https://github.com/josedacosta/tailwindcss-obfuscator/pull/64) [`3f82df5`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/3f82df59c0cda966bd7b00e5ee2b89418641b06b) Thanks [@josedacosta](https://github.com/josedacosta)! - Recognize 33 new Tailwind CSS v4.x utility families that were previously
+  unrecognised by the class extractor (so any class using them shipped raw,
+  un-obfuscated, in production bundles). Audit performed against the upstream
+  `tailwindlabs/tailwindcss` v4.2.4 source.
+
+  Newly recognised:
+  - **Logical-axis utilities (v4.2.0)** — `pbs-*`, `pbe-*`, `mbs-*`, `mbe-*`,
+    `scroll-pbs-*`, `scroll-pbe-*`, `scroll-mbs-*`, `scroll-mbe-*`,
+    `border-bs-*`, `border-be-*`, `inset-bs-*`, `inset-be-*`, `inset-s-*`,
+    `inset-e-*`, `inline-*`, `block-*`, `min-inline-*`, `max-inline-*`,
+    `min-block-*`, `max-block-*`.
+  - **Font features (v4.2.0)** — `font-features-*`.
+  - **New gradient families (v4)** — `bg-linear-*`, `bg-radial-*`,
+    `bg-conic-*`, plus the static `via-none`.
+  - **3D transforms (v4)** — `rotate-x-*`, `rotate-y-*`, `rotate-z-*`,
+    `translate-z-*`, `scale-z-*`, `perspective-*`, `perspective-origin-*`,
+    plus the static `transform-3d`.
+  - **New utility families (v4)** — `inset-shadow-*`, `inset-ring-*`,
+    `field-sizing-*`, `color-scheme-*`, `font-stretch-*`.
+
+  Bumped to `minor` because consumers using any of these utilities in a
+  codebase that builds with the obfuscator will now see them obfuscated
+  where they were silently passed through before — observable behaviour
+  change.
+
+### Patch Changes
+
+- [#63](https://github.com/josedacosta/tailwindcss-obfuscator/pull/63) [`4b198c5`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/4b198c5cc4800b279dacb6997cbdbda99dfe6c28) Thanks [@josedacosta](https://github.com/josedacosta)! - Fix #61 — `tv()` (tailwind-variants) extractor was silently broken: classes inside `tv({ base, variants, compoundVariants, slots })` were not being extracted, leaving them un-obfuscated in production bundles. Two root causes :
+  1. **Registry routing**: `extractors/index.ts` mapped `js/jsx/ts/tsx/vue/svelte/astro` to `extractFromJsxWithCva` (which only handles `cva()`), bypassing `extractAllFromJsx` which composes the cn/cva/tv extractors. Now every JS-family extension uses `extractAllFromJsx`.
+  2. **Nested-object regex**: the `tv()` variants regex used `[\s\S]*?\}` which closes on the first inner `}` (e.g. `intent: { primary }` truncates after `primary`). Refactored `extractFromTailwindVariants` to use `extractBalancedBlock` for `variants`, `slots`, `compoundVariants`, `compoundSlots`, and `defaultVariants` — the same balanced-brace approach `cva()` already used.
+
+  The README claim "Recognises `tv()` out of the box" now holds end-to-end. New `apps/test-tailwind-variants/` regression test asserts that all 33 expected tv() classes (base + variants + compoundVariants across 2 tv() instances) appear in the post-build mapping.
+
 ## 2.0.3
 
 ### Patch Changes
