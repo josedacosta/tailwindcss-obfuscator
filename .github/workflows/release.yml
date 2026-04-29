@@ -13,15 +13,20 @@ concurrency:
   group: release-${{ github.ref }}
   cancel-in-progress: false
 
-permissions:
-  contents: write
-  pull-requests: write
-  id-token: write
+# OpenSSF Scorecard "Token-Permissions": top-level empty; the release job
+# re-declares the write scopes it needs (contents for the version-bump commit
+# and tag, pull-requests for the version-packages PR, id-token for npm
+# provenance OIDC).
+permissions: {}
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
     # NOTE: `environment: npm` was removed in 2026-04-29 because it caused
     # release.yml runs to silently sit in `pending` forever without ever
     # allocating a runner (5 consecutive runs stuck this way). Other workflows
@@ -36,7 +41,7 @@ jobs:
     # gate the env added was redundant. NPM_TOKEN now lives at repo level
     # (`gh secret set NPM_TOKEN`) instead of env level.
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           fetch-depth: 0
 
@@ -48,9 +53,9 @@ jobs:
           git config --global user.name "José DA COSTA"
           git config --global user.email "contact@josedacosta.info"
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@a15d269cd4658e1107c09f1fabf4cbd7bd1f308a # v4.4.0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version-file: .nvmrc
           cache: pnpm
@@ -62,7 +67,7 @@ jobs:
 
       - name: Create Release Pull Request or Publish
         id: changesets
-        uses: changesets/action@v1
+        uses: changesets/action@e87c8ed249971350e47fab7515075f44eb134e5b # v1.7.0
         with:
           publish: pnpm release
           version: pnpm changeset version
