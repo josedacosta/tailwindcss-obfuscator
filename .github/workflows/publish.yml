@@ -1,16 +1,22 @@
-name: Release
+name: Publish
+
+# Renamed from `release.yml` to `publish.yml` because GitHub kept the previous
+# workflow ID associated with the (now-removed) `environment: npm` declaration,
+# silently throttling every run to "pending" forever without ever allocating
+# a job. Renaming the file forces GitHub to mint a fresh workflow ID, breaking
+# the throttle. See git log for the chain of attempts.
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
-    # Manual trigger from the Actions UI or via `gh workflow run release.yml`.
+    # Manual trigger from the Actions UI or via `gh workflow run publish.yml`.
     # Useful when a `push:`-triggered run got stuck in pending state without
     # ever allocating jobs (rare GitHub Actions infra glitch) and force-cancel
     # is needed before the next release attempt.
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: publish-${{ github.ref }}
   cancel-in-progress: false
 
 # OpenSSF Scorecard "Token-Permissions": top-level empty; the release job
