@@ -10,17 +10,19 @@ on:
   pull_request_target:
     types: [opened]
 
-permissions:
-  contents: read
-  issues: write
-  pull-requests: write
+# OpenSSF Scorecard "Token-Permissions": top-level empty; the job re-declares
+# only the comment write scopes it needs.
+permissions: {}
 
 jobs:
   welcome:
     name: Greet first-time contributor
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
-      - uses: actions/first-interaction@v1
+      - uses: actions/first-interaction@34f15e814fe48ac9312ccf29db4e74fa767cbab7 # v1.3.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           issue-message: |

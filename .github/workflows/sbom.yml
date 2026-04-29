@@ -13,21 +13,25 @@ on:
     types: [published]
   workflow_dispatch:
 
-permissions:
-  contents: write # to upload SBOM as a release asset
+# OpenSSF Scorecard "Token-Permissions": top-level empty; the job declares
+# `contents: write` only because it needs to attach the SBOM to the release.
+permissions: {}
 
 jobs:
   generate:
     name: Generate SPDX SBOM and attach to release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # required to upload the SBOM as a release asset
     steps:
       - name: Checkout repo at release tag
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           ref: ${{ github.event.release.tag_name || github.ref }}
+          persist-credentials: false
 
       - name: Generate SBOM with anchore/sbom-action (Syft)
-        uses: anchore/sbom-action@v0
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0.24.0
         with:
           path: ./packages/tailwindcss-obfuscator
           format: spdx-json
