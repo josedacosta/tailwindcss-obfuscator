@@ -9,16 +9,17 @@
 <br /><br />
 
 <h1>
-  🛡️ Tailwind CSS Obfuscator
+  🛡️ Tailwind CSS Obfuscator <span style="opacity:.6">(a.k.a. Tailwind Class Mangler)</span>
 </h1>
 
 <h3>
-  <em>Protect your design system. Shrink your bundles. Obfuscate everything.</em>
+  <em>Mangle Tailwind classes. Shrink your bundles 30–60%. Protect your design system.</em>
 </h3>
 
 <p>
-  The most complete <strong>Tailwind CSS class mangling</strong> tool —<br />
-  built for <strong>Tailwind v3 &amp; v4</strong>, every major framework, every build tool.
+  The most complete <strong>Tailwind CSS class mangler / obfuscator</strong> on npm —<br />
+  built for <strong>Tailwind v3 &amp; v4</strong>, every major framework, every build tool.<br />
+  <sub>Both terms describe the same build-time transformation : rewrite verbose utilities (<code>bg-blue-500</code>) into short opaque ones (<code>tw-a</code>).</sub>
 </p>
 
 <br />

@@ -1,12 +1,16 @@
 ---
 outline: deep
-title: Tailwind CSS class manglers — full comparison
-description: A side-by-side, evidence-based comparison of every active Tailwind CSS class obfuscator and mangler — tailwindcss-obfuscator vs tailwindcss-mangle vs Obfustail vs PostCSS minifiers.
+title: Tailwind CSS class manglers & obfuscators — full comparison
+description: A side-by-side, evidence-based comparison of every active Tailwind CSS class mangler / obfuscator — tailwindcss-obfuscator vs tailwindcss-mangle vs Obfustail vs PostCSS minifiers.
 ---
 
-# Tailwind CSS class manglers — full comparison
+# Tailwind CSS class manglers & obfuscators — full comparison
 
 > A side-by-side, evidence-based comparison of every active tool that rewrites Tailwind CSS class names at build time. Updated against the latest releases as of April 2026.
+
+::: info "Mangler" vs "obfuscator" — same problem, two names
+The ecosystem uses both terms interchangeably. **"Mangler"** (the term used by `tailwindcss-mangle`, `terser` mangle, `css-mangle`) emphasises the bundle-size benefit ; **"obfuscator"** (the term used by `tailwindcss-obfuscator`) emphasises the design-system-protection benefit. Both labels point to the same build-time transformation : rewrite verbose Tailwind class names into short opaque identifiers. We use both throughout these docs because they capture two real angles of the same tool.
+:::
 
 ## Tools covered
 
