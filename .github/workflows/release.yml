@@ -22,7 +22,19 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-    environment: npm
+    # NOTE: `environment: npm` was removed in 2026-04-29 because it caused
+    # release.yml runs to silently sit in `pending` forever without ever
+    # allocating a runner (5 consecutive runs stuck this way). Other workflows
+    # on the same commit (CI, CodeQL, Docs, Scorecard) ran fine — the only
+    # difference was this `environment:` declaration. GitHub treats jobs that
+    # declare an environment as "deployments", and on personal accounts with
+    # no payment method on file deployments are silently throttled (workflows
+    # without environments are unaffected).
+    #
+    # The CODEOWNERS gate on `main` already enforces that only the maintainer
+    # can land code that triggers this workflow, so the additional reviewer
+    # gate the env added was redundant. NPM_TOKEN now lives at repo level
+    # (`gh secret set NPM_TOKEN`) instead of env level.
     steps:
       - uses: actions/checkout@v4
         with:
