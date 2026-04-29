@@ -1,5 +1,17 @@
 # tailwindcss-obfuscator
 
+## 2.0.2
+
+### Patch Changes
+
+- [#45](https://github.com/josedacosta/tailwindcss-obfuscator/pull/45) [`0f7bdd0`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/0f7bdd04bd1fed44d626020dd173173221a08a7f) Thanks [@josedacosta](https://github.com/josedacosta)! - Fix CodeQL `js/redos` (catastrophic-backtracking ReDoS, severity error) in the
+  two Vue `:class` / `v-bind:class` extraction patterns. The previous patterns
+  used a nested-quantifier shape (`[^"]*(?:'[^']*'[^"]*)*`) that allowed
+  exponential backtracking on pathological input. Replaced by a flat
+  `[^"]*` (and `[^']*`) negated character class. Loses support for nested
+  quotes inside Vue class bindings — an extreme edge case never covered by
+  existing tests; all 395 unit tests still pass.
+
 ## 2.0.1
 
 ### Patch Changes
