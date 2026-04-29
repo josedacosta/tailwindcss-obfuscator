@@ -1,0 +1,21 @@
+{
+  "name": "test-tailwind-variants",
+  "version": "1.0.0",
+  "description": "Test app validating that the obfuscator extracts and obfuscates classes inside tv() (tailwind-variants) base / variants / compoundVariants — regression coverage for issue #61",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "@rollup/plugin-html": "^2.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@tailwindcss/postcss": "^4.2.4",
+    "postcss": "^8.5.12",
+    "rollup": "^4.60.2",
+    "rollup-plugin-postcss": "^4.0.2",
+    "tailwind-variants": "^0.3.0",
+    "tailwindcss": "^4.2.4",
+    "tailwindcss-obfuscator": "workspace:*"
+  }
+}
