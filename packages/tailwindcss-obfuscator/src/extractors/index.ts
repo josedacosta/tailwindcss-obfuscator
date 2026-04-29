@@ -8,29 +8,39 @@ import fg from "fast-glob";
 import type { ExtractionResult, ExtractorFn, PluginContext, Logger } from "../core/types.js";
 import { addClasses } from "../core/context.js";
 import { extractFromHtml } from "./html.js";
-import { extractFromJsx, extractFromJsxWithCva } from "./jsx.js";
+import { extractAllFromJsx } from "./jsx.js";
 import { extractFromCss, extractFromTailwindV4Css, detectTailwindVersion } from "./css.js";
 import { deduplicateClasses } from "./base.js";
 
 export { extractFromHtml, extractFromHtmlAggressive } from "./html.js";
-export { extractFromJsx, extractFromJsxWithCva } from "./jsx.js";
+export {
+  extractFromJsx,
+  extractFromJsxWithCva,
+  extractAllFromJsx,
+  extractFromTailwindVariants,
+} from "./jsx.js";
 export { extractFromCss, extractFromTailwindV4Css, detectTailwindVersion } from "./css.js";
 export * from "./base.js";
 
 /**
- * Map file extensions to extractors
+ * Map file extensions to extractors. Every JS-family extension uses
+ * `extractAllFromJsx` (which composes `extractFromJsx` + `extractFromJsxWithCva`
+ * + `extractFromTailwindVariants`) so that classes inside `cn()`, `clsx()`,
+ * `cva()`, AND `tv()` are picked up uniformly. Before fix #61, `tv()` was
+ * registered as a separate extractor that was never invoked, leaving
+ * `tailwind-variants` users with un-obfuscated bundles.
  */
 const EXTRACTOR_MAP: Record<string, ExtractorFn> = {
   html: extractFromHtml,
   htm: extractFromHtml,
   css: extractFromCss,
-  js: extractFromJsx,
-  jsx: extractFromJsxWithCva,
-  ts: extractFromJsx,
-  tsx: extractFromJsxWithCva,
-  vue: extractFromJsx, // Vue uses similar syntax
-  svelte: extractFromJsx, // Svelte uses class:
-  astro: extractFromJsx, // Astro uses className
+  js: extractAllFromJsx,
+  jsx: extractAllFromJsx,
+  ts: extractAllFromJsx,
+  tsx: extractAllFromJsx,
+  vue: extractAllFromJsx, // Vue uses similar syntax
+  svelte: extractAllFromJsx, // Svelte uses class:
+  astro: extractAllFromJsx, // Astro uses className
 };
 
 /**

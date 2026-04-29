@@ -72,6 +72,8 @@ export {
   extractFromHtmlAggressive,
   extractFromJsx,
   extractFromJsxWithCva,
+  extractFromTailwindVariants,
+  extractAllFromJsx,
   extractFromCss,
   extractFromTailwindV4Css,
   extractFromFile,
