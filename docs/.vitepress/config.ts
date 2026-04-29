@@ -249,6 +249,20 @@ export default withMermaid({
             { text: "Tailwind Design System", link: "/reference/tailwind-design-system" },
           ],
         },
+        {
+          text: "Labs (validation reports)",
+          collapsed: true,
+          items: [
+            {
+              text: "Tailwind v3 — install guide",
+              link: "/reference/labs/lab_tw3_installation_guide",
+            },
+            { text: "Tailwind v3 — HTML static", link: "/reference/labs/tailwind-v3-html" },
+            { text: "Tailwind v3 — Next.js", link: "/reference/labs/tailwind-v3-nextjs" },
+            { text: "Tailwind v4 — HTML static", link: "/reference/labs/tailwind-v4-html" },
+            { text: "Tailwind v4 — Next.js", link: "/reference/labs/tailwind-v4-nextjs" },
+          ],
+        },
       ],
       "/research/": [
         {
