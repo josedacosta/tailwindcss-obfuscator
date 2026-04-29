@@ -1,8 +1,12 @@
+<br /><br />
+
 <p align="center">
   <a href="https://josedacosta.github.io/tailwindcss-obfuscator/">
     <img src="https://raw.githubusercontent.com/josedacosta/tailwindcss-obfuscator/main/docs/public/images/tailwindcss-obfuscator/logo-horizontal.svg" alt="tailwindcss-obfuscator" width="500">
   </a>
 </p>
+
+<br />
 
 <h1 align="center">tailwindcss-obfuscator</h1>
 
