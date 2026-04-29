@@ -379,11 +379,17 @@ export function extractFromJsxWithCva(content: string, _filePath: string): strin
 
 /**
  * Extract classes from tailwind-variants (tv) patterns
+ *
+ * Uses `extractBalancedBlock` for `variants:`, `slots:`, `compoundVariants:`,
+ * `compoundSlots:`, and `defaultVariants:` because their content is a nested
+ * object with inner braces (`intent: { primary: "..." }`). A naive regex with
+ * `[\s\S]*?\}` closes on the first inner `}` and captures only the first key,
+ * leaving the rest of the variants un-extracted (this was issue #61).
  */
 export function extractFromTailwindVariants(content: string, _filePath: string): string[] {
   const classes: string[] = [];
 
-  // Pattern for tv() base classes
+  // Pattern for tv() base classes (single string, no nested braces — regex OK).
   const tvBasePattern = /tv\s*\(\s*\{[\s\S]*?base\s*:\s*["'`]([^"'`]+)["'`]/g;
   let match;
 
@@ -393,35 +399,50 @@ export function extractFromTailwindVariants(content: string, _filePath: string):
   }
   tvBasePattern.lastIndex = 0;
 
-  // Pattern for tv() variants
-  const tvVariantsPattern = /tv\s*\(\s*\{[\s\S]*?variants\s*:\s*\{([\s\S]*?)\}\s*(?:,|\})/g;
-  while ((match = tvVariantsPattern.exec(content)) !== null) {
-    const variants = match[1];
+  // For each tv() call, find every keyword block (variants, slots,
+  // compoundVariants, compoundSlots, defaultVariants) and extract every
+  // string literal inside it via balanced-brace traversal.
+  const tvCallSitePattern = /tv\s*\(\s*\{/g;
+  while ((match = tvCallSitePattern.exec(content)) !== null) {
+    // Find the closing `}` of the tv({...}) call so we don't bleed into
+    // the next tv() block in the same file.
+    const callOpen = content.indexOf("{", match.index);
+    const callBlock = extractBalancedBlock(content, callOpen, "{", "}");
+    if (!callBlock) continue;
 
-    // Extract string values from variants
-    let stringMatch;
-    while ((stringMatch = STRING_LITERAL_PATTERN.exec(variants)) !== null) {
-      const stringValue = stringMatch[1];
-      classes.push(...extractClassesFromString(stringValue));
+    for (const keyword of [
+      "variants",
+      "slots",
+      "compoundVariants",
+      "compoundSlots",
+      "defaultVariants",
+    ]) {
+      // Find each keyword inside the tv() call. May appear once.
+      const re = new RegExp(`\\b${keyword}\\s*:`, "g");
+      let kMatch;
+      while ((kMatch = re.exec(callBlock)) !== null) {
+        // Find the next `{` or `[` after the colon and extract that balanced block.
+        const afterColon = callBlock.indexOf(":", kMatch.index) + 1;
+        // Skip whitespace, find the opening character.
+        let i = afterColon;
+        while (i < callBlock.length && /\s/.test(callBlock[i])) i++;
+        const open = callBlock[i];
+        const close = open === "[" ? "]" : open === "{" ? "}" : null;
+        if (!close) continue;
+        const block = extractBalancedBlock(callBlock, i, open, close);
+        if (!block) continue;
+        // Extract every string literal inside the block.
+        let stringMatch;
+        while ((stringMatch = STRING_LITERAL_PATTERN.exec(block)) !== null) {
+          const stringValue = stringMatch[1];
+          classes.push(...extractClassesFromString(stringValue));
+        }
+        STRING_LITERAL_PATTERN.lastIndex = 0;
+      }
     }
-    STRING_LITERAL_PATTERN.lastIndex = 0;
   }
-  tvVariantsPattern.lastIndex = 0;
-
-  // Pattern for tv() slots
-  const tvSlotsPattern = /tv\s*\(\s*\{[\s\S]*?slots\s*:\s*\{([\s\S]*?)\}\s*(?:,|\})/g;
-  while ((match = tvSlotsPattern.exec(content)) !== null) {
-    const slots = match[1];
-
-    // Extract string values from slots
-    let stringMatch;
-    while ((stringMatch = STRING_LITERAL_PATTERN.exec(slots)) !== null) {
-      const stringValue = stringMatch[1];
-      classes.push(...extractClassesFromString(stringValue));
-    }
-    STRING_LITERAL_PATTERN.lastIndex = 0;
-  }
-  tvSlotsPattern.lastIndex = 0;
+  tvCallSitePattern.lastIndex = 0;
+  // (Slots are already covered by the keyword loop above — no separate pass needed.)
 
   return deduplicateClasses(classes.filter((cls) => isTailwindClass(cls)));
 }
