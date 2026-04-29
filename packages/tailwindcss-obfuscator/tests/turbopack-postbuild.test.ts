@@ -21,6 +21,13 @@ import { transformDirectory } from "../src/transformers/index.js";
 import { createContext, initializeContext } from "../src/core/context.js";
 import { createLogger } from "../src/utils/logger.js";
 
+/**
+ * fast-glob requires forward-slash glob patterns even on Windows, but
+ * `path.join()` returns backslashes on Windows, which silently match
+ * nothing. Normalise glob patterns to POSIX separators.
+ */
+const toPosix = (p: string): string => p.replace(/\\/g, "/");
+
 describe("Turbopack post-build CLI pipeline", () => {
   let projectDir: string;
   let nextDir: string;
@@ -75,7 +82,7 @@ describe("Turbopack post-build CLI pipeline", () => {
       {
         prefix: "tw-",
         randomize: false,
-        content: [join(appDir, "**/*.{ts,tsx,js,jsx}")],
+        content: [toPosix(join(appDir, "**/*.{ts,tsx,js,jsx}"))],
         outputDir: join(projectDir, ".tw-obfuscation"),
       },
       "production"
@@ -115,7 +122,7 @@ describe("Turbopack post-build CLI pipeline", () => {
       {
         prefix: "tw-",
         randomize: false,
-        content: [join(appDir, "**/*.{ts,tsx,js,jsx}")],
+        content: [toPosix(join(appDir, "**/*.{ts,tsx,js,jsx}"))],
         outputDir: join(projectDir, ".tw-obfuscation"),
       },
       "production"
