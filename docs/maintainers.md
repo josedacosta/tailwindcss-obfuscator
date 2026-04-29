@@ -169,7 +169,7 @@ gh secret list -R josedacosta/tailwindcss-obfuscator | grep NPM_TOKEN
 Trigger the workflow manually with a no-op:
 
 ```bash
-gh workflow run release.yml -R josedacosta/tailwindcss-obfuscator
+gh workflow run publish.yml -R josedacosta/tailwindcss-obfuscator
 gh run watch -R josedacosta/tailwindcss-obfuscator
 ```
 
