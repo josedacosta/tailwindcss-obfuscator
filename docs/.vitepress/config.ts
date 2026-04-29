@@ -105,9 +105,7 @@ export default withMermaid({
     }
     fs.writeFileSync(path.join(outDir, "llms-full.txt"), lines.join("\n"), "utf8");
 
-    console.log(
-      `[llm-optimization] Copied ${allPages.length} .md files + generated llms-full.txt`
-    );
+    console.log(`[llm-optimization] Copied ${allPages.length} .md files + generated llms-full.txt`);
   },
 
   // Syntax highlighting with VSCode themes (light/dark)
