@@ -3,6 +3,11 @@ name: Release
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+    # Manual trigger from the Actions UI or via `gh workflow run release.yml`.
+    # Useful when a `push:`-triggered run got stuck in pending state without
+    # ever allocating jobs (rare GitHub Actions infra glitch) and force-cancel
+    # is needed before the next release attempt.
 
 concurrency:
   group: release-${{ github.ref }}
