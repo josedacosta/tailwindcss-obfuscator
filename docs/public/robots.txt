@@ -1,0 +1,80 @@
+# tailwindcss-obfuscator documentation site
+# Site: https://josedacosta.github.io/tailwindcss-obfuscator/
+# Source: https://github.com/josedacosta/tailwindcss-obfuscator
+#
+# All crawlers, including AI/LLM crawlers, are explicitly welcome.
+# This is intentional — the project is open-source MIT and benefits from
+# wider AI-assisted discovery (Claude Search, ChatGPT Search, Perplexity,
+# Google AI Overviews, Bing Copilot, etc.).
+#
+# LLM-friendly entry points:
+#   /tailwindcss-obfuscator/llms.txt       — concise project summary + key URLs
+#   /tailwindcss-obfuscator/llms-full.txt  — full documentation concatenated
+#   /tailwindcss-obfuscator/<page>.md      — every page available as raw markdown
+
+User-agent: *
+Allow: /
+
+# Explicit allowlist for known AI crawlers (defense against future tightening).
+# We WANT these bots — listing them documents the intent and protects against
+# accidental blocks if the wildcard rule above is ever narrowed.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+# Sitemap pointer
+Sitemap: https://josedacosta.github.io/tailwindcss-obfuscator/sitemap.xml
