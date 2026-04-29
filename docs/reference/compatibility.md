@@ -6,18 +6,19 @@ This document provides a comprehensive compatibility matrix for Tailwind CSS cla
 
 ## Project Type Support
 
-| Project Type  | Tailwind v3 | Tailwind v4 | Extraction Method                 |
-| ------------- | ----------- | ----------- | --------------------------------- |
-| HTML Static   | ✅ Full     | ✅ Full     | Built-in extractors               |
-| React/Next.js | ✅ Full     | ✅ Full     | Built-in JSX extractors           |
-| Vue.js        | ✅ Full     | ✅ Full     | Built-in :class binding support   |
-| Svelte        | ✅ Full     | ✅ Full     | Built-in class: directive support |
-| SvelteKit     | ✅ Full     | ✅ Full     | Built-in extractors               |
-| Astro         | ✅ Full     | ✅ Full     | Built-in class:list support       |
-| Qwik          | ✅ Full     | ✅ Full     | Built-in class$ support           |
-| Solid.js      | ✅ Full     | ✅ Full     | Built-in JSX extractors           |
-| Remix         | ✅ Full     | ✅ Full     | Built-in JSX extractors           |
-| Angular       | ✅ Partial  | ⚠️ Partial  | Requires custom patterns          |
+This summary indicates whether a project type is conceptually supported by the package's extractors and transformers. For the **actual list of versions exercised in CI** (the source of truth), jump to [`tailwindcss-obfuscator (our package)`](#tailwindcss-obfuscator-our-package) below.
+
+| Project Type             | Tailwind v3 | Tailwind v4 | Extraction Method                   |
+| ------------------------ | ----------- | ----------- | ----------------------------------- |
+| HTML Static              | ✅ Full     | ✅ Full     | Built-in extractors                 |
+| React / Next.js          | ✅ Full     | ✅ Full     | Built-in JSX extractors             |
+| Vue 3                    | ✅ Full     | ✅ Full     | Built-in `:class` binding support   |
+| Svelte 4 + 5 / SvelteKit | ✅ Full     | ✅ Full     | Built-in `class:` directive support |
+| Astro                    | ✅ Full     | ✅ Full     | Built-in `class:list` support       |
+| Qwik                     | ✅ Full     | ✅ Full     | Built-in `class$` support           |
+| Solid.js                 | ✅ Full     | ✅ Full     | Built-in JSX extractors             |
+| React Router (ex-Remix)  | ✅ Full     | ✅ Full     | Built-in JSX extractors             |
+| TanStack Start / Router  | ✅ Full     | ✅ Full     | Built-in JSX extractors             |
 
 ## Class Pattern Support
 
@@ -227,69 +228,44 @@ See `docs/lab_tailwindcss_patch_analysis.md` for detailed analysis.
 
 ### tailwindcss-obfuscator (our package)
 
-| Configuration | Tailwind | Status       | Notes                    |
-| ------------- | -------- | ------------ | ------------------------ |
-| HTML Static   | v3       | ✅ **Works** | Full support             |
-| Vite React    | v3       | ✅ **Works** | Full support             |
-| Next.js       | v3       | ✅ **Works** | Full support             |
-| HTML Static   | v4       | ✅ **Works** | CSS-first compatible     |
-| Vite React    | v4       | ✅ **Works** | CSS-first compatible     |
-| Next.js       | v4       | ✅ **Works** | CSS-first compatible     |
-| SvelteKit     | v4       | ✅ **Works** | class: directive support |
-| Astro         | v4       | ✅ **Works** | Full support             |
-| Qwik          | v4       | ✅ **Works** | class attribute support  |
+This is the live, source-of-truth matrix for the package. Every row corresponds to a real, executed test app under [`apps/`](https://github.com/josedacosta/tailwindcss-obfuscator/tree/main/apps) — built and verified at every release via [`scripts/verify-obfuscation.mjs`](https://github.com/josedacosta/tailwindcss-obfuscator/blob/main/scripts/verify-obfuscation.mjs) (which the CI runs).
 
-## Project-Specific Notes
+| Framework / Project Type    | Tested Version         | Tailwind | Bundler             | Test App                        |
+| --------------------------- | ---------------------- | -------- | ------------------- | ------------------------------- |
+| **Next.js** (App Router)    | 16.2.4                 | v4       | Webpack / Turbopack | `apps/test-nextjs`              |
+| **Next.js** (legacy v3)     | 16.2.4                 | v3       | Webpack             | `apps/tailwind_v3_react_nextjs` |
+| **Next.js + shadcn/ui**     | 16.2.4                 | v4       | Webpack             | `apps/test-shadcn-ui`           |
+| **Nuxt**                    | 4.4.2                  | v4       | Vite                | `apps/test-nuxt`                |
+| **SvelteKit + Svelte 5**    | 2.58.0 (Svelte 5.55.5) | v4       | Vite                | `apps/test-sveltekit`           |
+| **Astro**                   | 6.1.9                  | v4       | Vite                | `apps/test-astro`               |
+| **Solid.js**                | 1.9.12                 | v4       | Vite                | `apps/test-solidjs`             |
+| **Qwik**                    | 1.19.2                 | v4       | Vite                | `apps/test-qwik`                |
+| **React Router** (ex-Remix) | 7.14.2                 | v4       | Vite                | `apps/test-react-router`        |
+| **TanStack Start**          | 1.168.25               | v4       | Vite                | `apps/test-tanstack-start`      |
+| **React + Vite**            | 19.1.0                 | v4       | Vite 8.x            | `apps/test-vite-react`          |
+| **React + Vite (TW v3)**    | 19.0.0                 | v3       | Vite 8.x            | `apps/test-tailwind-v3`         |
+| **React + Vite (TW v4)**    | 19.0.0                 | v4       | Vite 8.x            | `apps/test-tailwind-v4`         |
+| **Vue 3 + Vite**            | 3.5.14                 | v4       | Vite 8.x            | `apps/test-vite-vue`            |
+| **Static HTML (TW v3)**     | n/a                    | v3       | Vite                | `apps/tailwind_v3_html_static`  |
+| **Static HTML (TW v4)**     | n/a                    | v4       | Vite                | `apps/tailwind_v4_html_static`  |
+| **Static HTML + esbuild**   | n/a                    | v4       | esbuild ≥ 0.28      | `apps/test-static-html`         |
+| **Rollup standalone**       | n/a                    | v4       | Rollup ^4.60        | `apps/test-rollup-standalone`   |
+| **Webpack standalone**      | n/a                    | v4       | Webpack ^5.106      | `apps/test-webpack-standalone`  |
 
-### Lab Apps (unplugin-tailwindcss-mangle testing)
+**How to read this table:** the "Tested Version" column shows the exact upper-bound version exercised on the CI. Lower versions of the same major typically work but are not in the test matrix and may regress without us catching it. If you need a guarantee, open an issue and we'll add a test app for your specific version.
 
-#### lab-mangle-tw3-html-static
+### Version-range claims vs. tested baselines
 
-- **Status**: ✅ Working
-- Uses `tailwindcss-patch@^3.0.1` for extraction
-- All HTML patterns fully supported
-- CSS `@apply` fully supported
+Some README cells advertise a wider range than the actual test matrix below. The README cells reflect the package's design intent (the plugin core is bundler-agnostic and most reasonable versions should work) ; the matrix above reflects only what we actually exercise. If a wider range matters to you, here is the gap :
 
-#### lab-mangle-tw3-vite-react
+| README claim                | Actually tested in CI                      | Untested versions                             |
+| --------------------------- | ------------------------------------------ | --------------------------------------------- |
+| Next.js v13 → v16           | v16.2.4 only                               | v13, v14, v15 (App Router + Pages Router)     |
+| Nuxt v3 + v4                | v4.4.2 only                                | v3.x                                          |
+| SvelteKit v2 (Svelte v4+v5) | v2.58.0 + Svelte 5.55.5 only               | Svelte v4.x (pre-runes)                       |
+| Astro v4 → v6               | v6.1.9 only                                | v4.x, v5.x                                    |
+| Vite v4 → v8                | v8.x only                                  | v4, v5, v6, v7                                |
+| Vue v3.5+                   | v3.5.14 only                               | other v3.5 / v3.6 patches as they ship        |
+| Webpack v5                  | v5.106.x only (in test-webpack-standalone) | older v5 minors (rare in greenfield projects) |
 
-- **Status**: ✅ Working
-- Uses `tailwindcss-patch@^3.0.1` for extraction
-- React className patterns fully supported
-
-#### lab-mangle-tw4-html-static
-
-- **Status**: ❌ Failing
-- Error: "Unable to locate Tailwind CSS config"
-- `tailwindcss-patch` incompatible with Tailwind v4
-
-#### lab-mangle-tw4-vite-react
-
-- **Status**: ❌ Failing
-- Error: "Unable to locate Tailwind CSS config"
-- `tailwindcss-patch` incompatible with Tailwind v4
-
-### Demo Apps
-
-#### tailwind_v3_html_static
-
-- Uses `tailwindcss-patch` for extraction
-- All HTML patterns fully supported
-- CSS `@apply` fully supported
-
-#### tailwind_v4_html_static
-
-- Uses custom extraction script
-- All Tailwind v4 features supported
-- Container queries work perfectly
-
-#### tailwind_v3_react_nextjs
-
-- Uses `tailwindcss-patch` for extraction
-- Webpack plugin for obfuscation
-- className patterns fully supported
-
-#### tailwind_v4_react_nextjs
-
-- Uses custom extraction script with JSX support
-- All Tailwind v4 features supported
-- Container queries and new v4 syntax work perfectly
+We track these gaps in [issue: phase-2 test apps coverage](https://github.com/josedacosta/tailwindcss-obfuscator/issues) — contributions welcome.

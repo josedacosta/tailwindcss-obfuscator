@@ -81,24 +81,28 @@ For Webpack / Rollup / esbuild / Next.js / Nuxt / SvelteKit / Astro / Solid / Qw
 
 ## Compatibility
 
-| Dependency          | Versions      |
-| ------------------- | ------------- |
-| **Tailwind CSS**    | v3.x · v4.x   |
-| **Vite**            | v4 → v8       |
-| **Webpack**         | v5            |
-| **Rollup**          | v3 → v4       |
-| **esbuild**         | ≥ 0.17        |
-| **Next.js**         | v13 → v16     |
-| **Nuxt**            | v3 · v4       |
-| **SvelteKit**       | v2            |
-| **Svelte**          | v4 · v5       |
-| **Astro**           | v4 → v6       |
-| **Vue**             | v3.5+         |
-| **Solid**           | v1.9+         |
-| **Qwik**            | v1.x          |
-| **React Router**    | v7 (ex-Remix) |
-| **TanStack Router** | v1.168+       |
-| **Node.js**         | ≥ 18          |
+The "Versions" column lists the design-intent range — the plugin core is bundler-agnostic and most modern versions of each tool work. The "Tested in CI" column lists the exact version exercised by an `apps/test-*` app on every release. If you need a guarantee for a specific version, [open an issue](https://github.com/josedacosta/tailwindcss-obfuscator/issues) and we'll add a test app.
+
+| Dependency         | Versions      | Tested in CI                     |
+| ------------------ | ------------- | -------------------------------- |
+| **Tailwind CSS**   | v3.x · v4.x   | v3.4 + v4.1                      |
+| **Vite**           | v4 → v8       | v8.x                             |
+| **Webpack**        | v5            | v5.106 (standalone) + v5 in Next |
+| **Rollup**         | v3 → v4       | v4.60                            |
+| **esbuild**        | ≥ 0.17        | ≥ 0.28                           |
+| **Next.js**        | v13 → v16     | v16.2 (App Router + Turbopack)   |
+| **Nuxt**           | v3 · v4       | v4.4                             |
+| **SvelteKit**      | v2            | v2.58 (Svelte 5.55, runes)       |
+| **Svelte**         | v4 · v5       | v5.55 (runes)                    |
+| **Astro**          | v4 → v6       | v6.1                             |
+| **Vue**            | v3.5+         | v3.5.14                          |
+| **Solid**          | v1.9+         | v1.9.12                          |
+| **Qwik**           | v1.x          | v1.19                            |
+| **React Router**   | v7 (ex-Remix) | v7.14                            |
+| **TanStack Start** | v1.168+       | v1.168                           |
+| **Node.js**        | ≥ 18          | 20 (CI) + 22 (CI)                |
+
+Full live matrix with the test app file paths : [docs/reference/compatibility](https://josedacosta.github.io/tailwindcss-obfuscator/reference/compatibility).
 
 ## FAQ
 
