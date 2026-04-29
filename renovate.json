@@ -1,0 +1,72 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "security:openssf-scorecard",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":separateMajorReleases",
+    "group:monorepos",
+    "group:recommended",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "schedule": ["before 6am on monday"],
+  "timezone": "Europe/Paris",
+  "labels": ["dependencies"],
+  "rangeStrategy": "bump",
+  "prHourlyLimit": 4,
+  "prConcurrentLimit": 8,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on the first day of the month"],
+    "commitMessageAction": "refresh",
+    "commitMessageTopic": "lockfile"
+  },
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["dependencies", "security"],
+    "schedule": ["at any time"]
+  },
+  "packageRules": [
+    {
+      "description": "Pin GitHub Actions to a 40-char commit SHA (Scorecard 'Pinned-Dependencies' requirement); update via Renovate. Non-major bumps auto-mergeable once CI is green.",
+      "matchManagers": ["github-actions"],
+      "pinDigests": true,
+      "automerge": false
+    },
+    {
+      "description": "Group all dev-tooling minor/patch bumps in a single PR (TypeScript, Vitest, ESLint, Prettier, tsup, etc.).",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "dev tooling (non-major)",
+      "schedule": ["before 6am on monday"]
+    },
+    {
+      "description": "Sample apps in apps/test-* are NOT shipped on npm. Their dep updates only affect local verification — group them aggressively to keep noise down.",
+      "matchFileNames": ["apps/**/package.json"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "test apps (non-major)",
+      "schedule": ["before 6am on monday"]
+    },
+    {
+      "description": "Major bumps for frameworks in test apps need manual review (often breaking).",
+      "matchFileNames": ["apps/**/package.json"],
+      "matchUpdateTypes": ["major"],
+      "addLabels": ["needs-review"],
+      "schedule": ["before 6am on the first day of the month"]
+    },
+    {
+      "description": "The published package's runtime dependencies — keep tight, no auto-merge, surface fast.",
+      "matchFileNames": ["packages/tailwindcss-obfuscator/package.json"],
+      "matchDepTypes": ["dependencies", "peerDependencies"],
+      "addLabels": ["needs-review", "area: package"],
+      "schedule": ["at any time"]
+    },
+    {
+      "description": "Tailwind CSS itself is the package's reason to exist — surface every bump immediately.",
+      "matchPackageNames": ["tailwindcss", "@tailwindcss/vite", "@tailwindcss/postcss"],
+      "addLabels": ["needs-review", "framework: tailwind"],
+      "schedule": ["at any time"]
+    }
+  ]
+}
