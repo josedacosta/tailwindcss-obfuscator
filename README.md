@@ -1,5 +1,7 @@
 <div align="center">
 
+<br /><br />
+
 <a href="https://github.com/josedacosta/tailwindcss-obfuscator">
   <img src="./docs/public/images/tailwindcss-obfuscator/logo-horizontal.svg" alt="Tailwind CSS Obfuscator" width="960">
 </a>
