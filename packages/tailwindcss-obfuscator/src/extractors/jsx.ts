@@ -45,12 +45,19 @@ const CLASS_LIST_PATTERN = /class:list\s*=\s*\{([^}]+)\}/g;
 /**
  * Pattern to match Vue :class or v-bind:class
  * e.g., :class="{ 'bg-blue-500': isActive }", :class="['flex', active && 'bg-blue']"
- * Need to handle nested quotes - match content between outer quotes
+ *
+ * Implementation note: previous versions used a nested-quantifier pattern
+ * to support stray nested quotes inside the binding (e.g. attribute strings
+ * containing both ' and "). That pattern matched CodeQL's `js/redos`
+ * signature — the nesting (`[^"]* (...) *`) caused catastrophic
+ * backtracking on inputs like `:class="aaaa…"` with no closing quote.
+ * In Vue templates, nested quotes inside the binding value are rare and
+ * the build-time tool would already mis-parse such input. Switching to a
+ * flat negated character class fixes the ReDoS without a real regression
+ * in extraction coverage.
  */
-const VUE_CLASS_BINDING_PATTERN_DOUBLE =
-  /(?::class|v-bind:class)\s*=\s*"([^"]*(?:'[^']*'[^"]*)*)"/g;
-const VUE_CLASS_BINDING_PATTERN_SINGLE =
-  /(?::class|v-bind:class)\s*=\s*'([^']*(?:"[^"]*"[^']*)*)'/g;
+const VUE_CLASS_BINDING_PATTERN_DOUBLE = /(?::class|v-bind:class)\s*=\s*"([^"]*)"/g;
+const VUE_CLASS_BINDING_PATTERN_SINGLE = /(?::class|v-bind:class)\s*=\s*'([^']*)'/g;
 
 /**
  * Pattern to match class utility function calls
