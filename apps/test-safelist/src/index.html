@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tailwindcss-obfuscator — safelist (`exclude`) integration test</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="bg-slate-50 p-8 font-sans text-slate-900">
+    <main class="mx-auto max-w-3xl space-y-6">
+      <header>
+        <h1 class="text-3xl font-bold">Safelist test app</h1>
+        <p class="text-sm text-slate-600">
+          Classes inside <code class="rounded bg-slate-200 px-1">exclude</code> MUST stay unchanged.
+          Everything else MUST be obfuscated to <code>tw-XXX</code>.
+        </p>
+      </header>
+
+      <!-- These are real Tailwind utilities listed in the obfuscator's `exclude`
+           array (build.js). Post-build, they MUST appear unchanged in both
+           dist/index.html and dist/styles.css. The string-literal entries
+           (bg-red-500, text-yellow-300, font-bold) test exact-match exclusion;
+           text-emerald-700 + text-emerald-900 test regex exclusion via
+           /^text-emerald-/ which the build.js config registers. -->
+      <section class="rounded border border-blue-300 bg-blue-50 p-4">
+        <h2 class="mb-2 text-xl font-semibold">Preserved classes (must stay verbatim)</h2>
+        <p class="bg-red-500 px-3 py-2 text-yellow-300">
+          bg-red-500 + text-yellow-300 (string-literal exclude)
+        </p>
+        <p class="font-bold">font-bold (string-literal exclude)</p>
+        <p class="text-emerald-700">text-emerald-700 (regex exclude /^text-emerald-/)</p>
+        <p class="text-emerald-900">text-emerald-900 (regex exclude /^text-emerald-/)</p>
+      </section>
+
+      <!-- Regular Tailwind classes — these MUST be obfuscated to tw-XXX. -->
+      <section class="rounded border border-blue-200 bg-emerald-50 p-4">
+        <h2 class="mb-2 text-xl font-semibold">Regular Tailwind classes (must be obfuscated)</h2>
+        <p class="text-sm">
+          The wrapping section uses <code>bg-emerald-50</code>, <code>border-blue-200</code>,
+          <code>rounded</code>, <code>p-4</code> — all of which should appear as <code>tw-XXX</code>
+          in the built HTML.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

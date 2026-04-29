@@ -1,0 +1,20 @@
+{
+  "name": "test-safelist",
+  "version": "1.0.0",
+  "description": "Test app exercising the obfuscator's `exclude` option (a.k.a. safelist) — classes listed in `exclude` MUST remain unchanged in the output",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:css": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/styles.css",
+    "build:js": "node build.js",
+    "build": "pnpm build:css && pnpm build:js",
+    "dev": "pnpm build && npx serve dist"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.4",
+    "tailwindcss": "^4.2.4",
+    "esbuild": "^0.28.0",
+    "serve": "^14.2.4",
+    "tailwindcss-obfuscator": "workspace:*"
+  }
+}

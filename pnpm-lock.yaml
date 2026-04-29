@@ -707,6 +707,24 @@ importers:
         specifier: workspace:*
         version: link:../../packages/tailwindcss-obfuscator
 
+  apps/test-safelist:
+    devDependencies:
+      '@tailwindcss/cli':
+        specifier: ^4.2.4
+        version: 4.2.4
+      esbuild:
+        specifier: '>=0.25.0'
+        version: 0.28.0
+      serve:
+        specifier: ^14.2.4
+        version: 14.2.5
+      tailwindcss:
+        specifier: ^4.2.4
+        version: 4.2.4
+      tailwindcss-obfuscator:
+        specifier: workspace:*
+        version: link:../../packages/tailwindcss-obfuscator
+
   apps/test-shadcn-ui:
     dependencies:
       '@hookform/resolvers':
