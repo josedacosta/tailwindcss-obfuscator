@@ -22,6 +22,8 @@
   <a href="https://www.npmjs.com/package/tailwindcss-obfuscator"><img src="https://img.shields.io/npm/dm/tailwindcss-obfuscator.svg?style=flat-square" alt="npm downloads"></a>
   <a href="https://github.com/josedacosta/tailwindcss-obfuscator/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/tailwindcss-obfuscator.svg?style=flat-square" alt="license"></a>
   <a href="https://josedacosta.github.io/tailwindcss-obfuscator/"><img src="https://img.shields.io/badge/docs-online-brightgreen?style=flat-square" alt="docs"></a>
+  <a href="https://www.bestpractices.dev/projects/12705"><img src="https://www.bestpractices.dev/projects/12705/badge" alt="OpenSSF Best Practices"></a>
+  <a href="https://scorecard.dev/viewer/?uri=github.com/josedacosta/tailwindcss-obfuscator"><img src="https://img.shields.io/ossf-scorecard/github.com/josedacosta/tailwindcss-obfuscator?style=flat-square&label=OpenSSF%20Scorecard" alt="OpenSSF Scorecard"></a>
 </p>
 
 ---
