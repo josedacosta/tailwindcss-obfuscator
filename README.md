@@ -72,6 +72,9 @@
 
 <!-- Badges row 4 — security & supply chain -->
 <p>
+  <a href="https://www.bestpractices.dev/projects/12705">
+    <img alt="OpenSSF Best Practices" src="https://www.bestpractices.dev/projects/12705/badge">
+  </a>
   <a href="https://scorecard.dev/viewer/?uri=github.com/josedacosta/tailwindcss-obfuscator">
     <img alt="OpenSSF Scorecard" src="https://img.shields.io/ossf-scorecard/github.com/josedacosta/tailwindcss-obfuscator?style=for-the-badge&label=OpenSSF%20Scorecard&color=10b981&labelColor=000000">
   </a>
