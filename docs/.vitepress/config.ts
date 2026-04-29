@@ -25,19 +25,61 @@ export default withMermaid({
     hostname: SITE_URL + "/",
   },
 
-  // Per-page hook: inject an `<link rel="alternate" type="text/markdown">`
-  // pointing to the raw .md file we copy in `buildEnd`. This is the standard
-  // 2026 way to advertise the markdown source to LLM crawlers (Anthropic docs,
-  // Vercel docs, Cloudflare docs all do this).
+  // Per-page hook: inject SEO + social-share + LLM hints on every page.
+  // Standard 2026 setup matching Anthropic docs / Vercel docs / Cloudflare docs.
   transformPageData(pageData) {
     const relPath = pageData.relativePath.replace(/\.md$/, "");
-    const mdUrl = `${SITE_URL}/${relPath}.md`;
+    const isIndex = relPath === "index" || relPath === "";
+    const pageUrl = isIndex ? `${SITE_URL}/` : `${SITE_URL}/${relPath}`;
+    const mdUrl = isIndex ? `${SITE_URL}/index.md` : `${SITE_URL}/${relPath}.md`;
+    const pageTitle = pageData.frontmatter.title || pageData.title || "tailwindcss-obfuscator";
+    const pageDescription =
+      pageData.frontmatter.description ||
+      pageData.description ||
+      "Build-time Tailwind CSS class obfuscator. Cuts CSS bundle by 30–60% and protects your design system.";
+
     pageData.frontmatter.head = pageData.frontmatter.head || [];
     pageData.frontmatter.head.push(
+      // ---- LLM/AI raw-markdown hints (PR #51) ----
       ["link", { rel: "alternate", type: "text/markdown", href: mdUrl }],
-      // Hint AI crawlers via standard meta. Indexed by Perplexity + Claude.
       ["meta", { name: "format-detection", content: "markdown-source-available" }],
-      ["meta", { property: "ai:source", content: mdUrl }]
+      ["meta", { property: "ai:source", content: mdUrl }],
+      // ---- SEO: canonical URL prevents duplicate-content penalty ----
+      ["link", { rel: "canonical", href: pageUrl }],
+      // ---- Open Graph: per-page title + description + URL for rich social previews ----
+      ["meta", { property: "og:url", content: pageUrl }],
+      ["meta", { property: "og:title", content: pageTitle }],
+      ["meta", { property: "og:description", content: pageDescription }],
+      ["meta", { property: "og:type", content: isIndex ? "website" : "article" }],
+      [
+        "meta",
+        {
+          property: "og:image",
+          content: `${SITE_URL}/images/tailwindcss-obfuscator/logo-horizontal.svg`,
+        },
+      ],
+      // ---- Twitter Card: large image preview ----
+      ["meta", { name: "twitter:card", content: "summary_large_image" }],
+      ["meta", { name: "twitter:title", content: pageTitle }],
+      ["meta", { name: "twitter:description", content: pageDescription }],
+      [
+        "meta",
+        {
+          name: "twitter:image",
+          content: `${SITE_URL}/images/tailwindcss-obfuscator/logo-horizontal.svg`,
+        },
+      ],
+      // ---- Mobile chrome bar matches logo dark slate ----
+      ["meta", { name: "theme-color", content: "#0f172a" }],
+      // ---- Apple touch icon (square logo) ----
+      [
+        "link",
+        {
+          rel: "apple-touch-icon",
+          sizes: "180x180",
+          href: "/tailwindcss-obfuscator/images/tailwindcss-obfuscator/logo-square.svg",
+        },
+      ]
     );
   },
 
