@@ -67,6 +67,15 @@ jobs:
           cache: pnpm
           registry-url: https://registry.npmjs.org
 
+      # npm CLI 11.5.1 is the minimum version that fully supports OIDC trusted
+      # publishing on npm. Node 20 LTS bundles npm 10.x, which has incomplete
+      # OIDC support — upgrading the runner's npm to latest avoids subtle 404s
+      # and "expired token" errors observed in early-2026 npm/cli issue #8730
+      # and #8976. We do this only inside the publish job; CI/Test jobs keep
+      # the bundled npm to mirror what end-users see.
+      - name: Upgrade npm to support OIDC trusted publishing
+        run: npm install -g npm@latest
+
       - run: pnpm install --frozen-lockfile --ignore-scripts
 
       - run: pnpm --filter tailwindcss-obfuscator build
@@ -85,12 +94,15 @@ jobs:
           createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # NPM_TOKEN deliberately dropped: with Trusted Publisher (OIDC)
-          # active on npm for this package, the presence of NPM_TOKEN in the
-          # env causes npm to silently prefer the classic-token auth path
-          # (which lacks publish scope under the new TP rules) and rejects
-          # the PUT with a 404 "Not Found" — even though the OIDC provenance
-          # statement is correctly signed and submitted to Sigstore. Removing
-          # the token forces pnpm to fall through to OIDC-only auth, which
-          # the configured TP binding (publish.yml on main, no env) accepts.
-          NPM_CONFIG_PROVENANCE: "true"
+          # NPM_TOKEN deliberately dropped: with Trusted Publisher (OIDC) active
+          # on npm for this package, an empty/missing NPM_TOKEN forces pnpm to
+          # fall through to OIDC-only auth, which the TP binding accepts. An
+          # empty NODE_AUTH_TOKEN is actively harmful (npm tries to use it and
+          # ignores OIDC) — the cleanest state is to not set it at all.
+          #
+          # NPM_CONFIG_PROVENANCE is also intentionally NOT set here. Per the
+          # official npm docs (docs.npmjs.com/generating-provenance-statements),
+          # publishing via OIDC trusted publishing automatically generates
+          # provenance — the env var is redundant. Setting it can produce
+          # confusing logs when the auth path falls back. Provenance is still
+          # signed and published to Sigstore on every successful run.
