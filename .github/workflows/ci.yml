@@ -131,3 +131,34 @@ jobs:
 
       - name: pnpm audit (high+critical fail the build)
         run: pnpm audit --audit-level=high
+
+  tarball-smoke:
+    # 2026 release-safety guarantee #1: pack the package exactly as it would
+    # be uploaded to npm, install it into a fresh `node_modules`, and verify
+    # that EVERY entry of `package.json#exports` (./vite, ./webpack, ./rollup,
+    # ./esbuild, ./rspack, ./farm, ./nuxt, ./internals, ./cli, root) resolves
+    # cleanly via both ESM (import) and CJS (require). Also runs the published
+    # CLI binary `tw-obfuscator --version` to ensure the bin entry is wired.
+    #
+    # Catches: missing dist/ files, exports map drift, broken bin path, dual-
+    # package-hazard regressions. Without this job, those bugs only surface
+    # at first install on a downstream consumer's machine.
+    name: Tarball smoke test (every exports entry, ESM + CJS)
+    runs-on: ubuntu-latest
+    needs: [build]
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Run tarball smoke test
+        run: bash .github/scripts/test-tarball.sh
