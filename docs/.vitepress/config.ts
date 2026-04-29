@@ -288,6 +288,7 @@ export default withMermaid({
           items: [
             { text: "Tailwind Patterns", link: "/reference/tailwind-patterns" },
             { text: "Compatibility Matrix", link: "/reference/compatibility" },
+            { text: "Known Limitations (with reasons)", link: "/reference/limitations" },
             { text: "Tailwind Design System", link: "/reference/tailwind-design-system" },
           ],
         },

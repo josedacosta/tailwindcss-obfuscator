@@ -116,7 +116,9 @@ A build-time tool that rewrites verbose Tailwind classes (`bg-blue-500`, `flex`,
 <details>
 <summary><strong>How is it different from <code>tailwindcss-mangle</code>?</strong></summary>
 
-`tailwindcss-mangle` was built primarily to mangle classes for tree-shaking. `tailwindcss-obfuscator` is built around obfuscation as the primary goal: a unified `unplugin` core (Vite/Webpack/Rollup/esbuild/Rspack/Farm), AST extraction with full `cn() / clsx() / cva() / tv()` support, native Svelte `class:` directives, source maps, a standalone CLI (`tw-obfuscator`) and explicit Tailwind v4 support.
+[`tailwindcss-mangle`](https://github.com/sonofmagic/tailwindcss-mangle) was built primarily to mangle classes for tree-shaking. `tailwindcss-obfuscator` is built around obfuscation as the primary goal: a unified `unplugin` core (Vite/Webpack/Rollup/esbuild/Rspack/Farm), AST extraction with full `cn() / clsx() / cva() / tv()` support, native Svelte `class:` directives, source maps, a standalone CLI (`tw-obfuscator`) and explicit Tailwind v4 support.
+
+The other contenders in the same space — [`Obfustail`](https://github.com/ui-layouts/Obfuscated-tailwindcss) (UI Layouts), [`cssnano`](https://github.com/cssnano/cssnano), and [`csso`](https://github.com/css/csso) — are compared cell-by-cell in [docs/research/comparison](https://josedacosta.github.io/tailwindcss-obfuscator/research/comparison).
 
 </details>
 
