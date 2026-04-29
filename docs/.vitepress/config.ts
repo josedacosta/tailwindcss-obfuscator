@@ -1,4 +1,9 @@
 import { withMermaid } from "vitepress-plugin-mermaid";
+import fs from "node:fs";
+import path from "node:path";
+
+const SITE_URL = "https://josedacosta.github.io/tailwindcss-obfuscator";
+const DOCS_ROOT = path.resolve(__dirname, "..");
 
 export default withMermaid({
   title: "tailwindcss-obfuscator",
@@ -13,6 +18,97 @@ export default withMermaid({
 
   // Drop the prebuilt search index from older runs and the sample-app build artefacts.
   ignoreDeadLinks: true,
+
+  // Generate sitemap.xml at build time. Required for SEO + AI crawler indexing.
+  // Picked up by robots.txt's `Sitemap:` line.
+  sitemap: {
+    hostname: SITE_URL + "/",
+  },
+
+  // Per-page hook: inject an `<link rel="alternate" type="text/markdown">`
+  // pointing to the raw .md file we copy in `buildEnd`. This is the standard
+  // 2026 way to advertise the markdown source to LLM crawlers (Anthropic docs,
+  // Vercel docs, Cloudflare docs all do this).
+  transformPageData(pageData) {
+    const relPath = pageData.relativePath.replace(/\.md$/, "");
+    const mdUrl = `${SITE_URL}/${relPath}.md`;
+    pageData.frontmatter.head = pageData.frontmatter.head || [];
+    pageData.frontmatter.head.push(
+      ["link", { rel: "alternate", type: "text/markdown", href: mdUrl }],
+      // Hint AI crawlers via standard meta. Indexed by Perplexity + Claude.
+      ["meta", { name: "format-detection", content: "markdown-source-available" }],
+      ["meta", { property: "ai:source", content: mdUrl }]
+    );
+  },
+
+  // After VitePress builds the static site, copy every source `.md` into the
+  // dist tree as a static file (so /guide/sveltekit also exists as
+  // /guide/sveltekit.md returning raw markdown). Also generate `llms-full.txt`,
+  // a single concatenated file of the entire documentation for one-shot
+  // download by LLM agents.
+  async buildEnd(siteConfig) {
+    const outDir = siteConfig.outDir;
+    const allPages: { relPath: string; absPath: string; title: string; content: string }[] = [];
+
+    // Walk every .md page (excluding node_modules, .vitepress, hidden dirs)
+    const walk = (dir: string) => {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        if (entry.name.startsWith(".") || entry.name === "node_modules") continue;
+        const abs = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          walk(abs);
+        } else if (entry.isFile() && abs.endsWith(".md")) {
+          const rel = path.relative(DOCS_ROOT, abs);
+          const content = fs.readFileSync(abs, "utf8");
+          // Pull the first H1 (or frontmatter title) for the index
+          const titleMatch = content.match(/^title:\s*(.+)$/m) || content.match(/^#\s+(.+)$/m);
+          const title = titleMatch ? titleMatch[1].trim() : rel;
+          allPages.push({ relPath: rel, absPath: abs, title, content });
+        }
+      }
+    };
+    walk(DOCS_ROOT);
+
+    // 1. Copy each .md to dist preserving directory layout
+    for (const page of allPages) {
+      const destPath = path.join(outDir, page.relPath);
+      fs.mkdirSync(path.dirname(destPath), { recursive: true });
+      fs.writeFileSync(destPath, page.content, "utf8");
+    }
+
+    // 2. Generate `llms-full.txt` — concatenated documentation indexed for LLMs.
+    const lines: string[] = [];
+    lines.push("# tailwindcss-obfuscator — full documentation");
+    lines.push("");
+    lines.push(`> Single-file mirror of every page on ${SITE_URL}/. Updated on each build.`);
+    lines.push(`> Source repository: https://github.com/josedacosta/tailwindcss-obfuscator`);
+    lines.push(`> Each page is also available individually at ${SITE_URL}/<path>.md`);
+    lines.push("");
+    lines.push("## Index");
+    lines.push("");
+    for (const p of allPages.sort((a, b) => a.relPath.localeCompare(b.relPath))) {
+      const url = `${SITE_URL}/${p.relPath.replace(/\.md$/, "")}.md`;
+      lines.push(`- [${p.title}](${url})`);
+    }
+    lines.push("");
+    lines.push("---");
+    lines.push("");
+    for (const p of allPages.sort((a, b) => a.relPath.localeCompare(b.relPath))) {
+      const url = `${SITE_URL}/${p.relPath.replace(/\.md$/, "")}.md`;
+      lines.push(`# ${p.title}`);
+      lines.push(`Source: ${url}`);
+      lines.push("");
+      lines.push(p.content);
+      lines.push("");
+      lines.push("---");
+      lines.push("");
+    }
+    fs.writeFileSync(path.join(outDir, "llms-full.txt"), lines.join("\n"), "utf8");
+
+    console.log(
+      `[llm-optimization] Copied ${allPages.length} .md files + generated llms-full.txt`
+    );
+  },
 
   // Syntax highlighting with VSCode themes (light/dark)
   markdown: {
