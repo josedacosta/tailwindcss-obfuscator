@@ -29,7 +29,7 @@
   },
   "packageRules": [
     {
-      "description": "Pin GitHub Actions to a 40-char commit SHA (Scorecard 'Pinned-Dependencies' requirement); update via Renovate. Non-major bumps auto-mergeable once CI is green.",
+      "description": "Pin GitHub Actions to a 40-char commit SHA (Scorecard 'Pinned-Dependencies' requirement); Renovate refreshes the pin when a new patch lands. Manual review required — never auto-merged.",
       "matchManagers": ["github-actions"],
       "pinDigests": true,
       "automerge": false
@@ -42,14 +42,14 @@
       "schedule": ["before 6am on monday"]
     },
     {
-      "description": "Sample apps in apps/test-* are NOT shipped on npm. Their dep updates only affect local verification — group them aggressively to keep noise down.",
+      "description": "Every app under apps/ (test-* + tailwind_v*) is a sample/verification app, NOT shipped on npm. Group their non-major bumps aggressively to keep noise down.",
       "matchFileNames": ["apps/**/package.json"],
       "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "test apps (non-major)",
+      "groupName": "sample apps (non-major)",
       "schedule": ["before 6am on monday"]
     },
     {
-      "description": "Major bumps for frameworks in test apps need manual review (often breaking).",
+      "description": "Major bumps for the sample apps under apps/ — often breaking framework upgrades. Manual review required.",
       "matchFileNames": ["apps/**/package.json"],
       "matchUpdateTypes": ["major"],
       "addLabels": ["needs-review"],

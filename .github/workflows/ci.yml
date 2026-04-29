@@ -10,8 +10,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-# OpenSSF Scorecard "Token-Permissions": top-level read-only by default,
-# every job re-declares the minimum it needs.
+# OpenSSF Scorecard "Token-Permissions": top-level grants no scopes
+# (`permissions: {}` is stricter than `read-all`), so every job MUST
+# re-declare the minimum scope it needs — including read access.
 permissions: {}
 
 jobs:
