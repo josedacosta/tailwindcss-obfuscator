@@ -85,5 +85,12 @@ jobs:
           createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # NPM_TOKEN deliberately dropped: with Trusted Publisher (OIDC)
+          # active on npm for this package, the presence of NPM_TOKEN in the
+          # env causes npm to silently prefer the classic-token auth path
+          # (which lacks publish scope under the new TP rules) and rejects
+          # the PUT with a 404 "Not Found" — even though the OIDC provenance
+          # statement is correctly signed and submitted to Sigstore. Removing
+          # the token forces pnpm to fall through to OIDC-only auth, which
+          # the configured TP binding (publish.yml on main, no env) accepts.
           NPM_CONFIG_PROVENANCE: "true"
