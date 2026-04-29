@@ -199,6 +199,9 @@ const _staticUtilities = new Set<string>([
   "transform-cpu",
   "transform-gpu",
   "transform-none",
+  "transform-3d", // v4 — opt into 3D context for rotate-x / translate-z / etc.
+  // v4 — bare static gradient stop utility
+  "via-none",
   // Animation
   "animate-none",
   "animate-spin",
@@ -589,6 +592,56 @@ const _functionalPrefixes = new Set<string>([
   "@",
   // Arbitrary properties
   "[",
+  // ─── v4.2.0 logical-axis utilities ───────────────────────────────────────
+  // Padding/margin block-start/end (logical equivalents of pt/pb/mt/mb that
+  // respect writing direction). Added in tailwindcss v4.2.0.
+  "pbs",
+  "pbe",
+  "mbs",
+  "mbe",
+  // Scroll padding/margin block variants (same family).
+  "scroll-pbs",
+  "scroll-pbe",
+  "scroll-mbs",
+  "scroll-mbe",
+  // Border block-start/end logical sides.
+  "border-bs",
+  "border-be",
+  // Inset block-start/end + inline-start/end logical equivalents.
+  "inset-bs",
+  "inset-be",
+  "inset-s",
+  "inset-e",
+  // Inline-axis / block-axis sizing (logical equivalents of width/height
+  // for vertical writing modes).
+  "inline",
+  "block",
+  "min-inline",
+  "max-inline",
+  "min-block",
+  "max-block",
+  // ─── v4.2.0 font-features ────────────────────────────────────────────────
+  // Maps to CSS font-feature-settings — unblocks ligatures + contextual
+  // alternates as Tailwind utilities.
+  "font-features",
+  // ─── v4 new gradient families (renamed from bg-gradient-* in v4) ─────────
+  "bg-linear",
+  "bg-radial",
+  "bg-conic",
+  // ─── 3D transform utilities (v4) ─────────────────────────────────────────
+  "rotate-x",
+  "rotate-y",
+  "rotate-z",
+  "translate-z",
+  "scale-z",
+  "perspective",
+  "perspective-origin",
+  // ─── New utility families surfaced in v4 ────────────────────────────────
+  "inset-shadow",
+  "inset-ring",
+  "field-sizing",
+  "color-scheme",
+  "font-stretch",
 ]);
 
 /**
