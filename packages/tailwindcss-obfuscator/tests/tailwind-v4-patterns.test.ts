@@ -385,3 +385,72 @@ describe("Complete v4 Pattern Extraction", () => {
     expect(classes).toContain("bg-red-500!");
   });
 });
+
+// ============================================================================
+// v4.2.0 LOGICAL-AXIS UTILITIES + 3D TRANSFORMS + NEW GRADIENTS
+// ============================================================================
+
+describe("v4.2.0+ utility families recognised by isTailwindClass", () => {
+  it("recognises logical-axis padding/margin (pbs, pbe, mbs, mbe + scroll-* family)", () => {
+    expect(isTailwindClass("pbs-4")).toBe(true);
+    expect(isTailwindClass("pbe-2")).toBe(true);
+    expect(isTailwindClass("mbs-8")).toBe(true);
+    expect(isTailwindClass("mbe-1")).toBe(true);
+    expect(isTailwindClass("scroll-pbs-4")).toBe(true);
+    expect(isTailwindClass("scroll-pbe-2")).toBe(true);
+    expect(isTailwindClass("scroll-mbs-8")).toBe(true);
+    expect(isTailwindClass("scroll-mbe-1")).toBe(true);
+  });
+
+  it("recognises logical-axis borders (border-bs, border-be)", () => {
+    expect(isTailwindClass("border-bs-1")).toBe(true);
+    expect(isTailwindClass("border-be-2")).toBe(true);
+  });
+
+  it("recognises logical-axis inset (inset-bs/be/s/e)", () => {
+    expect(isTailwindClass("inset-bs-4")).toBe(true);
+    expect(isTailwindClass("inset-be-0")).toBe(true);
+    expect(isTailwindClass("inset-s-2")).toBe(true);
+    expect(isTailwindClass("inset-e-1")).toBe(true);
+  });
+
+  it("recognises inline-axis / block-axis sizing (inline-*, block-*, min/max-*)", () => {
+    expect(isTailwindClass("inline-32")).toBe(true);
+    expect(isTailwindClass("block-16")).toBe(true);
+    expect(isTailwindClass("min-inline-0")).toBe(true);
+    expect(isTailwindClass("max-inline-screen")).toBe(true);
+    expect(isTailwindClass("min-block-0")).toBe(true);
+    expect(isTailwindClass("max-block-full")).toBe(true);
+  });
+
+  it("recognises font-features-* (v4.2.0)", () => {
+    expect(isTailwindClass("font-features-tabular")).toBe(true);
+    expect(isTailwindClass("font-features-[liga]")).toBe(true);
+  });
+
+  it("recognises new gradient families (bg-linear, bg-radial, bg-conic + via-none)", () => {
+    expect(isTailwindClass("bg-linear-to-r")).toBe(true);
+    expect(isTailwindClass("bg-radial")).toBe(true);
+    expect(isTailwindClass("bg-conic-from-blue-500")).toBe(true);
+    expect(isTailwindClass("via-none")).toBe(true);
+  });
+
+  it("recognises 3D transforms (rotate-x/y/z, translate-z, scale-z, perspective)", () => {
+    expect(isTailwindClass("rotate-x-45")).toBe(true);
+    expect(isTailwindClass("rotate-y-90")).toBe(true);
+    expect(isTailwindClass("rotate-z-180")).toBe(true);
+    expect(isTailwindClass("translate-z-4")).toBe(true);
+    expect(isTailwindClass("scale-z-110")).toBe(true);
+    expect(isTailwindClass("perspective-1000")).toBe(true);
+    expect(isTailwindClass("perspective-origin-top")).toBe(true);
+    expect(isTailwindClass("transform-3d")).toBe(true);
+  });
+
+  it("recognises new utility families (inset-shadow, inset-ring, field-sizing, color-scheme, font-stretch)", () => {
+    expect(isTailwindClass("inset-shadow-lg")).toBe(true);
+    expect(isTailwindClass("inset-ring-2")).toBe(true);
+    expect(isTailwindClass("field-sizing-content")).toBe(true);
+    expect(isTailwindClass("color-scheme-dark")).toBe(true);
+    expect(isTailwindClass("font-stretch-condensed")).toBe(true);
+  });
+});
