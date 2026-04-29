@@ -45,6 +45,10 @@ This summary indicates whether a project type is conceptually supported by the p
 
 \*Ternary works if both options are complete static strings
 
+::: warning Why dynamic patterns (`bg-${color}-500`, `className={styles}`) cannot be extracted
+The obfuscator extracts class names by **statically analysing source code at build time**. Anything resolved at runtime (template-literal interpolation, prop-bound variables) is invisible to it. Full explanation + workarounds in [Known Limitations § Dynamic template literals](./limitations#dynamic-template-literals-bg-color-500).
+:::
+
 ### CSS Patterns
 
 | Pattern           | Example                                     | Extraction | Obfuscation |
