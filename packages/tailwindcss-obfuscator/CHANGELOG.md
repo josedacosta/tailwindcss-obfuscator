@@ -1,5 +1,24 @@
 # tailwindcss-obfuscator
 
+## 2.0.3
+
+### Patch Changes
+
+- Internal release pipeline validation — no consumer-visible code change.
+
+  This patch is published to validate that the npm OIDC trusted-publishing
+  pipeline now succeeds end-to-end via GitHub Actions, after the npm-side
+  Trusted Publisher binding was rebound to `publish.yml` and the workflow
+  itself was hardened (PRs #44, #47, #49). It also implicitly ships the
+  internal CI improvements accumulated since 2.0.2 :
+  - npm runner upgraded to latest (11.5.1+) for stable OIDC support
+  - `NPM_CONFIG_PROVENANCE` env var dropped (redundant with OIDC trusted publishing)
+  - `NPM_TOKEN` removed from publish workflow (forces clean OIDC-only auth)
+  - `release.yml` renamed to `publish.yml` (bypasses the deployment-throttling lock)
+
+  Library API and behaviour are unchanged. Upgrading from 2.0.2 → 2.0.3
+  requires no action on the consumer side.
+
 ## 2.0.2
 
 ### Patch Changes
