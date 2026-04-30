@@ -1,0 +1,28 @@
+{
+  "name": "test-vite-react-v6",
+  "version": "1.0.0",
+  "description": "Test app for tailwindcss-obfuscator with Vite v6 + React + Tailwind v4 — regression coverage for the v6 end of our supported peer range (closes part of issue #55).",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5",
+    "@vitejs/plugin-react": "^4.5.1",
+    "@tailwindcss/vite": "^4.2.4",
+    "tailwindcss": "^4.2.4",
+    "tailwindcss-obfuscator": "workspace:*",
+    "typescript": "^5.8.3",
+    "vite": "^6.4.0"
+  }
+}
