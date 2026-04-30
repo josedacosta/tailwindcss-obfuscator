@@ -67,6 +67,16 @@
       "matchPackageNames": ["tailwindcss", "@tailwindcss/vite", "@tailwindcss/postcss"],
       "addLabels": ["needs-review", "framework: tailwind"],
       "schedule": ["at any time"]
+    },
+    {
+      "description": "Never bump tailwindcss in the v3-pinned test apps — those exist precisely to validate v3 compatibility, so a v3 -> v4 bump there destroys the regression coverage they provide. v4 coverage already lives in apps/test-tailwind-v4/ + apps/test-vite-react/.",
+      "matchPackageNames": ["tailwindcss"],
+      "matchFileNames": [
+        "apps/tailwind_v3_html_static/package.json",
+        "apps/tailwind_v3_react_nextjs/package.json",
+        "apps/test-tailwind-v3/package.json"
+      ],
+      "enabled": false
     }
   ]
 }
