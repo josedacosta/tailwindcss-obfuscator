@@ -318,7 +318,10 @@ export default withMermaid({
         },
         {
           text: "Comparison",
-          items: [{ text: "Full comparison (all manglers)", link: "/research/comparison" }],
+          items: [
+            { text: "Approaches (4 families)", link: "/research/approaches" },
+            { text: "Full comparison (all manglers)", link: "/research/comparison" },
+          ],
         },
         {
           text: "Tailwind CSS",

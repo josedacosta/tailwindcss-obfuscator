@@ -12,14 +12,14 @@ This monorepo demonstrates different approaches to obfuscating Tailwind CSS clas
 
 ## Project Structure
 
-```
-tailwindcss-obfuscation/
-├── apps/
-│   ├── tailwind_v3_html_static/    # Tailwind v3 + Static HTML
-│   ├── tailwind_v4_html_static/    # Tailwind v4 + Static HTML
-│   ├── tailwind_v3_react_nextjs/   # Tailwind v3 + Next.js
-│   └── tailwind_v4_react_nextjs/   # Tailwind v4 + Next.js
-└── docs/                           # Documentation
+```mermaid
+flowchart LR
+    A[tailwindcss-obfuscation/] --> B[apps/]
+    A --> C[docs/]
+    B --> D[tailwind_v3_html_static/<br/><i>Tailwind v3 + Static HTML</i>]
+    B --> E[tailwind_v4_html_static/<br/><i>Tailwind v4 + Static HTML</i>]
+    B --> F[tailwind_v3_react_nextjs/<br/><i>Tailwind v3 + Next.js</i>]
+    B --> G[tailwind_v4_react_nextjs/<br/><i>Tailwind v4 + Next.js</i>]
 ```
 
 ## Obfuscation Approaches by Project Type
