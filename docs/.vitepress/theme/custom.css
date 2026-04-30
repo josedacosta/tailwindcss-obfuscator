@@ -699,12 +699,21 @@ h3 {
    on the right). We pull .actions out of the flex flow with absolute
    positioning so the three CTAs sit on a single horizontal row that spans
    the full container width, centered, below the logo + text block.
+
+   Critical : VitePress's default theme sets .VPHero .main { position: relative },
+   which would trap the absolute .actions inside the 45 %-wide left column.
+   We force .main back to position: static so the absolute child resolves
+   to .container (the only relative ancestor).
    ============================================================================= */
 
 @media (min-width: 960px) {
   .VPHero .container {
     position: relative !important;
     padding-bottom: 7rem !important;
+  }
+
+  .VPHero .main {
+    position: static !important;
   }
 
   .VPHero .main .actions {
