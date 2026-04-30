@@ -260,6 +260,16 @@ This is the live, source-of-truth matrix for the package. Every row corresponds 
 
 **How to read this table:** the "Tested Version" column shows the exact upper-bound version exercised on the CI. Lower versions of the same major typically work but are not in the test matrix and may regress without us catching it. If you need a guarantee, open an issue and we'll add a test app for your specific version.
 
+### Specialised regression apps
+
+These apps exist alongside the framework × bundler matrix above to lock in **specific package behaviours** rather than « does framework X work end-to-end ». They run on every CI build via [`scripts/verify-obfuscation.mjs`](https://github.com/josedacosta/tailwindcss-obfuscator/blob/main/scripts/verify-obfuscation.mjs).
+
+| App                             | Validates                                                                                          |
+| ------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `apps/test-safelist`            | The [`exclude`](../guide/options#exclude) option (a.k.a. safelist) — listed classes stay unchanged |
+| `apps/test-tailwind-variants`   | The [`tv()`](../guide/class-utilities) extractor — base / variants / compoundVariants all rewrite  |
+| `apps/tailwind_v4_react_nextjs` | Next.js + Tailwind v4 + Webpack adapter end-to-end (alternate to `test-nextjs` for legacy paths)   |
+
 ### Version-range claims vs. tested baselines
 
 Some README cells advertise a wider range than the actual test matrix below. The README cells reflect the package's design intent (the plugin core is bundler-agnostic and most reasonable versions should work) ; the matrix above reflects only what we actually exercise. If a wider range matters to you, here is the gap :
