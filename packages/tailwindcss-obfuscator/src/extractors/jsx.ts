@@ -75,9 +75,19 @@ const STRING_LITERAL_PATTERN = /['"`]([^'"`]+)['"`]/g;
 /**
  * Pattern to match object keys in conditional class objects
  * e.g., { 'bg-red-500': isActive, hidden: !isVisible, 'bg-[#1da1f2]': custom }
- * Updated to support arbitrary values in keys
+ * Updated to support arbitrary values in keys.
+ *
+ * Security note (CodeQL `js/polynomial-redos`, CWE-1333) : the char class
+ * previously included `\s` (`[\w\-[\]#%.():/\s]+`) — combined with the
+ * optional `['"]?` quote and the trailing `\s*:`, this allowed multiple
+ * ways to partition whitespace at the end of the captured group, with
+ * polynomial backtracking on input like `{   :`. Class names cannot
+ * contain whitespace anyway, so dropping `\s` from the char class
+ * removes the ambiguity without changing real-world coverage. Multi-class
+ * keys (the legitimate space-separated case) are still handled by the
+ * caller via `extractClassesFromString(keyValue)`.
  */
-const OBJECT_KEY_PATTERN = /[{,]\s*['"]?([\w\-[\]#%.():/\s]+)['"]?\s*:/g;
+const OBJECT_KEY_PATTERN = /[{,]\s*['"]?([\w\-[\]#%.():/]+)['"]?\s*:/g;
 
 /**
  * Pattern to match array items in class arrays
