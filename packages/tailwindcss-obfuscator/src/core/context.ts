@@ -168,6 +168,7 @@ const DEFAULT_OPTIONS: ResolvedObfuscatorOptions = {
     strategy: "merge",
   },
   trackPositions: false,
+  scanObjectStrings: false,
 };
 
 /**
@@ -223,6 +224,7 @@ export function resolveOptions(options: ObfuscatorOptions = {}): ResolvedObfusca
       strategy: options.cache?.strategy ?? DEFAULT_OPTIONS.cache.strategy,
     },
     trackPositions: options.trackPositions ?? DEFAULT_OPTIONS.trackPositions,
+    scanObjectStrings: options.scanObjectStrings ?? DEFAULT_OPTIONS.scanObjectStrings,
   };
 }
 

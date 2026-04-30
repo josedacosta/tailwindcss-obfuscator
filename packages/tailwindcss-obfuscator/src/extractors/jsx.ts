@@ -485,3 +485,52 @@ export function extractAllFromJsx(content: string, filePath: string): string[] {
 
   return deduplicateClasses(classes);
 }
+
+/**
+ * Extract from string literals that LOOK like Tailwind class lists.
+ *
+ * Required for the very common pattern of storing class strings inside object
+ * literals or factory functions that the JSX/CVA/TV walkers don't reach :
+ *
+ *     const COLORS = {
+ *       1: { badge: 'border-slate-400/30 bg-slate-400/10 text-slate-600',
+ *            bar:   'bg-slate-400' },
+ *       …
+ *     };
+ *
+ * Without this pass, only siblings of these strings that ALSO appear inside
+ * a `className=` attribute somewhere else in the codebase get extracted ;
+ * the rest stay un-mapped, the CSS for them stays as-is, and at runtime the
+ * className value points at non-existent rewritten selectors → broken design.
+ *
+ * Heuristic to avoid false positives on prose / config strings :
+ *   - String must contain ≥2 whitespace-separated tokens
+ *   - EVERY token must validate as a Tailwind class via `isTailwindClass`
+ *
+ * Single-word strings (`"red"`, `"info"`, `"flex"`) are NEVER picked up here ;
+ * those would be ambiguous with JS identifiers / config values. If the user
+ * wants single-word utility strings extracted, they should wrap them in a
+ * recognised utility (`cn('flex')`) or add them to `safelist`.
+ */
+export function extractClassListLikeStrings(content: string, _filePath: string): string[] {
+  const classes: string[] = [];
+  let match: RegExpExecArray | null;
+
+  STRING_LITERAL_PATTERN.lastIndex = 0;
+  while ((match = STRING_LITERAL_PATTERN.exec(content)) !== null) {
+    const raw = match[1];
+    if (!raw || raw.length < 3) continue;
+    // Strip ${…} so template-literal expressions don't poison the per-token
+    // validation.
+    const cleaned = raw.replace(/\$\{[^}]*\}/g, " ");
+    const tokens = cleaned.split(/\s+/).filter(Boolean);
+    if (tokens.length < 2) continue;
+    // Every token must look like a Tailwind class — otherwise this is prose,
+    // a config map, an i18n key, or some other non-class string.
+    if (!tokens.every((t) => isTailwindClass(t))) continue;
+    classes.push(...tokens);
+  }
+  STRING_LITERAL_PATTERN.lastIndex = 0;
+
+  return deduplicateClasses(classes);
+}

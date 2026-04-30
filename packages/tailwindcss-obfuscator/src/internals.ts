@@ -74,6 +74,7 @@ export {
   extractFromJsxWithCva,
   extractFromTailwindVariants,
   extractAllFromJsx,
+  extractClassListLikeStrings,
   extractFromCss,
   extractFromTailwindV4Css,
   extractFromFile,

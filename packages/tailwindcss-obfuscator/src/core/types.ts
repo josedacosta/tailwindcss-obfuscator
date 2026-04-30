@@ -297,6 +297,25 @@ export interface ObfuscatorOptions {
    * @default false
    */
   trackPositions?: boolean;
+
+  /**
+   * Also extract Tailwind classes from string literals stored in object
+   * properties / factory args / lookup tables that the standard JSX /
+   * `cn()` / `cva()` / `tv()` walkers don't reach.
+   *
+   * Heuristic-gated to avoid false positives : a string is picked up only
+   * if it contains ≥2 whitespace-separated tokens AND every token validates
+   * as a Tailwind class. Single-word utility strings (`"flex"`, `"red"`)
+   * are NEVER auto-extracted — wrap them in `cn(…)` or add them to
+   * `safelist` instead.
+   *
+   * Default `false` to preserve historical behavior, but recommended `true`
+   * for any project that stores className strings in lookup tables (e.g.
+   * status-color tables, badge variants by level).
+   *
+   * @default false
+   */
+  scanObjectStrings?: boolean;
 }
 
 /**
@@ -346,6 +365,7 @@ export interface ResolvedObfuscatorOptions {
   mapping: ResolvedMappingOutputOptions;
   cache: ResolvedCacheOptions;
   trackPositions: boolean;
+  scanObjectStrings: boolean;
 }
 
 /**
