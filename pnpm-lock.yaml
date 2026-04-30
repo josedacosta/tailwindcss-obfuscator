@@ -1249,8 +1249,8 @@ importers:
         specifier: '>=3.4.19'
         version: 4.2.4
       unplugin:
-        specifier: ^2.3.11
-        version: 2.3.11
+        specifier: ^3.0.0
+        version: 3.0.0
     devDependencies:
       '@farmfe/core':
         specifier: ^1.7.11
