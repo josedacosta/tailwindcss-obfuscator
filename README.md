@@ -27,8 +27,8 @@
 <br />
 
 <!-- Badges row 1 — package -->
-<!-- Downloads badge intentionally omitted while npm aggregates stats for the fresh v2.0.0
-     publish (~24-48h). Re-add `npm/dm` here once https://api.npmjs.org/downloads returns
+<!-- Downloads badge intentionally omitted while npm download stats stabilise after the
+     fresh-publish window. Re-add `npm/dm` here once https://api.npmjs.org/downloads returns
      non-zero. Until then, the install-command badge below carries the same call-to-action. -->
 <p>
   <a href="https://www.npmjs.com/package/tailwindcss-obfuscator">
@@ -593,7 +593,7 @@ pnpm install
 # 2. Build the main package
 pnpm --filter tailwindcss-obfuscator build
 
-# 3. Run the test suite (395 tests at v2.0.1, growing)
+# 3. Run the test suite (418 tests as of v2.1.0, growing)
 pnpm --filter tailwindcss-obfuscator test
 ```
 
