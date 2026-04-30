@@ -97,12 +97,19 @@ export function extractFromTailwindV4Css(content: string, _filePath: string): st
   const seen = new Set<string>();
 
   // Remove @theme blocks and other directives
+  // Strip Tailwind v4 directives we don't extract from. Each directive
+  // body is non-nested (no inner `{` `}` inside @theme / @keyframes /
+  // @property in valid Tailwind v4 CSS), so `[^}]*` is sufficient and
+  // strictly safer than the previous `[\s\S]*?` lazy quantifier — that
+  // shape was flagged by CodeQL `js/polynomial-redos` (CWE-1333) for
+  // quadratic backtracking on input with many opening braces and one
+  // closing one. The bounded char class avoids the ambiguity entirely.
   const cleanedContent = content
-    .replace(/@theme\s*\{[\s\S]*?\}/g, "")
+    .replace(/@theme\s*\{[^}]*\}/g, "")
     .replace(/@layer\s+[\w-]+\s*\{/g, "")
-    .replace(/@keyframes[\s\S]*?\}/g, "")
-    .replace(/@property[\s\S]*?\}/g, "")
-    .replace(/@container[\s\S]*?\{/g, "");
+    .replace(/@keyframes[^}]*\}/g, "")
+    .replace(/@property[^}]*\}/g, "")
+    .replace(/@container[^{]*\{/g, "");
 
   // Extract class selectors
   let match;
