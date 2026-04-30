@@ -27,9 +27,12 @@
  */
 
 import { readdirSync, readFileSync, statSync } from "node:fs";
-import { join, relative, sep } from "node:path";
+import { dirname, join, relative, resolve, sep } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const ROOT = process.cwd();
+// Anchor on this script's location, not process.cwd(), so the gate works
+// when invoked from anywhere (e.g. `cd packages/foo && node ../../scripts/...`).
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PKG = join(ROOT, "packages", "tailwindcss-obfuscator");
 const SRC = join(PKG, "src");
 const TESTS = join(PKG, "tests");
@@ -146,10 +149,14 @@ for (const file of walk(SRC)) {
   if (directRefPatterns.some((p) => allTestSources.includes(p))) continue;
 
   // Weaker signal — at least one of the file's named exports appears
-  // verbatim in some test file. Catches transitively-tested modules
-  // re-exported through src/index.ts (most of src/core/patterns/**).
+  // as a whole word in some test file. Catches transitively-tested
+  // modules re-exported through src/index.ts (most of src/core/patterns/**).
+  // Word boundaries are required because a substring match (e.g. "map"
+  // matching "bitmap") would silently mark a genuinely untested file
+  // as covered.
   const exports = extractExports(file);
-  if (exports.length > 0 && exports.some((id) => allTestSources.includes(id))) continue;
+  if (exports.length > 0 && exports.some((id) => new RegExp(`\\b${id}\\b`).test(allTestSources)))
+    continue;
 
   missing.push(rel.split(sep).join("/"));
 }
