@@ -1,0 +1,94 @@
+{
+  "$schema": "./version-watch-schema.json",
+  "description": "Watchlist for the version-watch workflow. The workflow alerts on SemVer-major bumps OR breaking-change keywords in upstream release notes. Patches and minors are intentionally NOT alerted on (Renovate handles those routinely).",
+  "packages": [
+    {
+      "name": "tailwindcss",
+      "currentMajor": 4,
+      "alertOn": ["major", "breaking"],
+      "githubRepo": "tailwindlabs/tailwindcss"
+    },
+    {
+      "name": "@tailwindcss/vite",
+      "currentMajor": 4,
+      "alertOn": ["major"],
+      "githubRepo": "tailwindlabs/tailwindcss"
+    },
+    {
+      "name": "@tailwindcss/postcss",
+      "currentMajor": 4,
+      "alertOn": ["major"],
+      "githubRepo": "tailwindlabs/tailwindcss"
+    },
+    { "name": "vite", "currentMajor": 8, "alertOn": ["major"], "githubRepo": "vitejs/vite" },
+    {
+      "name": "next",
+      "currentMajor": 16,
+      "alertOn": ["major", "breaking"],
+      "githubRepo": "vercel/next.js"
+    },
+    { "name": "nuxt", "currentMajor": 4, "alertOn": ["major"], "githubRepo": "nuxt/nuxt" },
+    { "name": "astro", "currentMajor": 6, "alertOn": ["major"], "githubRepo": "withastro/astro" },
+    {
+      "name": "@sveltejs/kit",
+      "currentMajor": 2,
+      "alertOn": ["major"],
+      "githubRepo": "sveltejs/kit"
+    },
+    { "name": "svelte", "currentMajor": 5, "alertOn": ["major"], "githubRepo": "sveltejs/svelte" },
+    {
+      "name": "@rspack/core",
+      "currentMajor": 2,
+      "alertOn": ["major"],
+      "githubRepo": "web-infra-dev/rspack"
+    },
+    {
+      "name": "@farmfe/core",
+      "currentMajor": 1,
+      "alertOn": ["major"],
+      "githubRepo": "farm-fe/farm"
+    },
+    { "name": "rollup", "currentMajor": 4, "alertOn": ["major"], "githubRepo": "rollup/rollup" },
+    { "name": "webpack", "currentMajor": 5, "alertOn": ["major"], "githubRepo": "webpack/webpack" },
+    {
+      "name": "esbuild",
+      "currentMajor": 0,
+      "alertOn": ["major", "breaking"],
+      "githubRepo": "evanw/esbuild"
+    },
+    {
+      "name": "@babel/parser",
+      "currentMajor": 7,
+      "alertOn": ["major"],
+      "githubRepo": "babel/babel"
+    },
+    {
+      "name": "vitest",
+      "currentMajor": 4,
+      "alertOn": ["major"],
+      "githubRepo": "vitest-dev/vitest"
+    },
+    {
+      "name": "typescript",
+      "currentMajor": 5,
+      "alertOn": ["major"],
+      "githubRepo": "microsoft/TypeScript"
+    },
+    { "name": "react", "currentMajor": 19, "alertOn": ["major"], "githubRepo": "facebook/react" },
+    { "name": "vue", "currentMajor": 3, "alertOn": ["major"], "githubRepo": "vuejs/core" },
+    { "name": "solid-js", "currentMajor": 1, "alertOn": ["major"], "githubRepo": "solidjs/solid" },
+    { "name": "qwik", "currentMajor": 1, "alertOn": ["major"], "githubRepo": "QwikDev/qwik" },
+    {
+      "name": "tailwind-variants",
+      "currentMajor": 0,
+      "alertOn": ["major", "breaking"],
+      "githubRepo": "heroui-inc/tailwind-variants"
+    },
+    {
+      "name": "class-variance-authority",
+      "currentMajor": 0,
+      "alertOn": ["major"],
+      "githubRepo": "joe-bell/cva"
+    }
+  ]
+}

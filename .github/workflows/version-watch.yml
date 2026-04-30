@@ -1,0 +1,83 @@
+name: Version Watch
+
+# Surveils every package this project supports for SemVer-major bumps OR
+# explicit breaking-change keywords in the upstream release notes. Anti-
+# overkill: patches and minors are NOT surfaced (Renovate handles those).
+#
+# When something needs human attention, the maintainer is notified through:
+#   1. SMTP email to contact@josedacosta.info, when SMTP_* secrets are set
+#   2. A GitHub issue with the `version-watch` label, otherwise (fallback)
+#
+# To acknowledge an alert and silence it for the next major: bump
+# `currentMajor` in `.github/version-watch-config.json` and merge.
+
+on:
+  schedule:
+    - cron: "0 8 * * 1" # every Monday at 08:00 UTC (after the OSSF Scorecard run)
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: "Run without sending email or opening an issue (logs the report only)"
+        type: boolean
+        default: false
+
+permissions: {}
+
+jobs:
+  watch:
+    name: Check upstream versions
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # read the watchlist
+      issues: write # fallback notification channel
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+
+      - name: Run version watcher
+        id: watch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/version-watch.mjs
+
+      - name: Send email notification (when SMTP secrets are configured)
+        if: ${{ steps.watch.outputs.alertCountIsPositive == 'true' && env.SMTP_HOST != '' && inputs.dry-run != true }}
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+        uses: dawidd6/action-send-mail@2cea9617b09d79a095af21254fbcb7ae95903dde # v3.12.0
+        with:
+          server_address: ${{ secrets.SMTP_HOST }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          from: tailwindcss-obfuscator version-watch <${{ secrets.SMTP_USER }}>
+          to: contact@josedacosta.info
+          subject: "[tailwindcss-obfuscator] ${{ steps.watch.outputs.alertCount }} upstream major/breaking version(s) detected"
+          body: ${{ steps.watch.outputs.report }}
+          convert_markdown: true
+
+      - name: Fallback — open a GitHub issue (when no SMTP config OR email step skipped)
+        if: ${{ steps.watch.outputs.alertCountIsPositive == 'true' && env.SMTP_HOST == '' && inputs.dry-run != true }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPORT: ${{ steps.watch.outputs.report }}
+          ALERT_COUNT: ${{ steps.watch.outputs.alertCount }}
+        run: |
+          # Reuse the existing open issue with the version-watch label, if any.
+          existing=$(gh issue list --label version-watch --state open --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$REPORT"
+          else
+            gh issue create \
+              --title "[version-watch] $ALERT_COUNT upstream major/breaking version(s) detected" \
+              --label version-watch \
+              --body "$REPORT"
+          fi
