@@ -80,6 +80,19 @@ jobs:
 
       - run: pnpm --filter tailwindcss-obfuscator build
 
+      # Pre-flight gate (release-safety #4) : verify the tarball that's about
+      # to be published contains exactly the files the maintainer expects.
+      # Compares the file list AND size envelope against the committed
+      # baseline at scripts/expected-tarball.json. Fails on any drift —
+      # forcing the maintainer to consciously update the baseline in the
+      # SAME PR that changes the published surface. Catches accidental
+      # inclusion of secrets / test fixtures / source maps we forgot to
+      # ship / dist files we forgot to ship — i.e. the entire class of
+      # "I packed the wrong thing" bugs that are usually only caught
+      # post-publish on a customer's machine.
+      - name: Pre-flight tarball contents gate
+        run: bash .github/scripts/check-tarball-contents.sh
+
       - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@6a0a831ff30acef54f2c6aa1cbbc1096b066edaf # v1.7.0
