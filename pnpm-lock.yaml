@@ -23,7 +23,7 @@ overrides:
   tar: '>=7.5.11'
   undici: '>=8.1.0'
   uuid: '>=14.0.0'
-  vite: '>=6.4.2'
+  vite: '>=8.0.10'
   webpack: '>=5.106.2'
   yaml: '>=2.8.3'
 
@@ -98,7 +98,7 @@ importers:
         specifier: ^3.4.17
         version: 3.4.18(tsx@4.21.0)(yaml@2.8.3)
       vite:
-        specifier: '>=6.4.2'
+        specifier: '>=8.0.10'
         version: 8.0.10(@types/node@22.19.1)(esbuild@0.28.0)(jiti@1.21.7)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.3)
     devDependencies:
       '@types/jsdom':
@@ -322,7 +322,7 @@ importers:
         specifier: ^4.2.4
         version: 4.2.4
       vite:
-        specifier: '>=6.4.2'
+        specifier: '>=8.0.10'
         version: 8.0.10(@types/node@22.19.1)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.3)
     devDependencies:
       '@types/jsdom':
@@ -637,7 +637,7 @@ importers:
         specifier: ^5.8.3
         version: 5.9.3
       vite:
-        specifier: '>=6.4.2'
+        specifier: '>=8.0.10'
         version: 8.0.10(@types/node@22.19.1)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.3)
 
   apps/test-react-router:
@@ -683,7 +683,7 @@ importers:
         specifier: ^5.8.3
         version: 5.9.3
       vite:
-        specifier: '>=6.4.2'
+        specifier: '>=8.0.10'
         version: 8.0.10(@types/node@22.19.1)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.3)
 
   apps/test-rollup-standalone:
@@ -919,7 +919,7 @@ importers:
         specifier: ^5.8.3
         version: 5.9.3
       vite:
-        specifier: '>=6.4.2'
+        specifier: '>=8.0.10'
         version: 8.0.10(@types/node@22.19.1)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.3)
       vite-plugin-solid:
         specifier: ^2.11.6
@@ -971,7 +971,7 @@ importers:
         specifier: ^5.8.3
         version: 5.9.3
       vite:
-        specifier: '>=6.4.2'
+        specifier: '>=8.0.10'
         version: 8.0.10(@types/node@22.19.1)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.3)
 
   apps/test-tailwind-v3:
@@ -1011,7 +1011,7 @@ importers:
         specifier: ^5.7.2
         version: 5.9.3
       vite:
-        specifier: '>=6.4.2'
+        specifier: '>=8.0.10'
         version: 8.0.10(@types/node@22.19.1)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.3)
 
   apps/test-tailwind-v4:
@@ -1045,7 +1045,7 @@ importers:
         specifier: ^5.7.2
         version: 5.9.3
       vite:
-        specifier: '>=6.4.2'
+        specifier: '>=8.0.10'
         version: 8.0.10(@types/node@22.19.1)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.3)
 
   apps/test-tailwind-variants:
@@ -1112,7 +1112,7 @@ importers:
         specifier: ^5.8.3
         version: 5.9.3
       vite:
-        specifier: '>=6.4.2'
+        specifier: '>=8.0.10'
         version: 8.0.10(@types/node@22.19.1)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.3)
 
   apps/test-vite-react:
@@ -1152,7 +1152,7 @@ importers:
         specifier: ^5.8.3
         version: 5.9.3
       vite:
-        specifier: '>=6.4.2'
+        specifier: '>=8.0.10'
         version: 8.0.10(@types/node@22.19.1)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.3)
 
   apps/test-vite-vue:
@@ -1177,7 +1177,7 @@ importers:
         specifier: ^5.8.3
         version: 5.9.3
       vite:
-        specifier: '>=6.4.2'
+        specifier: '>=8.0.10'
         version: 8.0.10(@types/node@22.19.1)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.3)
       vue-tsc:
         specifier: ^2.2.10
@@ -1280,7 +1280,7 @@ importers:
         specifier: ^5.7.2
         version: 5.9.3
       vite:
-        specifier: '>=6.4.2'
+        specifier: '>=8.0.10'
         version: 8.0.10(@types/node@22.19.1)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: ^4.1.5
@@ -1659,7 +1659,7 @@ packages:
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     hasBin: true
     peerDependencies:
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
 
   '@capsizecss/unpack@4.0.0':
     resolution: {integrity: sha512-VERIM64vtTP1C4mxQ5thVT9fK0apjPFobqybMtA1UdUujWka24ERHbRHFGmpbbhp73MhV+KSsHQH9C6uOTdEQA==}
@@ -2571,7 +2571,7 @@ packages:
   '@nuxt/devtools-kit@3.2.4':
     resolution: {integrity: sha512-Yxy2Xgmq5hf3dQy983V0xh0OJV2mYwRZz9eVIGc3EaribdFGPDNGMMbYqX9qCty3Pbxn/bCF3J0UyPaNlHVayQ==}
     peerDependencies:
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
 
   '@nuxt/devtools-wizard@3.2.4':
     resolution: {integrity: sha512-5tu2+Quu9XTxwtpzM8CUN0UKn/bzZIfJcoGd+at5Yy1RiUQJ4E52tRK0idW1rMSUDkbkvX3dSnu8Tpj7SAtWdQ==}
@@ -2582,7 +2582,7 @@ packages:
     hasBin: true
     peerDependencies:
       '@vitejs/devtools': '*'
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
     peerDependenciesMeta:
       '@vitejs/devtools':
         optional: true
@@ -3874,7 +3874,7 @@ packages:
       react-router: ^7.14.2
       react-server-dom-webpack: ^19.2.3
       typescript: ^5.1.0 || ^6.0.0
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
       wrangler: ^3.28.2 || ^4.0.0
     peerDependenciesMeta:
       '@react-router/serve':
@@ -4381,7 +4381,7 @@ packages:
       '@sveltejs/vite-plugin-svelte': ^3.0.0 || ^4.0.0-next.1 || ^5.0.0 || ^6.0.0-next.0 || ^7.0.0
       svelte: ^4.0.0 || ^5.0.0-next.0
       typescript: ^5.3.3 || ^6.0.0
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
     peerDependenciesMeta:
       '@opentelemetry/api':
         optional: true
@@ -4394,14 +4394,14 @@ packages:
     peerDependencies:
       '@sveltejs/vite-plugin-svelte': ^5.0.0
       svelte: ^5.0.0
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
 
   '@sveltejs/vite-plugin-svelte@5.1.1':
     resolution: {integrity: sha512-Y1Cs7hhTc+a5E9Va/xwKlAJoariQyHY+5zBgCZg4PFWNYQ1nMN9sjK1zhw1gK69DuqVP++sht/1GZg1aRwmAXQ==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22}
     peerDependencies:
       svelte: ^5.0.0
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
 
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
@@ -4516,7 +4516,7 @@ packages:
   '@tailwindcss/vite@4.2.4':
     resolution: {integrity: sha512-pCvohwOCspk3ZFn6eJzrrX3g4n2JY73H6MmYC87XfGPyTty4YsCjYTMArRZm/zOI8dIt3+EcrLHAFPe5A4bgtw==}
     peerDependencies:
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
 
   '@tanstack/history@1.161.6':
     resolution: {integrity: sha512-NaOGLRrddszbQj9upGat6HG/4TKvXLvu+osAIgfxPYA+eIvYKv8GKDJOrY2D3/U9MRnKfMWD7bU4jeD4xmqyIg==}
@@ -4902,27 +4902,27 @@ packages:
     resolution: {integrity: sha512-gUu9hwfWvvEDBBmgtAowQCojwZmJ5mcLn3aufeCsitijs3+f2NsrPtlAWIR6OPiqljl96GVCUbLe0HyqIpVaoA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
 
   '@vitejs/plugin-vue-jsx@5.1.5':
     resolution: {integrity: sha512-jIAsvHOEtWpslLOI2MeElGFxH7M8pM83BU/Tor4RLyiwH0FM4nUW3xdvbw20EeU9wc5IspQwMq225K3CMnJEpA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
       vue: ^3.0.0
 
   '@vitejs/plugin-vue@5.2.4':
     resolution: {integrity: sha512-7Yx/SXSOcQq5HiiV3orevHUFn+pmMB4cgbEkDYgnkUWb0WfeQ/wa2yFv6D5ICiCQOVpjA7vYDXrC7AGO8yjDHA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
       vue: ^3.2.25
 
   '@vitejs/plugin-vue@6.0.6':
     resolution: {integrity: sha512-u9HHgfrq3AjXlysn0eINFnWQOJQLO9WN6VprZ8FXl7A2bYisv3Hui9Ij+7QZ41F/WYWarHjwBbXtD7dKg3uxbg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
       vue: ^3.2.25
 
   '@vitest/coverage-v8@4.1.5':
@@ -4941,7 +4941,7 @@ packages:
     resolution: {integrity: sha512-/x2EmFC4mT4NNzqvC3fmesuV97w5FC903KPmey4gsnJiMQ3Be1IlDKVaDaG8iqaLFHqJ2FVEkxZk5VmeLjIItw==}
     peerDependencies:
       msw: ^2.4.9
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
     peerDependenciesMeta:
       msw:
         optional: true
@@ -11054,12 +11054,12 @@ packages:
   vite-dev-rpc@1.1.0:
     resolution: {integrity: sha512-pKXZlgoXGoE8sEKiKJSng4hI1sQ4wi5YT24FCrwrLt6opmkjlqPPVmiPWWJn8M8byMxRGzp1CrFuqQs4M/Z39A==}
     peerDependencies:
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
 
   vite-hot-client@2.1.0:
     resolution: {integrity: sha512-7SpgZmU7R+dDnSmvXE1mfDtnHLHQSisdySVR7lO8ceAXvM0otZeuQQ6C8LrS5d/aYyP/QZ0hI0L+dIPrm4YlFQ==}
     peerDependencies:
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
 
   vite-imagetools@9.0.2:
     resolution: {integrity: sha512-FV5DXw4swU81t+g8JOLT+T7gKuBOXuVsZ0WGhi7y0R182+GfBYkcf6V9/T0Nweu/vn1X0DA2p5ePMnaGZlRl1A==}
@@ -11086,7 +11086,7 @@ packages:
       oxlint: '>=1'
       stylelint: '>=16'
       typescript: '*'
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
       vls: '*'
       vti: '*'
       vue-tsc: ~2.2.10 || ^3.0.0
@@ -11117,7 +11117,7 @@ packages:
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
     peerDependenciesMeta:
       '@nuxt/kit':
         optional: true
@@ -11127,7 +11127,7 @@ packages:
     peerDependencies:
       '@testing-library/jest-dom': ^5.16.6 || ^5.17.0 || ^6.*
       solid-js: ^1.7.2
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
     peerDependenciesMeta:
       '@testing-library/jest-dom':
         optional: true
@@ -11135,7 +11135,7 @@ packages:
   vite-plugin-vue-tracer@1.3.0:
     resolution: {integrity: sha512-Cgfce6VikzOw5MUJTpeg50s5rRjzU1Vr61ZjuHunVVHLjZZ5AUlgyExHthZ3r59vtoz9W2rDt23FYG81avYBKw==}
     peerDependencies:
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
       vue: ^3.5.0
 
   vite@8.0.10:
@@ -11184,7 +11184,7 @@ packages:
   vitefu@1.1.1:
     resolution: {integrity: sha512-B/Fegf3i8zh0yFbpzZ21amWzHmuNlLlmJT6n7bu5e+pCHUKQIfXSYokrqOBGEMMe9UG2sostKQF9mml/vYaWJQ==}
     peerDependencies:
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
     peerDependenciesMeta:
       vite:
         optional: true
@@ -11192,7 +11192,7 @@ packages:
   vitefu@1.1.3:
     resolution: {integrity: sha512-ub4okH7Z5KLjb6hDyjqrGXqWtWvoYdU3IGm/NorpgHncKoLTCfRIbvlhBm7r0YstIaQRYlp4yEbFqDcKSzXSSg==}
     peerDependencies:
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
     peerDependenciesMeta:
       vite:
         optional: true
@@ -11231,7 +11231,7 @@ packages:
       '@vitest/ui': 4.1.5
       happy-dom: '*'
       jsdom: '*'
-      vite: '>=6.4.2'
+      vite: '>=8.0.10'
     peerDependenciesMeta:
       '@edge-runtime/vm':
         optional: true
