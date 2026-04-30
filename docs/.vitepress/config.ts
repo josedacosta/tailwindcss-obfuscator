@@ -376,6 +376,10 @@ export default withMermaid({
           ],
         },
         {
+          text: "Security & supply chain",
+          items: [{ text: "Verification systems & scoring", link: "/reference/security" }],
+        },
+        {
           text: "Labs (validation reports)",
           collapsed: true,
           items: [
