@@ -38,6 +38,7 @@ const BUILD_DIRS = [
   ".svelte-kit/output",
   "build",
   "out",
+  "_site", // Eleventy / Jekyll
 ];
 const SCANNED_EXTS = new Set([".css", ".js", ".mjs", ".cjs", ".html", ".rsc"]);
 
@@ -55,10 +56,7 @@ function findBuildDirs(appDir) {
 function collectLiveObfuscatedTokens(buildDirs, prefix) {
   const escapedPrefix = prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const cssRe = new RegExp(`\\.(${escapedPrefix}[a-zA-Z0-9_-]+)`, "g");
-  const jsRe = new RegExp(
-    `(?<=["'\\s\`>])(${escapedPrefix}[a-zA-Z0-9_-]+)(?=["'\\s\`<])`,
-    "g"
-  );
+  const jsRe = new RegExp(`(?<=["'\\s\`>])(${escapedPrefix}[a-zA-Z0-9_-]+)(?=["'\\s\`<])`, "g");
   const seen = new Set();
   for (const buildDir of buildDirs) {
     for (const file of walkFiles(buildDir)) {
@@ -128,10 +126,7 @@ function buildContextualRegexes(classes) {
   // tail of a longer class name. Vue-scoped selectors of the form
   // `.X[data-v-abc123]` are skipped because the obfuscator intentionally
   // leaves them alone — rewriting them would break the scoped binding.
-  const cssRegex = new RegExp(
-    `\\.(${alt})(?=[\\s,{:>~+\\[\\.])(?!\\[data-v-)`,
-    "g"
-  );
+  const cssRegex = new RegExp(`\\.(${alt})(?=[\\s,{:>~+\\[\\.])(?!\\[data-v-)`, "g");
 
   // JS/HTML: only count classes inside an actual `class="…"` /
   // `className="…"` attribute. Looking at any quoted token globally produced
@@ -150,7 +145,6 @@ function buildContextualRegexes(classes) {
       for (const tok of value.split(/\s+/)) {
         if (tok && wantSet.has(tok)) {
           if (process.env.TW_DEBUG_VERIFY === tok && file) {
-             
             console.log("[trace]", tok, "in", file, "→", value.slice(0, 120));
           }
           onMatch(tok);
@@ -172,10 +166,7 @@ function countResidualPerClass(buildDirs, classes, prefix) {
   const obfuscatedTokens = new Set();
   const escapedPrefix = prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const cssSelectorRe = new RegExp(`\\.${escapedPrefix}[a-zA-Z0-9_-]+`, "g");
-  const jsStringRe = new RegExp(
-    `(?<=["'\\s\`>])${escapedPrefix}[a-zA-Z0-9_-]+(?=["'\\s\`<])`,
-    "g"
-  );
+  const jsStringRe = new RegExp(`(?<=["'\\s\`>])${escapedPrefix}[a-zA-Z0-9_-]+(?=["'\\s\`<])`, "g");
 
   for (const buildDir of buildDirs) {
     for (const file of walkFiles(buildDir)) {
@@ -301,7 +292,11 @@ function main() {
     try {
       mapping = JSON.parse(readFileSync(mappingPath, "utf-8"));
     } catch (e) {
-      results.push({ name: relative(ROOT, appDir), status: "skip", reason: `bad mapping: ${e.message}` });
+      results.push({
+        name: relative(ROOT, appDir),
+        status: "skip",
+        reason: `bad mapping: ${e.message}`,
+      });
       continue;
     }
 
@@ -320,8 +315,7 @@ function main() {
       console.log(`${r.name.padEnd(36)} ${dim("skip   ")} ${dim(r.reason ?? "")}`);
       continue;
     }
-    const statusStr =
-      r.status === "ok" ? green("ok     ") : (failures++, red("FAIL   "));
+    const statusStr = r.status === "ok" ? green("ok     ") : (failures++, red("FAIL   "));
     const obfPct = `${r.obfuscationCoverage.toFixed(1)}%`.padEnd(7);
     const obfColor = r.obfuscationCoverage >= MIN_OBFUSCATION_COVERAGE ? green : red;
     const residPct = `${r.residualRate.toFixed(1)}%`.padEnd(7);
@@ -335,10 +329,14 @@ function main() {
 
   console.log();
   if (failures > 0) {
-    console.log(red(`${failures} app(s) below ${MIN_OBFUSCATION_COVERAGE}% CSS obfuscation coverage.\n`));
+    console.log(
+      red(`${failures} app(s) below ${MIN_OBFUSCATION_COVERAGE}% CSS obfuscation coverage.\n`)
+    );
     process.exit(1);
   }
-  console.log(green(`All apps at or above ${MIN_OBFUSCATION_COVERAGE}% CSS obfuscation coverage.\n`));
+  console.log(
+    green(`All apps at or above ${MIN_OBFUSCATION_COVERAGE}% CSS obfuscation coverage.\n`)
+  );
 }
 
 main();
