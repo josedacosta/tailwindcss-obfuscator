@@ -173,21 +173,24 @@ bg-(?:radial|conic)-[\w\[\]-]+
 - `in-*` variants (basic patterns)
 - `nth-*` variants (basic patterns)
 
-### ❌ Missing Support (Must Add)
+### ✅ Now Supported (was « Missing » in earlier drafts of this page)
 
-**High Priority:**
+The package was audited end-to-end on 2026-04-30 against `packages/tailwindcss-obfuscator/src/core/patterns/`. Every item below ships in the current release :
 
-1. Wildcard selectors (`*:`, `**:`)
-2. CSS variable parentheses syntax `(--var)`
-3. Arbitrary values with underscores
-4. Named container queries (`@lg/sidebar:`)
-5. Nested brackets (`in-[[data-active]]:`)
-6. Important modifier at END enforcement
-7. Variant order preservation (left-to-right)
-
-**Medium Priority:** 8. 3D transform utilities (`rotate-x-*`, `perspective-*`) 9. Inset shadow/ring utilities 10. New gradient types (`bg-radial-*`, `bg-conic-*`) 11. Gradient stop positions (`to-75%`) 12. Renamed utility recognition (both v3 and v4)
-
-**Low Priority:** 13. `field-sizing-*` utilities 14. `color-scheme-*` utilities 15. `font-stretch-*` utilities 16. Dynamic grid columns (`grid-cols-15`)
+1. Wildcard selectors (`*:`, `**:`) — `variants.ts`
+2. CSS variable parentheses syntax `bg-(--var)`, `text-(color:--my-var)` — `validators.ts`
+3. Arbitrary values with underscores — `validators.ts`
+4. Named container queries (`@lg/sidebar:`) — `variants.ts`
+5. Nested brackets (`in-[[data-active]]:`) — basic patterns work, deeply-nested cases see [Limitations](../reference/limitations#not-in-nth-variants-supported-edge-cases-possible)
+6. Important modifier at END (`flex!`) — `validators.ts` accepts both positions
+7. Variant order preservation — transformer is order-preserving by design
+8. 3D transform utilities (`rotate-x-*`, `rotate-y-*`, `rotate-z-*`, `perspective-*`, `transform-3d`) — `utilities.ts`
+9. Inset shadow / inset ring utilities — `utilities.ts`
+10. New gradient types (`bg-radial-*`, `bg-conic-*`) — `utilities.ts`
+11. Gradient stop positions (`to-75%`) — handled by the standard percentage utility regex
+12. Renamed utility recognition (both v3 names like `flex-shrink` and v4 names like `shrink`) — `utilities.ts`
+13. `field-sizing-*`, `color-scheme-*`, `font-stretch-*` utilities — `utilities.ts`
+14. Dynamic grid columns (`grid-cols-15`) — handled by the standard arbitrary-value regex
 
 ---
 
