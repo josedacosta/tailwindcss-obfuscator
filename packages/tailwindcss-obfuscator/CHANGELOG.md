@@ -1,5 +1,15 @@
 # tailwindcss-obfuscator
 
+## 3.1.0
+
+### Minor Changes
+
+- [#103](https://github.com/josedacosta/tailwindcss-obfuscator/pull/103) [`27c5bd0`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/27c5bd077cd35b0504a934d7086a0312c7d2e38b) Thanks [@josedacosta](https://github.com/josedacosta)! - Ship a SPDX 2.3 Software Bill of Materials inside the npm tarball at `dist/sbom.spdx.json`. The file lists every production dependency (currently 50 packages including the package itself) with its name, resolved version, download URL and `purl`. Consumers can read it via `cat node_modules/tailwindcss-obfuscator/dist/sbom.spdx.json` or feed it to GitHub Dependency Graph, OSSF Scorecard, FOSSA, GitLab Dependency Scanning or Anchore Grype — all of which consume SPDX 2.3 natively.
+
+  Why ship the SBOM inside the tarball rather than as a GitHub release asset : npm publish-with-provenance signs the tarball via Sigstore, which freezes the resulting release as immutable. Post-publish asset uploads (the previous SBOM workflow) now fail with « Cannot upload assets to an immutable release. » Putting the SBOM inside the tarball makes it covered by the npm provenance attestation chain itself — strictly stronger than a post-release asset.
+
+  Closes #101.
+
 ## 3.0.0
 
 ### Major Changes
