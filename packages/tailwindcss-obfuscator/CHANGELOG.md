@@ -1,5 +1,23 @@
 # tailwindcss-obfuscator
 
+## 3.0.0
+
+### Major Changes
+
+- [#83](https://github.com/josedacosta/tailwindcss-obfuscator/pull/83) [`4b3d58d`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/4b3d58d1961e229529ee4c6ad8192871dcf6f9fd) Thanks [@renovate](https://github.com/apps/renovate)! - **BREAKING** : drop support for `rollup` v3. The minimum supported peer is now `rollup >=4.60.2`. Consumers on rollup v3 should either pin `tailwindcss-obfuscator@<3.0.0` or upgrade to rollup v4 — see the [rollup v4 migration guide](https://rollupjs.org/migration/#changes-when-using-the-javascript-api).
+
+- [#82](https://github.com/josedacosta/tailwindcss-obfuscator/pull/82) [`f2af5c7`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/f2af5c7bf8098ee33ef418a3bccc76b26ae31d4f) Thanks [@renovate](https://github.com/apps/renovate)! - **BREAKING** : drop support for `@rspack/core` v1. The minimum supported peer is now `@rspack/core >=2.0.1`. Consumers on rspack v1 should either pin `tailwindcss-obfuscator@<3.0.0` or upgrade to rspack v2 — see the [rspack v2 migration guide](https://rspack.dev/blog/announcing-2-0).
+
+- [#88](https://github.com/josedacosta/tailwindcss-obfuscator/pull/88) [`30ca037`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/30ca03745d9cc9859cffe35dd7878c9448a6f1bc) Thanks [@renovate](https://github.com/apps/renovate)! - **BREAKING** : drop support for `vite` v4 / v5 / v6 / v7 in the declared peer range. The minimum supported peer is now `vite >=8.0.10`. The plugin core has not changed (the unplugin hooks `transform()` and `generateBundle()` are stable across vite v4–v8) ; the bump is for consistency with the apps under `apps/test-vite-*` which exercise vite v8 in CI.
+
+  Consumers on vite v4–v7 may continue to use `tailwindcss-obfuscator@<3.0.0` ; the underlying behaviour should still work on a vite v4–v7 install but is no longer regression-tested by us.
+
+### Patch Changes
+
+- [#97](https://github.com/josedacosta/tailwindcss-obfuscator/pull/97) [`b8ede56`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/b8ede56c1b4d6366c097089395ba5e04e69a497b) Thanks [@josedacosta](https://github.com/josedacosta)! - Bump `commander` from v12 to v14 (internal CLI parsing dependency, landed in #89). The CLI surface (`tw-obfuscator --help`, `tw-obfuscator run`, flags) is unchanged ; the bump is covered by the tarball-smoke gate that runs `tw-obfuscator --version` after `npm install` of the freshly-packed tarball. Note : commander 14 requires Node.js v20+ which is already the package's documented minimum.
+
+- [#97](https://github.com/josedacosta/tailwindcss-obfuscator/pull/97) [`b8ede56`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/b8ede56c1b4d6366c097089395ba5e04e69a497b) Thanks [@josedacosta](https://github.com/josedacosta)! - Bump the internal `unplugin` core from v2 to v3 (landed in #93). The package's public API surface is unchanged ; all 10 plugin entries (`./vite`, `./webpack`, `./rollup`, `./esbuild`, `./rspack`, `./farm`, `./nuxt`, `./cli`, `./internals`, root) continue to resolve and import cleanly via both ESM and CJS — verified end-to-end by the tarball-smoke gate. Internal-only refresh.
+
 ## 2.1.0
 
 ### Minor Changes
