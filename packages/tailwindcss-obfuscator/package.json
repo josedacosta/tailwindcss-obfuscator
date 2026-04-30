@@ -115,7 +115,7 @@
     "webpack": "^5.99.0"
   },
   "peerDependencies": {
-    "@farmfe/core": ">=1.0.0",
+    "@farmfe/core": ">=1.7.11",
     "@rspack/core": ">=1.0.0",
     "esbuild": ">=0.28.0",
     "rollup": ">=3.0.0",
