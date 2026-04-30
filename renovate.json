@@ -69,12 +69,13 @@
       "schedule": ["at any time"]
     },
     {
-      "description": "Never bump tailwindcss in the v3-pinned test apps — those exist precisely to validate v3 compatibility, so a v3 -> v4 bump there destroys the regression coverage they provide. v4 coverage already lives in apps/test-tailwind-v4/ + apps/test-vite-react/.",
+      "description": "Never bump tailwindcss in (a) the v3-pinned test apps (their reason to exist is v3 regression coverage) NOR (b) the package’s own peer-dep declaration (Tailwind v3 + v4 dual support is a documented value prop). v4 regression coverage already lives in apps/test-tailwind-v4/ + apps/test-vite-react/.",
       "matchPackageNames": ["tailwindcss"],
       "matchFileNames": [
         "apps/tailwind_v3_html_static/package.json",
         "apps/tailwind_v3_react_nextjs/package.json",
-        "apps/test-tailwind-v3/package.json"
+        "apps/test-tailwind-v3/package.json",
+        "packages/tailwindcss-obfuscator/package.json"
       ],
       "enabled": false
     }
