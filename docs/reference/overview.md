@@ -44,7 +44,7 @@ flowchart LR
 
 - CSS-first configuration with `@theme` and `@import "tailwindcss"`
 - No `tailwind.config.js` required
-- `tailwindcss-patch` does NOT work (see `tailwindcss_patch_v4_issues.md`)
+- `tailwindcss-patch` does NOT work (see the [Mangle Tailwind v4 Issues](../research/v4-issues) research page)
 - Requires custom extraction script
 - New features: Container queries (`@container`), improved arbitrary values
 
@@ -64,15 +64,14 @@ pnpm build
 pnpm test
 ```
 
-## Documentation Files
+## Related Pages
 
-- `overview.md` - This file
-- `tailwind_v3_html_static.md` - Guide for Tailwind v3 + HTML static
-- `tailwind_v4_html_static.md` - Guide for Tailwind v4 + HTML static
-- `tailwind_v3_react_nextjs.md` - Guide for Tailwind v3 + Next.js
-- `tailwind_v4_react_nextjs.md` - Guide for Tailwind v4 + Next.js
-- `tailwindcss_patch_v4_issues.md` - Why tailwindcss-patch doesn't work with v4
-- `compatibility_matrix.md` - Full compatibility matrix
+- [Tailwind v3 — HTML static](./labs/tailwind-v3-html)
+- [Tailwind v4 — HTML static](./labs/tailwind-v4-html)
+- [Tailwind v3 — Next.js](./labs/tailwind-v3-nextjs)
+- [Tailwind v4 — Next.js](./labs/tailwind-v4-nextjs)
+- [Mangle Tailwind v4 Issues](../research/v4-issues) — why `tailwindcss-patch` doesn't work with v4
+- [Compatibility](./compatibility) — full framework + Tailwind feature matrix
 
 ## Important Rules
 

@@ -16,7 +16,7 @@ If you hit a limitation that is not on this page, please [open an issue](https:/
 
 ### Dynamic template literals (`` `bg-${color}-500` ``)
 
-Marked **❌ Not extracted** in [`compatibility.md` § JSX/React Patterns](./compatibility#class-pattern-support).
+Marked **❌ Not extracted** in the [Compatibility](./compatibility#class-pattern-support) reference (§ JSX/React Patterns).
 
 ::: warning Why dynamic template literals are not extracted
 **Root cause** : the obfuscator extracts class names by **statically analysing source code at build time**. A template literal whose value depends on a runtime variable (e.g. `` `bg-${color}-500` ``) is not knowable until the user's app actually runs — by which point the build has long finished.
@@ -44,7 +44,7 @@ const COLORS = { red: "bg-red-500", blue: "bg-blue-500" };
 
 ### Variable-bound `className={styles}`
 
-Marked **❌ Not extracted** in [`compatibility.md` § JSX/React Patterns](./compatibility#class-pattern-support).
+Marked **❌ Not extracted** in the [Compatibility](./compatibility#class-pattern-support) reference (§ JSX/React Patterns).
 
 ::: warning Why variable-bound className is not extracted
 **Root cause** : same as the template-literal case — the obfuscator does not execute your code, so it cannot know what `styles` resolves to at runtime. Even with sophisticated dataflow analysis, the variable could come from props, a fetch, or a JSON blob — all unknowable at build time.
@@ -95,7 +95,7 @@ Marked **⚠️ Partial** in some scenarios.
 
 ## Framework version coverage
 
-The README advertises a wide design-intent range for several frameworks. The actual versions tested in CI on every release are narrower — see [`compatibility.md` § Version-range claims vs. tested baselines](./compatibility#version-range-claims-vs-tested-baselines) for the exact matrix.
+The README advertises a wide design-intent range for several frameworks. The actual versions tested in CI on every release are narrower — see the [Compatibility](./compatibility#version-range-claims-vs-tested-baselines) reference (§ Version-range claims vs. tested baselines) for the exact matrix.
 
 ### Next.js v13 / v14 / v15 — not in the test matrix
 
@@ -151,11 +151,11 @@ The README advertises a wide design-intent range for several frameworks. The act
 
 ## Tailwind v4 features known to be incomplete
 
-A handful of Tailwind v4 features have less-than-complete support today. The big-picture v4 audit lives in [`docs/research/tailwind-v4-summary.md`](../research/tailwind-v4-summary). Each individual gap below has its own card.
+A handful of Tailwind v4 features have less-than-complete support today. The big-picture v4 audit lives in the [v4 Quick Reference](../research/tailwind-v4-summary) page. Each individual gap below has its own card.
 
 ### Wildcard variants `*:` and `**:` — fully supported as of v2.0.x
 
-Marked `✅` in [`compatibility.md`](./compatibility#tailwind-feature-support). No card needed.
+Marked `✅` in the [Compatibility](./compatibility#tailwind-feature-support) reference. No card needed.
 
 ### Logical-axis utilities (`pbs-*`, `mbs-*`, `inset-bs-*`)
 
@@ -165,7 +165,7 @@ The Tailwind v4 logical-axis utilities (`pbs-4` for padding-block-start, `mbs-2`
 
 ### `not-*` / `in-*` / `nth-*` variants — supported, edge cases possible
 
-Marked **⚠️ Partial** in [`docs/research/tailwind-v4-features-analysis.md`](../research/tailwind-v4-features-analysis).
+Marked **⚠️ Partial** in the [v4 Features Analysis](../research/tailwind-v4-features-analysis) page.
 
 ::: warning Why some uncommon `not-*` / `in-*` / `nth-*` patterns may not extract
 **Root cause** : the basic shapes (`not-hover:bg-blue-500`, `in-data-[state=open]:block`, `nth-2:bg-gray-100`) are all in the test matrix and obfuscate correctly. Combinations with deeply-nested arbitrary values (e.g. `not-[*[data-foo='bar baz']]:flex`) may not extract because the regex doesn't unfold every nesting depth.
@@ -177,7 +177,7 @@ Marked **⚠️ Partial** in [`docs/research/tailwind-v4-features-analysis.md`](
 
 ### CSS variable shorthand `bg-(--my-var)` — supported as of v2.0.x
 
-Marked `✅` in [`compatibility.md`](./compatibility#tailwind-feature-support). Tailwind v4's `bg-(--brand-color)` parentheses shorthand is recognised. No card needed.
+Marked `✅` in the [Compatibility](./compatibility#tailwind-feature-support) reference. Tailwind v4's `bg-(--brand-color)` parentheses shorthand is recognised. No card needed.
 
 ### `@plugin` and `@utility` directives in user-authored CSS
 
