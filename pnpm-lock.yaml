@@ -18,7 +18,7 @@ overrides:
   postcss: '>=8.5.12'
   preact: '>=10.28.2'
   qs: '>=6.14.2'
-  rollup: '>=4.59.0'
+  rollup: '>=4.60.2'
   serialize-javascript: '>=7.0.5'
   tar: '>=7.5.11'
   undici: '>=8.1.0'
@@ -701,7 +701,7 @@ importers:
         specifier: '>=8.5.12'
         version: 8.5.12
       rollup:
-        specifier: '>=4.59.0'
+        specifier: '>=4.60.2'
         version: 4.60.2
       rollup-plugin-postcss:
         specifier: ^4.0.2
@@ -1063,7 +1063,7 @@ importers:
         specifier: '>=8.5.12'
         version: 8.5.12
       rollup:
-        specifier: '>=4.59.0'
+        specifier: '>=4.60.2'
         version: 4.60.2
       rollup-plugin-postcss:
         specifier: ^4.0.2
@@ -1271,7 +1271,7 @@ importers:
         specifier: '>=0.28.0'
         version: 0.28.0
       rollup:
-        specifier: '>=4.59.0'
+        specifier: '>=4.60.2'
         version: 4.60.2
       tsup:
         specifier: ^8.4.0
@@ -4021,7 +4021,7 @@ packages:
     resolution: {integrity: sha512-tPCzJOtS7uuVZd+xPhoy5W4vThe6KWXNmsFCNktaAh5RTqcLiSfT4huPQIXkgJ6YCOjJHvecOAzQxLFhPxKr+g==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
-      rollup: '>=4.59.0'
+      rollup: '>=4.60.2'
     peerDependenciesMeta:
       rollup:
         optional: true
@@ -4030,7 +4030,7 @@ packages:
     resolution: {integrity: sha512-S/ggWH1LU7jTyi9DxZOKyxpVd4hF/OZ0JrEbeLjXk/DFXwRny0tjD2c992zOUYQobLrVkRVMDdmHP16HKP7GRg==}
     engines: {node: '>=16.0.0 || 14 >= 14.17'}
     peerDependencies:
-      rollup: '>=4.59.0'
+      rollup: '>=4.60.2'
     peerDependenciesMeta:
       rollup:
         optional: true
@@ -4039,7 +4039,7 @@ packages:
     resolution: {integrity: sha512-6S0ezKfDRw5FvHk3xm1T/eXP9IlLf82zmV+z2V1/yQL5hXwIUL/Gl2RrNMMIe2rt85rk6+0smvSAtjfTLGylDQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
-      rollup: '>=4.59.0'
+      rollup: '>=4.60.2'
     peerDependenciesMeta:
       rollup:
         optional: true
@@ -4048,7 +4048,7 @@ packages:
     resolution: {integrity: sha512-2+DEJbNBoPROPkgTDNe8/1YXWcqxbN5DTjASVIOx8HS+pITXushyNiBV56RB08zuptzz8gT3YfkqriTBVycepg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
-      rollup: '>=4.59.0'
+      rollup: '>=4.60.2'
     peerDependenciesMeta:
       rollup:
         optional: true
@@ -4057,7 +4057,7 @@ packages:
     resolution: {integrity: sha512-EGI2te5ENk1coGeADSIwZ7G2Q8CJS2sF120T7jLw4xFw9n7wIOXHo+kIYRAoVpJAN+kmqZSoO3Fp4JtoNF4ReA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
-      rollup: '>=4.59.0'
+      rollup: '>=4.60.2'
     peerDependenciesMeta:
       rollup:
         optional: true
@@ -4066,7 +4066,7 @@ packages:
     resolution: {integrity: sha512-lUYM3UBGuM93CnMPG1YocWu7X802BrNF3jW2zny5gQyLQgRFJhV1Sq0Zi74+dh/6NBx1DxFC4b4GXg9wUCG5Qg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
-      rollup: '>=4.59.0'
+      rollup: '>=4.60.2'
     peerDependenciesMeta:
       rollup:
         optional: true
@@ -4075,7 +4075,7 @@ packages:
     resolution: {integrity: sha512-J4RZarRvQAm5IF0/LwUUg+obsm+xZhYnbMXmXROyoSE1ATJe3oXSb9L5MMppdxP2ylNSjv6zFBwKYjcKMucVfA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
-      rollup: '>=4.59.0'
+      rollup: '>=4.60.2'
     peerDependenciesMeta:
       rollup:
         optional: true
@@ -4084,7 +4084,7 @@ packages:
     resolution: {integrity: sha512-FnCxhTBx6bMOYQrar6C8h3scPt8/JwIzw3+AJ2K++6guogH5fYaIFia+zZuhqv0eo1RN7W1Pz630SyvLbDjhtQ==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
-      rollup: '>=4.59.0'
+      rollup: '>=4.60.2'
     peerDependenciesMeta:
       rollup:
         optional: true
@@ -4093,7 +4093,7 @@ packages:
     resolution: {integrity: sha512-5EdhGZtnu3V88ces7s53hhfK5KSASnJZv8Lulpc04cWO3REESroJXg73DFsOmgbU2BhwV0E20bu2IDZb3VKW4Q==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
-      rollup: '>=4.59.0'
+      rollup: '>=4.60.2'
     peerDependenciesMeta:
       rollup:
         optional: true
@@ -9915,7 +9915,7 @@ packages:
     hasBin: true
     peerDependencies:
       rolldown: 1.x || ^1.0.0-beta || ^1.0.0-rc
-      rollup: '>=4.59.0'
+      rollup: '>=4.60.2'
     peerDependenciesMeta:
       rolldown:
         optional: true
