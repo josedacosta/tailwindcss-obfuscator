@@ -79,7 +79,7 @@
     "autoprefixer": "^10.4.20",
     "jsdom": "^25.0.1",
     "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.2.4",
     "tailwindcss-obfuscator": "workspace:*",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",
