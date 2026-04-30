@@ -1,0 +1,43 @@
+---
+layout: layout.njk
+title: Home
+---
+
+<section class="space-y-4">
+  <h1 class="text-4xl font-extrabold tracking-tight text-slate-900">
+    Eleventy + Tailwind v4 obfuscation test
+  </h1>
+
+  <p class="text-base leading-relaxed text-slate-600">
+    This static-site generator emits multiple HTML pages from Nunjucks templates.
+    The obfuscator runs in CLI mode against the generated <code class="rounded bg-slate-100 px-1 py-0.5 text-sm">_site/</code>
+    directory, exercising the HTML extractor on every output page.
+  </p>
+
+  <div class="rounded-lg border border-brand-500 bg-white p-6 shadow-md">
+    <h2 class="mb-3 text-2xl font-bold text-brand-700">Card example</h2>
+    <p class="text-slate-700">
+      Static class strings inside Nunjucks templates flow through the
+      <code class="rounded bg-slate-100 px-1 py-0.5 text-sm">tailwindcss-obfuscator/cli</code>
+      post-build pass.
+    </p>
+    <a href="/about/" class="mt-4 inline-flex items-center justify-center rounded-md bg-brand-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-700">
+      See the About page →
+    </a>
+  </div>
+
+  <ul class="space-y-2">
+    <li class="flex items-center gap-2 text-sm text-slate-600">
+      <span class="size-2 rounded-full bg-brand-500"></span>
+      Tailwind classes inside Nunjucks layout
+    </li>
+    <li class="flex items-center gap-2 text-sm text-slate-600">
+      <span class="size-2 rounded-full bg-brand-500"></span>
+      Tailwind classes inside Nunjucks page
+    </li>
+    <li class="flex items-center gap-2 text-sm text-slate-600">
+      <span class="size-2 rounded-full bg-brand-500"></span>
+      Tailwind classes inside Markdown body (via <code class="rounded bg-slate-100 px-1 py-0.5 text-sm">{:class=""}</code>)
+    </li>
+  </ul>
+</section>

@@ -1,0 +1,21 @@
+{
+  "name": "test-eleventy",
+  "version": "1.0.0",
+  "description": "Test app for tailwindcss-obfuscator with Eleventy (11ty) + Tailwind v4. Verifies the HTML extractor + CLI-mode integration on a static site generator that emits multiple HTML pages from Nunjucks templates.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:11ty": "eleventy",
+    "build:css": "npx @tailwindcss/cli -i ./src/_includes/tailwind.css -o ./_site/styles.css",
+    "build:obfuscate": "node obfuscate.mjs",
+    "build": "pnpm build:11ty && pnpm build:css && pnpm build:obfuscate",
+    "dev": "pnpm build && npx serve _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@tailwindcss/cli": "^4.2.4",
+    "tailwindcss": "^4.2.4",
+    "tailwindcss-obfuscator": "workspace:*",
+    "serve": "^14.2.4"
+  }
+}
