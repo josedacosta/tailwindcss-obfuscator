@@ -1,28 +1,36 @@
 name: SBOM (Software Bill of Materials)
 
-# Generates an SBOM in SPDX format on every published GitHub release and
-# attaches it as a release asset. Downstream consumers can verify the exact
-# tree of dependencies that shipped with each version — supply-chain
-# transparency, OpenSSF Scorecard prerequisite.
+# IMPORTANT — historical context (issue #101) : this workflow used to
+# attach the SBOM as a GitHub release asset via `upload-release-assets:
+# true`. That approach broke when npm publish-with-provenance was wired
+# in (PR #87) : Sigstore freezes the GitHub release as **immutable**
+# the moment the tarball is signed, so post-release asset uploads now
+# fail with « Cannot upload assets to an immutable release. »
 #
-# Triggered when a release is published (typically by changesets/action
-# during the release workflow), or manually for backfill.
+# The fix (PR for issue #101) ships the SBOM **inside the npm tarball**
+# at `dist/sbom.spdx.json`, which means it is covered by the npm
+# provenance attestation chain itself — strictly stronger than a
+# post-release asset, and discoverable via :
+#   cat node_modules/tailwindcss-obfuscator/dist/sbom.spdx.json
+#
+# This workflow now exists only as a **secondary verification** : it
+# regenerates the SBOM from main and uploads it as a workflow artifact
+# (90-day retention) so an auditor can compare it against the version
+# shipped in the tarball. It deliberately does NOT touch the release.
 
 on:
   release:
     types: [published]
   workflow_dispatch:
 
-# OpenSSF Scorecard "Token-Permissions": top-level empty; the job declares
-# `contents: write` only because it needs to attach the SBOM to the release.
 permissions: {}
 
 jobs:
   generate:
-    name: Generate SPDX SBOM and attach to release
+    name: Regenerate SPDX SBOM as workflow artifact (verification only)
     runs-on: ubuntu-latest
     permissions:
-      contents: write # required to upload the SBOM as a release asset
+      contents: read
     steps:
       - name: Checkout repo at release tag
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
@@ -30,11 +38,21 @@ jobs:
           ref: ${{ github.event.release.tag_name || github.ref }}
           persist-credentials: false
 
-      - name: Generate SBOM with anchore/sbom-action (Syft)
-        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0.24.0
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          path: ./packages/tailwindcss-obfuscator
-          format: spdx-json
-          output-file: tailwindcss-obfuscator.spdx.json
-          upload-artifact: true
-          upload-release-assets: true # attaches to the GitHub release
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Generate SBOM via the same script that ships in the tarball
+        run: pnpm --filter tailwindcss-obfuscator build && cp packages/tailwindcss-obfuscator/dist/sbom.spdx.json /tmp/sbom-from-main.spdx.json
+
+      - name: Upload as workflow artifact (verification copy)
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: sbom-spdx-${{ github.event.release.tag_name || github.sha }}
+          path: /tmp/sbom-from-main.spdx.json
+          retention-days: 90
