@@ -1,5 +1,11 @@
 # tailwindcss-obfuscator
 
+## 3.1.3
+
+### Patch Changes
+
+- [#110](https://github.com/josedacosta/tailwindcss-obfuscator/pull/110) [`8b93a09`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/8b93a096abde4d303b731324832ee5c922ff9884) Thanks [@josedacosta](https://github.com/josedacosta)! - Fix `js/polynomial-redos` (CodeQL CWE-1333) in `OBJECT_KEY_PATTERN` (`src/extractors/jsx.ts:80`). The previous char class `[\w\-[\]#%.():/\s]+` included `\s` ; combined with the surrounding optional `['"]?` and trailing `\s*:` it allowed multiple ways to partition whitespace at the end of the capture group, with polynomial backtracking on crafted input like `{   :`. Dropping `\s` from the char class removes the ambiguity without changing real-world coverage — class names cannot contain whitespace, and multi-class keys are still handled by the caller via `extractClassesFromString(keyValue)`. Closes 4 CodeQL alerts (the 4 `OBJECT_KEY_PATTERN.exec()` use-sites at jsx.ts:172, 243, 266, 285).
+
 ## 3.1.2
 
 ### Patch Changes
