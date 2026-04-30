@@ -3,7 +3,6 @@
   "extends": [
     "config:recommended",
     "security:openssf-scorecard",
-    ":dependencyDashboard",
     ":semanticCommits",
     ":separateMajorReleases",
     "group:monorepos",
