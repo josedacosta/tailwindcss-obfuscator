@@ -234,27 +234,29 @@ See `docs/lab_tailwindcss_patch_analysis.md` for detailed analysis.
 
 This is the live, source-of-truth matrix for the package. Every row corresponds to a real, executed test app under [`apps/`](https://github.com/josedacosta/tailwindcss-obfuscator/tree/main/apps) — built and verified at every release via [`scripts/verify-obfuscation.mjs`](https://github.com/josedacosta/tailwindcss-obfuscator/blob/main/scripts/verify-obfuscation.mjs) (which the CI runs).
 
-| Framework / Project Type    | Tested Version         | Tailwind | Bundler             | Test App                        |
-| --------------------------- | ---------------------- | -------- | ------------------- | ------------------------------- |
-| **Next.js** (App Router)    | 16.2.4                 | v4       | Webpack / Turbopack | `apps/test-nextjs`              |
-| **Next.js** (legacy v3)     | 16.2.4                 | v3       | Webpack             | `apps/tailwind_v3_react_nextjs` |
-| **Next.js + shadcn/ui**     | 16.2.4                 | v4       | Webpack             | `apps/test-shadcn-ui`           |
-| **Nuxt**                    | 4.4.2                  | v4       | Vite                | `apps/test-nuxt`                |
-| **SvelteKit + Svelte 5**    | 2.58.0 (Svelte 5.55.5) | v4       | Vite                | `apps/test-sveltekit`           |
-| **Astro**                   | 6.1.9                  | v4       | Vite                | `apps/test-astro`               |
-| **Solid.js**                | 1.9.12                 | v4       | Vite                | `apps/test-solidjs`             |
-| **Qwik**                    | 1.19.2                 | v4       | Vite                | `apps/test-qwik`                |
-| **React Router** (ex-Remix) | 7.14.2                 | v4       | Vite                | `apps/test-react-router`        |
-| **TanStack Start**          | 1.168.25               | v4       | Vite                | `apps/test-tanstack-start`      |
-| **React + Vite**            | 19.1.0                 | v4       | Vite 8.x            | `apps/test-vite-react`          |
-| **React + Vite (TW v3)**    | 19.0.0                 | v3       | Vite 8.x            | `apps/test-tailwind-v3`         |
-| **React + Vite (TW v4)**    | 19.0.0                 | v4       | Vite 8.x            | `apps/test-tailwind-v4`         |
-| **Vue 3 + Vite**            | 3.5.14                 | v4       | Vite 8.x            | `apps/test-vite-vue`            |
-| **Static HTML (TW v3)**     | n/a                    | v3       | Vite                | `apps/tailwind_v3_html_static`  |
-| **Static HTML (TW v4)**     | n/a                    | v4       | Vite                | `apps/tailwind_v4_html_static`  |
-| **Static HTML + esbuild**   | n/a                    | v4       | esbuild ≥ 0.28      | `apps/test-static-html`         |
-| **Rollup standalone**       | n/a                    | v4       | Rollup ^4.60        | `apps/test-rollup-standalone`   |
-| **Webpack standalone**      | n/a                    | v4       | Webpack ^5.106      | `apps/test-webpack-standalone`  |
+| Framework / Project Type    | Tested Version         | Tailwind | Bundler              | Test App                                           |
+| --------------------------- | ---------------------- | -------- | -------------------- | -------------------------------------------------- |
+| **Next.js** (App Router)    | 16.2.4                 | v4       | Webpack / Turbopack  | `apps/test-nextjs`                                 |
+| **Next.js** (legacy v3)     | 16.2.4                 | v3       | Webpack              | `apps/tailwind_v3_react_nextjs`                    |
+| **Next.js + shadcn/ui**     | 16.2.4                 | v4       | Webpack              | `apps/test-shadcn-ui`                              |
+| **Nuxt**                    | 4.4.2                  | v4       | Vite                 | `apps/test-nuxt`                                   |
+| **SvelteKit + Svelte 5**    | 2.58.0 (Svelte 5.55.5) | v4       | Vite                 | `apps/test-sveltekit`                              |
+| **Astro**                   | 6.1.9                  | v4       | Vite                 | `apps/test-astro`                                  |
+| **Solid.js**                | 1.9.12                 | v4       | Vite                 | `apps/test-solidjs`                                |
+| **Qwik**                    | 1.19.2                 | v4       | Vite                 | `apps/test-qwik`                                   |
+| **React Router** (ex-Remix) | 7.14.2                 | v4       | Vite                 | `apps/test-react-router`                           |
+| **TanStack Start**          | 1.168.25               | v4       | Vite                 | `apps/test-tanstack-start`                         |
+| **React + Vite**            | 19.1.0                 | v4       | Vite 8.x             | `apps/test-vite-react`                             |
+| **React + Vite (TW v3)**    | 19.0.0                 | v3       | Vite 8.x             | `apps/test-tailwind-v3`                            |
+| **React + Vite (TW v4)**    | 19.0.0                 | v4       | Vite 8.x             | `apps/test-tailwind-v4`                            |
+| **Vue 3 + Vite**            | 3.5.14                 | v4       | Vite 8.x             | `apps/test-vite-vue`                               |
+| **Static HTML (TW v3)**     | n/a                    | v3       | Vite                 | `apps/tailwind_v3_html_static`                     |
+| **Static HTML (TW v4)**     | n/a                    | v4       | Vite                 | `apps/tailwind_v4_html_static`                     |
+| **Static HTML + esbuild**   | n/a                    | v4       | esbuild ≥ 0.28       | `apps/test-static-html`                            |
+| **Rollup standalone**       | n/a                    | v4       | Rollup ^4.60         | `apps/test-rollup-standalone`                      |
+| **Webpack standalone**      | n/a                    | v4       | Webpack ^5.106       | `apps/test-webpack-standalone`                     |
+| **Rspack standalone**       | n/a                    | v4       | @rspack/core ≥1.7.11 | _no test app — adapter exercised by tarball-smoke_ |
+| **Farm standalone**         | n/a                    | v4       | @farmfe/core ≥1.7.11 | _no test app — adapter exercised by tarball-smoke_ |
 
 **How to read this table:** the "Tested Version" column shows the exact upper-bound version exercised on the CI. Lower versions of the same major typically work but are not in the test matrix and may regress without us catching it. If you need a guarantee, open an issue and we'll add a test app for your specific version.
 
