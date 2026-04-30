@@ -18,6 +18,7 @@ out
 .vinxi
 .vercel
 .netlify
+_site
 
 # --- Turbo / build caches -------------------------------------------------
 .turbo
