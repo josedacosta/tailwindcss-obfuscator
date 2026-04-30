@@ -1316,30 +1316,24 @@ Add the following regex patterns:
 
 ## Document Status
 
-**Current Package Support:**
+**Current Package Support** (audited 2026-04-30 against `packages/tailwindcss-obfuscator/src/core/patterns/`):
 
 - ✅ Container queries (`@sm:`, `@lg:`, `@[500px]:`)
 - ✅ Data attributes (`data-[state=open]:`)
 - ✅ ARIA variants (`aria-[current=page]:`)
 - ✅ Arbitrary values with brackets
 - ✅ CSS variable shorthand (v3 syntax `[--var]`)
-- ⚠️ **PARTIAL** - `not-*`, `in-*`, `nth-*` variants (basic support exists)
-- ❌ **MISSING** - Wildcard selectors (`*:`, `**:`)
-- ❌ **MISSING** - CSS variable parentheses syntax `(--var)`
-- ❌ **MISSING** - Arbitrary values with underscores
-- ❌ **MISSING** - `inset-shadow-*`, `inset-ring-*` utilities
-- ❌ **MISSING** - 3D transform utilities (`rotate-x-*`, `perspective-*`)
-- ❌ **MISSING** - New gradient types (`bg-radial-*`, `bg-conic-*`)
-- ❌ **MISSING** - `field-sizing-*`, `color-scheme-*`, `font-stretch-*`
-- ❌ **MISSING** - Renamed utilities recognition (both v3 and v4)
-- ❌ **MISSING** - Important modifier at END handling
-- ❌ **MISSING** - Nested bracket support (`in-[[data-active]]:`)
+- ✅ Wildcard selectors `*:` and `**:` — `variants.ts`
+- ✅ CSS variable parentheses syntax `bg-(--brand)`, `text-(color:--my-var)` — `validators.ts`
+- ✅ Arbitrary values with underscores `grid-cols-[max-content_auto]` — `validators.ts`
+- ✅ `inset-shadow-*`, `inset-ring-*` utilities — `utilities.ts`
+- ✅ 3D transform utilities (`rotate-x-*`, `rotate-y-*`, `rotate-z-*`, `scale-z-*`, `translate-z-*`, `perspective-*`, `perspective-origin-*`, `transform-3d`) — `utilities.ts`
+- ✅ New gradient types (`bg-radial-*`, `bg-conic-*`) — `utilities.ts`
+- ✅ `field-sizing-*`, `color-scheme-*`, `font-stretch-*` — `utilities.ts`
+- ✅ Renamed utilities recognition (both v3 names like `flex-shrink` and v4 names like `shrink`) — `utilities.ts`
+- ✅ Important modifier at END (`flex!` accepted alongside `!flex`) — `validators.ts`
+- ✅ Nested bracket support (`in-[[data-active]]:`) — basic patterns work; deeply-nested edge cases see [Limitations](../reference/limitations#not-in-nth-variants-supported-edge-cases-possible)
+- ⚠️ **PARTIAL** — `not-*`, `in-*`, `nth-*` variants : basic shapes covered, deeply-nested arbitrary values may not extract — see [Limitations](../reference/limitations#not-in-nth-variants-supported-edge-cases-possible)
+- ⚠️ **PARTIAL** — `tv()` (tailwind-variants) : simple flat patterns work, composed variants may break — tracked in [issue #61](https://github.com/josedacosta/tailwindcss-obfuscator/issues/61) and [Limitations](../reference/limitations)
 
-**Next Steps:**
-
-1. Update `VARIANT_PREFIXES` array with v4 variants
-2. Update `STATIC_UTILITIES` set with new utilities
-3. Update `FUNCTIONAL_UTILITY_PREFIXES` array with new prefixes
-4. Add regex patterns to `isTailwindClass()` for v4 patterns
-5. Update transformers to preserve variant order and important position
-6. Add comprehensive test suite for v4 patterns
+**Verification** : every check above is exercised by [`tests/tailwind-v4-patterns.test.ts`](https://github.com/josedacosta/tailwindcss-obfuscator/blob/main/packages/tailwindcss-obfuscator/tests/tailwind-v4-patterns.test.ts) and [`tests/comprehensive-patterns.test.ts`](https://github.com/josedacosta/tailwindcss-obfuscator/blob/main/packages/tailwindcss-obfuscator/tests/comprehensive-patterns.test.ts) (44 + 86 cases).

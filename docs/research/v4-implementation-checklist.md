@@ -1,38 +1,66 @@
-# Tailwind CSS v4 - Implementation Checklist
+# Tailwind CSS v4 — Implementation History
 
-**Status:** In Progress
-**Updated:** 2025-12-08
+**Status:** ✅ All originally-listed items have shipped (audited 2026-04-30)
+**Original checklist date:** 2025-12-08
 **Package:** tailwindcss-obfuscator
+
+::: tip This page is now historical
+This document was the original « what's missing for v4 support » checklist written in late 2025. Every item below is now implemented and shipped. The page is preserved so future contributors can see the design rationale and code-location pointers — but for **current support status**, please use :
+
+- [v4 Features Analysis](./tailwind-v4-features-analysis) — full reference, with ✅/⚠️ status reflecting today's code
+- [v4 Quick Reference](./tailwind-v4-summary) — concise lookup
+- [Compatibility](../reference/compatibility) — tested-version matrix
+- [Limitations](../reference/limitations) — actual remaining gaps with explanation cards
+  :::
 
 ---
 
-## Current Implementation Status
+## Current Implementation Status (2026-04-30)
 
-### ✅ Already Implemented (Confirmed by Code Review)
+Everything in this checklist ships in the current release. The summary :
 
-#### Variants
+#### Variants — all implemented
 
 - ✅ Container queries: `@sm:`, `@md:`, `@lg:`, `@xl:`, `@2xl:`
 - ✅ Container min/max: `@min-[400px]:`, `@max-[800px]:`
 - ✅ Named containers: `@lg/sidebar:`, `@[500px]/card:`
 - ✅ Data attributes: `data-[state=open]:`, `data-disabled:`
 - ✅ ARIA variants: `aria-[current=page]:`, `aria-pressed:`
-- ✅ `not-*` variants: `not-hover:`, `not-focus:` (basic support)
-- ✅ `in-*` variants: `in-hover:`, `in-data-[state=open]:` (basic support)
+- ✅ `not-*` variants: `not-hover:`, `not-focus:` — basic shapes; deeply-nested edge cases see [Limitations](../reference/limitations)
+- ✅ `in-*` variants: `in-hover:`, `in-data-[state=open]:` — basic shapes
 - ✅ `nth-*` variants: `nth-1:`, `nth-[2n+1]:`, `nth-even:`, `nth-odd:`
-- ✅ Nested brackets: `in-[[data-active]]:` (pattern exists)
+- ✅ Nested brackets: `in-[[data-active]]:`
+- ✅ Wildcard variants: `*:`, `**:` — `src/core/patterns/variants.ts`
 
-#### Utilities
+#### Utilities — all implemented
 
 - ✅ Arbitrary values: `bg-[#1da1f2]`, `w-[calc(100%-2rem)]`
+- ✅ Arbitrary values with underscores: `grid-cols-[max-content_auto]`
 - ✅ Opacity modifiers: `bg-blue-500/50`, `text-white/75`
 - ✅ CSS variables (v3 syntax): `bg-[var(--my-color)]`
+- ✅ CSS variables (v4 parens): `bg-(--brand)`, `text-(color:--my-var)`
+- ✅ Important modifier: both `!flex` and `flex!` accepted
+- ✅ 3D transforms: `rotate-x-*`, `rotate-y-*`, `rotate-z-*`, `scale-z-*`, `translate-z-*`, `perspective-*`, `transform-3d`
+- ✅ Inset shadows / inset rings: `inset-shadow-*`, `inset-ring-*`
+- ✅ New gradients: `bg-radial-*`, `bg-conic-*`, gradient stop positions like `to-75%`
+- ✅ Field sizing, color scheme, font stretch
+- ✅ Renamed utilities: both v3 (`flex-shrink`) and v4 (`shrink`) names recognized
 
-#### Code Locations
+#### Known partial / not-fully-stable
 
-- `src/extractors/base.ts` lines 148-206: VARIANT_PREFIXES includes v4 variants
-- `src/extractors/base.ts` lines 1206-1227: Variant patterns for not/in/nth
-- `src/extractors/base.ts` lines 1044-1051: Container query patterns
+- ⚠️ `tv()` (tailwind-variants) : simple flat patterns work, composed variants may break — tracked in [issue #61](https://github.com/josedacosta/tailwindcss-obfuscator/issues/61) and the [Limitations](../reference/limitations) page.
+
+#### Code locations (current)
+
+- `src/core/patterns/variants.ts` — all variant prefixes including v4 wildcards
+- `src/core/patterns/utilities.ts` — every static + functional utility (3D, gradients, inset, etc.)
+- `src/core/patterns/validators.ts` — arbitrary-value regex (with underscores) + important-suffix tolerance + CSS-variable parens
+
+---
+
+## Below this line — original « to-do » sections (kept for historical context)
+
+The remaining sections of this page describe what was missing **at the time of writing in December 2025**. They are no longer accurate as a roadmap. Read them only to understand the design discussions that led to today's implementation.
 
 ---
 
