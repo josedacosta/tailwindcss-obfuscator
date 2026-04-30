@@ -17,7 +17,7 @@ import type { TransformResult } from "../core/types.js";
  * Captures: prop name, quote, class values
  * Supports: className="...", class="..." (for Qwik, Svelte, Astro)
  */
-const CLASSNAME_STRING_PATTERN = /\b(?:className|class)\s*=\s*(["'])([^"']*?)\1/g;
+const CLASSNAME_STRING_PATTERN = /\b(?:className|class)\s*=\s*(["'])([^"']*)\1/g;
 
 /**
  * Pattern to match className or class with template literal (no expressions)
@@ -232,7 +232,7 @@ export function transformCompiledJsx(
   // Pattern for compiled className in JSX
   // React.createElement("div", { className: "..." })
   // or: { className: "..." }
-  const compiledPattern = /\bclassName\s*:\s*(["'`])([^"'`]*?)\1/g;
+  const compiledPattern = /\bclassName\s*:\s*(["'`])([^"'`]*)\1/g;
 
   let match;
   while ((match = compiledPattern.exec(content)) !== null) {
@@ -255,7 +255,7 @@ export function transformCompiledJsx(
   compiledPattern.lastIndex = 0;
 
   // Also match class attribute in template strings (for SSR HTML output)
-  const classAttrPattern = /\bclass\s*=\s*\\?(["'`])([^"'`]*?)\\?\1/g;
+  const classAttrPattern = /\bclass\s*=\s*\\?(["'`])([^"'`]*)\\?\1/g;
   while ((match = classAttrPattern.exec(content)) !== null) {
     const quote = match[1];
     const classValue = match[2];

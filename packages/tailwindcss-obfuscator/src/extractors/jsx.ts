@@ -342,37 +342,38 @@ export function extractFromJsxWithCva(content: string, _filePath: string): strin
     }
   }
 
-  // Pattern for cva compoundVariants
-  const compoundVariantsPattern = /compoundVariants\s*:\s*\[([\s\S]*?)\]/g;
-  while ((match = compoundVariantsPattern.exec(content)) !== null) {
-    const compoundVariants = match[1];
-
-    // Extract class values from compound variants
-    let stringMatch;
-    while ((stringMatch = STRING_LITERAL_PATTERN.exec(compoundVariants)) !== null) {
-      const stringValue = stringMatch[1];
-      classes.push(...extractClassesFromString(stringValue));
+  // cva compoundVariants — extracted via balanced-block traversal to
+  // avoid the polynomial-redos shape `[\s\S]*?` previously used here
+  // (CodeQL `js/polynomial-redos`, CWE-1333). Same family as the tv()
+  // base fix in PR #106.
+  let cvStart = content.indexOf("compoundVariants:");
+  while (cvStart !== -1) {
+    const cvBlock = extractBalancedBlock(content, cvStart + "compoundVariants:".length, "[", "]");
+    if (cvBlock) {
+      let stringMatch;
+      while ((stringMatch = STRING_LITERAL_PATTERN.exec(cvBlock)) !== null) {
+        classes.push(...extractClassesFromString(stringMatch[1]));
+      }
+      STRING_LITERAL_PATTERN.lastIndex = 0;
     }
-    STRING_LITERAL_PATTERN.lastIndex = 0;
+    cvStart = content.indexOf("compoundVariants:", cvStart + 1);
   }
-  compoundVariantsPattern.lastIndex = 0;
 
-  // Pattern for cva defaultVariants (may contain class-like values)
-  const defaultVariantsPattern = /defaultVariants\s*:\s*\{([\s\S]*?)\}/g;
-  while ((match = defaultVariantsPattern.exec(content)) !== null) {
-    const defaultVariants = match[1];
-
-    // Extract string values
-    let stringMatch;
-    while ((stringMatch = STRING_LITERAL_PATTERN.exec(defaultVariants)) !== null) {
-      const stringValue = stringMatch[1];
-      // Only add if it looks like a Tailwind class
-      const extracted = extractClassesFromString(stringValue);
-      classes.push(...extracted.filter((cls) => isTailwindClass(cls)));
+  // cva defaultVariants — same balanced-block pattern as compoundVariants
+  // above, also fixing the `[\s\S]*?` polynomial-redos shape.
+  let dvStart = content.indexOf("defaultVariants:");
+  while (dvStart !== -1) {
+    const dvBlock = extractBalancedBlock(content, dvStart + "defaultVariants:".length, "{", "}");
+    if (dvBlock) {
+      let stringMatch;
+      while ((stringMatch = STRING_LITERAL_PATTERN.exec(dvBlock)) !== null) {
+        const extracted = extractClassesFromString(stringMatch[1]);
+        classes.push(...extracted.filter((cls) => isTailwindClass(cls)));
+      }
+      STRING_LITERAL_PATTERN.lastIndex = 0;
     }
-    STRING_LITERAL_PATTERN.lastIndex = 0;
+    dvStart = content.indexOf("defaultVariants:", dvStart + 1);
   }
-  defaultVariantsPattern.lastIndex = 0;
 
   return deduplicateClasses(classes.filter((cls) => isTailwindClass(cls)));
 }
