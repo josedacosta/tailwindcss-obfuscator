@@ -1,6 +1,6 @@
 {
   "name": "tailwindcss-obfuscator",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "Tailwind CSS class mangler & obfuscator — rename utility classes (bg-blue-500 → tw-a) at build time. Vite, Webpack, Rollup, esbuild, Next.js, Nuxt, SvelteKit, Astro, Solid, Qwik, React Router 7, TanStack Router. Tailwind v3 + v4. Cuts CSS bundle 30–60% and protects the design system.",
   "author": {
     "name": "José DA COSTA",
