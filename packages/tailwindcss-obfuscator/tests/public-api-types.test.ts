@@ -13,9 +13,11 @@
  * blocks the merge.
  *
  * To intentionally change the public API :
- * 1. Bump the changeset to **major** (per the SemVer rules in CLAUDE.md).
+ * 1. Add a changeset bumping the package to **major** (the standard SemVer
+ *    contract for a breaking signature change).
  * 2. Update the assertions below to match the new shape.
- * 3. Document the breaking change in the changeset summary.
+ * 3. Document the breaking change in the changeset summary so the
+ *    CHANGELOG entry tells consumers what to migrate.
  *
  * Plugin sub-paths (`./vite`, `./webpack`, …) have their own integration
  * coverage via the tarball smoke test (PR #67) and per-export validators
