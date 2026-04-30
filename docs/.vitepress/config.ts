@@ -167,6 +167,34 @@ export default withMermaid({
         href: "/tailwindcss-obfuscator/images/tailwindcss-obfuscator/logo-square.svg",
       },
     ],
+    // PWA-lite manifest — surfaces "Add to Home Screen" on mobile + theme
+    // colour at the OS chrome level. Icons reference the existing logo SVGs.
+    ["link", { rel: "manifest", href: "/tailwindcss-obfuscator/manifest.webmanifest" }],
+    // SoftwareApplication structured data — Google Rich Results recognises
+    // this as the canonical metadata for an installable / cite-able tool.
+    [
+      "script",
+      { type: "application/ld+json" },
+      JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        name: "tailwindcss-obfuscator",
+        applicationCategory: "DeveloperApplication",
+        operatingSystem: "Cross-platform (Node.js >= 20)",
+        description:
+          "Build-time Tailwind CSS class mangler & obfuscator. Cuts the CSS bundle by 30–60% and removes the Tailwind signature from the rendered HTML.",
+        url: SITE_URL + "/",
+        downloadUrl: "https://www.npmjs.com/package/tailwindcss-obfuscator",
+        codeRepository: "https://github.com/josedacosta/tailwindcss-obfuscator",
+        license: "https://opensource.org/licenses/MIT",
+        author: {
+          "@type": "Person",
+          name: "José DA COSTA",
+          url: "https://github.com/josedacosta",
+        },
+        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      }),
+    ],
     ["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
     ["link", { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" }],
     [
