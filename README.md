@@ -1162,7 +1162,7 @@ Built and maintained by **José DA COSTA**.
 <table>
 <tr>
 <td>🌐 Website</td>
-<td><a href="https://www.josedacosta.info">josedacosta.info</a></td>
+<td><a href="https://www.josedacosta.info">josedacosta.info</a> · <a href="https://portfolio.josedacosta.info">portfolio.josedacosta.info</a></td>
 </tr>
 <tr>
 <td>🐙 GitHub</td>
