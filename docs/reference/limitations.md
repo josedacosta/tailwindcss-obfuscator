@@ -245,4 +245,4 @@ import { cn } from "@/lib/utils";
 
 ## How to keep this page honest
 
-Whenever a `❌` / `⚠️` / "Not supported" / "Partial" lands in the documentation, the agent rule in [`CLAUDE.md`](https://github.com/josedacosta/tailwindcss-obfuscator/blob/main/CLAUDE.md) requires it to be paired with a card on this page (or a one-line link to the existing card). If you find a bare `❌` anywhere on the docs site without a card or link explaining it, please [open a doc bug](https://github.com/josedacosta/tailwindcss-obfuscator/issues/new/choose) — that's a violation of the project's documentation rule.
+Whenever a `❌` / `⚠️` / "Not supported" / "Partial" lands in the documentation, the project's documentation rule requires it to be paired with a card on this page (or a one-line link to the existing card). If you find a bare `❌` anywhere on the docs site without a card or link explaining it, please [open a doc bug](https://github.com/josedacosta/tailwindcss-obfuscator/issues/new/choose).
