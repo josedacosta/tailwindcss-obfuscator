@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "tailwindcss-obfuscator",
+  "short_name": "tw-obfuscator",
+  "description": "Build-time Tailwind CSS class mangler & obfuscator. Cuts the CSS bundle by 30–60% and removes the Tailwind signature from the rendered HTML.",
+  "scope": "/tailwindcss-obfuscator/",
+  "start_url": "/tailwindcss-obfuscator/",
+  "display": "minimal-ui",
+  "orientation": "any",
+  "theme_color": "#0f172a",
+  "background_color": "#0f172a",
+  "lang": "en",
+  "categories": ["developer", "tools", "utilities"],
+  "icons": [
+    {
+      "src": "/tailwindcss-obfuscator/images/tailwindcss-obfuscator/logo-square-white.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    }
+  ]
+}
