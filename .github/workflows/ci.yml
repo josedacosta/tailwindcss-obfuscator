@@ -135,6 +135,26 @@ jobs:
           allow-licenses: MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, 0BSD, Unlicense, CC0-1.0, CC-BY-4.0, BlueOak-1.0.0, Python-2.0
           comment-summary-in-pr: on-failure
 
+  tests-existence:
+    # Release-safety v2 (2026-04-30) : enforce the "every feature ships
+    # with tests" rule by failing CI if any src file under
+    # packages/tailwindcss-obfuscator/src/** has zero test references
+    # (and is not on the explicit allowlist with a justification).
+    # See scripts/check-tests-coverage.mjs for the full heuristic.
+    name: Tests-existence gate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .nvmrc
+
+      - name: Verify every src file is referenced by at least one test
+        run: node scripts/check-tests-coverage.mjs
+
   audit:
     # Belt-and-suspenders: Renovate already opens PRs for vulnerable transitive
     # deps and `pnpm.overrides` patches them on the spot, but we also want a
