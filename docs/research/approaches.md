@@ -18,6 +18,14 @@ Every published Tailwind class transformer at the time of writing fits into one 
 
 ### Approach 1 — AST-based per-utility obfuscation
 
+::: info What is an AST ?
+**AST** stands for **Abstract Syntax Tree** — a tree-shaped data structure that represents the grammatical structure of source code, after a parser (like Babel, TypeScript's compiler, SWC, oxc) has read the raw text. Where a regex sees `className="bg-blue-500"` as a flat string of characters, an AST sees it as a `JSXAttribute` node whose `name` is `className` and whose `value` is a `StringLiteral` node containing `"bg-blue-500"`.
+
+Why this matters here : the AST **knows the difference** between `"bg-blue-500"` written as a `className` value (which IS a Tailwind class string we want to rename) and the same string appearing inside a code comment, a documentation example, a regex literal, or a JSON config blob (all of which we want to leave alone). A regex extractor can guess based on neighbouring characters ; an AST is structurally certain.
+
+Tools that produce JavaScript ASTs : [Babel parser](https://babeljs.io/docs/babel-parser), [SWC](https://swc.rs), [oxc](https://oxc.rs), [TypeScript Compiler API](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API), [Acorn](https://github.com/acornjs/acorn).
+:::
+
 **How it works.** Parse every JS / TS / JSX / Vue / Svelte file with a real AST (Babel, SWC, oxc, etc.). Walk the tree, identify each _string literal_ that _could_ be a class name (`className="…"`, `class="…"`, function call to `cn()` / `clsx()` / `cva()` / `tv()`), tokenise it into individual utilities, and emit the renamed string back through a code-mod transformer. CSS goes through a parallel PostCSS / lightningcss pass that rewrites selectors using the same mapping.
 
 **Strengths.**
