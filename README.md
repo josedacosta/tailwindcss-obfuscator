@@ -82,6 +82,9 @@
   <a href="https://github.com/josedacosta/tailwindcss-obfuscator/security">
     <img alt="CodeQL" src="https://img.shields.io/badge/CodeQL-active-10b981?style=for-the-badge&logo=github&logoColor=white&labelColor=000000">
   </a>
+  <a href="https://codecov.io/gh/josedacosta/tailwindcss-obfuscator">
+    <img alt="Code coverage" src="https://img.shields.io/codecov/c/github/josedacosta/tailwindcss-obfuscator?style=for-the-badge&logo=codecov&logoColor=white&color=ff0077&labelColor=000000">
+  </a>
   <a href="https://www.npmjs.com/package/tailwindcss-obfuscator">
     <img alt="npm provenance" src="https://img.shields.io/badge/npm-provenance-cb3837?style=for-the-badge&logo=npm&logoColor=white&labelColor=000000">
   </a>

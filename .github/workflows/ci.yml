@@ -162,3 +162,42 @@ jobs:
 
       - name: Run tarball smoke test
         run: bash .github/scripts/test-tarball.sh
+
+  coverage:
+    # Coverage reporting (release-safety nice-to-have) — runs the unit tests
+    # with v8 coverage instrumentation and uploads the lcov.info to Codecov.
+    # NOT a blocking gate (no minimum-coverage threshold enforced here, since
+    # the repo intentionally excludes plugin adapters / CLI bin from the
+    # numerator — those are exercised by verify-obfuscation.mjs + tarball
+    # smoke tests, not unit tests). The number is purely informational and
+    # surfaced as a Codecov badge in the README.
+    name: Coverage report
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Run vitest with v8 coverage
+        run: pnpm --filter tailwindcss-obfuscator exec vitest run --coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6.0.0
+        with:
+          files: packages/tailwindcss-obfuscator/coverage/lcov.info
+          flags: unittests
+          name: tailwindcss-obfuscator
+          fail_ci_if_error: false
+        env:
+          # Codecov public-repo upload — token optional for OSS repos but
+          # required to silence rate-limit warnings on busy days.
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
