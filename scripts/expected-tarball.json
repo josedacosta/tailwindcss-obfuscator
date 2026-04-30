@@ -78,6 +78,7 @@
     "package/dist/plugins/webpack.d.ts",
     "package/dist/plugins/webpack.js",
     "package/dist/plugins/webpack.js.map",
+    "package/dist/sbom.spdx.json",
     "package/package.json"
   ]
 }
