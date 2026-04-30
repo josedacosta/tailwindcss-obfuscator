@@ -8,11 +8,11 @@ The `tailwindcss-patch` and `unplugin-tailwindcss-mangle` packages are **two sep
 
 ```mermaid
 flowchart LR
-  subgraph monorepo[" sonofmagic/tailwindcss-mangle (GitHub monorepo) "]
+  subgraph monorepo["sonofmagic/tailwindcss-mangle (GitHub monorepo)"]
     direction LR
-    patch["📦 tailwindcss-patch<br/><sub>npm package</sub><br/><br/>• Patches Tailwind<br/>• Extracts classes<br/>• Runtime context"]
-    plugin["📦 unplugin-tailwindcss-mangle<br/><sub>npm package</sub><br/><br/>• Vite plugin<br/>• Webpack plugin<br/>• Rollup plugin<br/>• Nuxt module"]
-    patch -->|"exposes internal APIs<br/>+ extracted classes"| plugin
+    patch["📦 tailwindcss-patch — npm package — Patches Tailwind, extracts classes, runtime context"]
+    plugin["📦 unplugin-tailwindcss-mangle — npm package — Vite, Webpack, Rollup, Nuxt"]
+    patch -->|exposes internal APIs + extracted classes| plugin
   end
 
   style patch fill:#1e293b,stroke:#38bdf8,color:#fff
