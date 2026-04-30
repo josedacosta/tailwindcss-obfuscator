@@ -78,17 +78,14 @@ Marked **⚠️ Partial** in some scenarios.
 **Tracked in** : the security trade-off is intentional. The pre-PR-#45 form would freeze a downstream user's build with a malformed Vue file.
 :::
 
-### `tv()` (tailwind-variants) base + variants + compoundVariants
+### `tv()` (tailwind-variants) base + variants + compoundVariants — supported as of v2.x
 
-::: danger Currently broken — fix in flight
-**Root cause** : the regex in `packages/tailwindcss-obfuscator/src/extractors/jsx.ts:386-409` matches the surface form `tv({ base: "..." })` but in practice does not pick up the variant strings. Discovered while building [`apps/test-tailwind-variants/`](https://github.com/josedacosta/tailwindcss-obfuscator/issues/61) — only inline template-literal classes get obfuscated, the entire `base` / `variants` / `compoundVariants` content is left as raw `bg-blue-600` / `text-white` etc.
+::: tip Status : working end-to-end since [PR #63](https://github.com/josedacosta/tailwindcss-obfuscator/pull/63) (issue #61 closed)
+The `base`, `variants`, `compoundVariants` and `defaultVariants` keys of a `tv({ … })` call are extracted and obfuscated. The end-to-end regression is exercised on every release by [`apps/test-tailwind-variants/`](https://github.com/josedacosta/tailwindcss-obfuscator/tree/main/apps/test-tailwind-variants), which fails the build if any of the 33 classes in the suite ship un-obfuscated.
 
-**Workaround until fixed** : either
+**Known caveat** : the multi-element `slot` API (`tv({ slots: { … }, variants: { … } })`) is not yet covered by the test matrix. If you rely on slots, audit your built CSS and open an issue if a class slips through — extending the AST visitor to slots is a small follow-up.
 
-- inline the variant strings as constants and reference them (the AST extractor _can_ follow same-file constants),
-- or use [`cva()`](https://cva.style/) instead of `tv()` — `cva()` works correctly today and is exercised end-to-end in [`apps/test-shadcn-ui/`](https://github.com/josedacosta/tailwindcss-obfuscator/tree/main/apps/test-shadcn-ui).
-
-**Tracked in** : [issue #61](https://github.com/josedacosta/tailwindcss-obfuscator/issues/61). README claim "`tv()` recognised out of the box" is currently misleading — will be re-honored once #61 ships.
+**Alternative** : [`cva()`](https://cva.style/) is also fully supported and is exercised end-to-end in [`apps/test-shadcn-ui/`](https://github.com/josedacosta/tailwindcss-obfuscator/tree/main/apps/test-shadcn-ui).
 :::
 
 ---

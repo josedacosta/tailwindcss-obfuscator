@@ -1334,6 +1334,6 @@ Add the following regex patterns:
 - ✅ Important modifier at END (`flex!` accepted alongside `!flex`) — `validators.ts`
 - ✅ Nested bracket support (`in-[[data-active]]:`) — basic patterns work; deeply-nested edge cases see [Limitations](../reference/limitations#not-in-nth-variants-supported-edge-cases-possible)
 - ⚠️ **PARTIAL** — `not-*`, `in-*`, `nth-*` variants : basic shapes covered, deeply-nested arbitrary values may not extract — see [Limitations](../reference/limitations#not-in-nth-variants-supported-edge-cases-possible)
-- ⚠️ **PARTIAL** — `tv()` (tailwind-variants) : simple flat patterns work, composed variants may break — tracked in [issue #61](https://github.com/josedacosta/tailwindcss-obfuscator/issues/61) and [Limitations](../reference/limitations)
+- ✅ `tv()` (tailwind-variants) — `base`, `variants`, `compoundVariants` and `defaultVariants` extracted end-to-end (PR #63 / issue #61 closed). Multi-element `slot` API not yet in the test matrix — see [Limitations](../reference/limitations#tv-tailwind-variants-base-variants-compoundvariants-supported-as-of-v2-x)
 
 **Verification** : every check above is exercised by [`tests/tailwind-v4-patterns.test.ts`](https://github.com/josedacosta/tailwindcss-obfuscator/blob/main/packages/tailwindcss-obfuscator/tests/tailwind-v4-patterns.test.ts) and [`tests/comprehensive-patterns.test.ts`](https://github.com/josedacosta/tailwindcss-obfuscator/blob/main/packages/tailwindcss-obfuscator/tests/comprehensive-patterns.test.ts) (44 + 86 cases).
