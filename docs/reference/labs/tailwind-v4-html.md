@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide covers class obfuscation for static HTML projects using Tailwind CSS v4. Because `tailwindcss-patch` does NOT work with Tailwind v4 (see `tailwindcss_patch_v4_issues.md`), we use a custom extraction script.
+This guide covers class obfuscation for static HTML projects using Tailwind CSS v4. Because `tailwindcss-patch` does NOT work with Tailwind v4 (see the [Mangle Tailwind v4 Issues](../../research/v4-issues) research page), we use a custom extraction script.
 
 ## Architecture
 
@@ -230,7 +230,7 @@ console.log(`Extracted ${allClasses.size} classes to ${OUTPUT_FILE}`);
 
 ## Why Not tailwindcss-patch?
 
-See `tailwindcss_patch_v4_issues.md` for detailed explanation. In summary:
+See the [Mangle Tailwind v4 Issues](../../research/v4-issues) research page for the detailed explanation. In summary:
 
 1. CLI command `tw-patch extract` fails with module errors
 2. API only detects ~30% of classes

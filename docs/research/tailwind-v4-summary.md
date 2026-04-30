@@ -1,7 +1,7 @@
 # Tailwind CSS v4 - Quick Reference Summary
 
 **Generated:** 2025-12-08
-**Full Analysis:** See `tailwind-v4-features-analysis.md`
+**Full Analysis:** See [v4 Features Analysis](./tailwind-v4-features-analysis)
 
 ---
 
@@ -278,7 +278,7 @@ Create test files for:
 
 ## References
 
-- **Full Analysis:** `/docs/research/tailwind-v4-features-analysis.md`
+- **Full Analysis:** [v4 Features Analysis](./tailwind-v4-features-analysis)
 - **Tailwind v4 Docs:** https://tailwindcss.com/docs/upgrade-guide
 - **Release Post:** https://tailwindcss.com/blog/tailwindcss-v4
 
