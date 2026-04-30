@@ -1,0 +1,35 @@
+# https://citation-file-format.github.io/
+# This file is rendered as a "Cite this repository" widget by GitHub on
+# the repo home page. It also feeds Zenodo / Software Heritage / FOSDEM
+# style indexes. Keep it short — only fields a citing reader needs.
+cff-version: 1.2.0
+message: >-
+  If you use tailwindcss-obfuscator in academic work, a publication, a
+  measurement experiment, or any redistributable artefact, please cite it.
+type: software
+title: tailwindcss-obfuscator
+abstract: >-
+  Build-time Tailwind CSS class mangler & obfuscator. Renames utility
+  classes (bg-blue-500 → tw-a) at build time across Vite, Webpack,
+  Rollup, esbuild, rspack, Farm, Nuxt, SvelteKit, Astro, Solid, Qwik,
+  React Router 7 and TanStack Router. Cuts the CSS bundle by 30–60 %
+  and removes the Tailwind signature from rendered HTML.
+authors:
+  - family-names: DA COSTA
+    given-names: José
+    email: contact@josedacosta.info
+    website: https://github.com/josedacosta
+license: MIT
+repository-code: https://github.com/josedacosta/tailwindcss-obfuscator
+url: https://josedacosta.github.io/tailwindcss-obfuscator/
+keywords:
+  - tailwindcss
+  - obfuscation
+  - mangler
+  - css
+  - build-tool
+  - vite
+  - webpack
+  - rollup
+  - esbuild
+  - design-system-protection

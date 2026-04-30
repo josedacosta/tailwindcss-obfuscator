@@ -107,6 +107,34 @@ jobs:
           path: packages/tailwindcss-obfuscator/dist
           retention-days: 7
 
+  dependency-review:
+    # Pull-request-only gate. Reads the diff of pnpm-lock.yaml against
+    # the merge base and refuses any PR that introduces a NEW dep with
+    # a known advisory of severity moderate-or-higher. Complements the
+    # `audit` job below : audit runs on the resolved tree at any time ;
+    # dep-review runs only on the diff and is much faster + more
+    # targeted (catches the introduction, not the steady state).
+    #
+    # OSSF Scorecard recognises dep-review as a top-tier supply-chain
+    # control. Cost : ~5 seconds per PR.
+    name: Dependency review (PR-only)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - uses: actions/dependency-review-action@67d4f4bd7a9b17a0db54d2a7519187c65e339de8 # v4.3.4
+        with:
+          fail-on-severity: moderate
+          # Allow the same MIT/Apache/BSD permissive licenses the project
+          # already ships ; reject GPL family transitively (would force the
+          # whole package into GPL on republish).
+          allow-licenses: MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, 0BSD, Unlicense, CC0-1.0, CC-BY-4.0, BlueOak-1.0.0, Python-2.0
+          comment-summary-in-pr: on-failure
+
   audit:
     # Belt-and-suspenders: Renovate already opens PRs for vulnerable transitive
     # deps and `pnpm.overrides` patches them on the spot, but we also want a
