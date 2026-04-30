@@ -89,9 +89,9 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@babel/parser": "^7.26.3",
-    "@babel/traverse": "^7.26.4",
-    "@babel/types": "^7.26.3",
+    "@babel/parser": "^7.29.2",
+    "@babel/traverse": "^7.29.0",
+    "@babel/types": "^7.29.0",
     "commander": "^12.1.0",
     "fast-glob": "^3.3.3",
     "magic-string": "^0.30.21",
