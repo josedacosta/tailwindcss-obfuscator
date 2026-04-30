@@ -1,0 +1,84 @@
+name: CodeQL
+
+# JavaScript / TypeScript SAST scan via GitHub's native CodeQL.
+#
+# Why this exists (closes issue #58)
+# ──────────────────────────────────
+# OpenSSF Scorecard runs already, but it operates at the *infrastructure*
+# layer (workflow permissions, action SHA pinning, branch protection,
+# release signing, dependency graph). It does NOT analyse the package's
+# source code. CodeQL fills that gap : semantic AST analysis that catches
+# class-injection bugs, ReDoS regex shapes, prototype pollution, eval-like
+# patterns, and the dozens of other code-level smells that ship from the
+# `packages/tailwindcss-obfuscator/src/**` tree to every consumer's bundle.
+#
+# Findings appear in the GitHub Security tab → Code scanning. The same SARIF
+# upload mechanism is already wired in scorecard.yml so the action set and
+# the upload-sarif call are battle-tested.
+#
+# Schedule : on every push to main + every PR + weekly cron (catches new
+# CodeQL queries as GitHub publishes them, even if no code changed).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Every Monday at 06:30 UTC. Offset 30 min from scorecard.yml (06:00) so
+    # both don't fight for the same runner pool window.
+    - cron: "30 6 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: codeql-${{ github.ref }}
+  cancel-in-progress: true
+
+# Top-level grants nothing ; each job re-declares its minimum scope.
+permissions: {}
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    permissions:
+      # Required for SARIF upload.
+      security-events: write
+      # Required to read action metadata for SHA-pinning attestation.
+      actions: read
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        # JavaScript covers .js, .jsx, .ts, .tsx — the entire surface of
+        # this repo's published code (`packages/tailwindcss-obfuscator/src/**`).
+        # Tests are scanned too because a typo in test code can mask a
+        # real bug downstream.
+        language: ["javascript-typescript"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      # Initialize the CodeQL tools for scanning.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@ce64ddcb0d8d890d2df4a9d1c04ff297367dea2a # v3.35.2
+        with:
+          languages: ${{ matrix.language }}
+          # The default suite is `security-extended` for stronger coverage
+          # than the `security-and-quality` default. `security-extended`
+          # adds rules for ReDoS, prototype pollution, hardcoded secrets,
+          # and other higher-confidence security smells.
+          queries: security-extended
+
+      # Build step — for JS/TS the autobuild step is a no-op (interpreted
+      # languages, no compilation needed). We do this explicitly anyway
+      # because CodeQL expects a build step to be present.
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@ce64ddcb0d8d890d2df4a9d1c04ff297367dea2a # v3.35.2
+
+      # Run the analysis and upload SARIF to the Security tab.
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@ce64ddcb0d8d890d2df4a9d1c04ff297367dea2a # v3.35.2
+        with:
+          category: "/language:${{ matrix.language }}"
