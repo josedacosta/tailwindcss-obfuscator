@@ -1249,7 +1249,7 @@ importers:
         specifier: '>=3.0.0'
         version: 4.2.4
       unplugin:
-        specifier: ^2.0.0
+        specifier: ^2.3.11
         version: 2.3.11
     devDependencies:
       '@farmfe/core':
@@ -22902,7 +22902,7 @@ snapshots:
   unplugin@2.3.11:
     dependencies:
       '@jridgewell/remapping': 2.3.5
-      acorn: 8.15.0
+      acorn: 8.16.0
       picomatch: 4.0.4
       webpack-virtual-modules: 0.6.2
 
