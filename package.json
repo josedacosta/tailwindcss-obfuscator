@@ -21,6 +21,8 @@
     "verify:obfuscation": "node scripts/verify-obfuscation.mjs",
     "test:snapshots": "node scripts/snapshot-app-mappings.mjs",
     "test:snapshots:update": "node scripts/snapshot-app-mappings.mjs --update",
+    "test:perf": "node scripts/check-bench-regression.mjs",
+    "test:perf:update": "node scripts/check-bench-regression.mjs --update",
     "verify:release": "pnpm lint && pnpm format:check && pnpm --filter tailwindcss-obfuscator typecheck && pnpm --filter tailwindcss-obfuscator test && pnpm audit --audit-level=high && pnpm --filter tailwindcss-obfuscator build && node scripts/verify-obfuscation.mjs && pnpm test:snapshots && bash .github/scripts/test-tarball.sh",
     "changeset": "changeset",
     "version-packages": "changeset version",

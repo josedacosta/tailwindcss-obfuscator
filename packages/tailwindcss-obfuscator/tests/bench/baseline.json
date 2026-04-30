@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Performance baseline for the 5 vitest bench cases. Compared against fresh runs by scripts/check-bench-regression.mjs as a release-safety gate. Any benchmark whose ops/sec (hz) drops below baseline by more than `regressionThresholdPct` (default 25%) fails the build, forcing the maintainer to consciously update this baseline (or revert the perf-degrading commit).",
+  "lastUpdated": "2026-04-30",
+  "lastUpdatedFor": "v2.1.0",
+  "regressionThresholdPct": 25,
+  "_note_about_noise": "CI runners have variable performance. The 25% threshold absorbs the typical run-to-run noise (we observed ±5-10% on macOS GitHub runners) while still catching real regressions like a O(n) → O(n²) algorithm switch. Tighten the threshold (e.g. to 15%) once we have CI-pinned hardware.",
+  "_note_about_units": "Higher hz is better (more ops/sec). Baseline numbers were captured on Apple M-series macOS Darwin 25.4 — re-capture after major Node bumps or runner OS changes.",
+  "benchmarks": {
+    "extractFromJsx (80 cards)": { "hz": 659.1, "unit": "ops/sec" },
+    "extractFromCss (200 rules)": { "hz": 4137.17, "unit": "ops/sec" },
+    "isTailwindClass (1k tokens)": { "hz": 116.68, "unit": "ops/sec" },
+    "transformCss (200 rules)": { "hz": 6313.05, "unit": "ops/sec" },
+    "transformJsxAst (80 cards)": { "hz": 147.13, "unit": "ops/sec" }
+  }
+}
