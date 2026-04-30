@@ -9,7 +9,9 @@
 <br /><br />
 
 <h1>
-  🛡️ Tailwind CSS Obfuscator <span style="opacity:.6">(a.k.a. Tailwind Class Mangler)</span>
+  🛡️ Tailwind CSS Obfuscator
+  <br />
+  <span style="opacity:.6">(a.k.a. Tailwind Class Mangler)</span>
 </h1>
 
 <h3>
