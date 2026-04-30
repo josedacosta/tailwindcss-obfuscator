@@ -81,6 +81,61 @@ export default withMermaid({
         },
       ]
     );
+
+    // ---- HowTo JSON-LD on framework setup guides ---------------------
+    // Pages under /guide/<framework>.md (excluding the meta pages like
+    // getting-started, options, exclusions, brand-assets, class-utilities)
+    // are step-by-step setup guides — Google Rich Results displays them
+    // as a "How to" carousel when this structured data is present.
+    // We extract the H2 sections from the source markdown to populate
+    // the `step` array.
+    const META_GUIDES = new Set([
+      "getting-started",
+      "options",
+      "exclusions",
+      "brand-assets",
+      "class-utilities",
+      "what-is-it",
+      "why-obfuscate",
+    ]);
+    if (relPath.startsWith("guide/") && !META_GUIDES.has(relPath.replace(/^guide\//, ""))) {
+      try {
+        const sourcePath = path.resolve(DOCS_ROOT, pageData.relativePath);
+        const sourceMd = fs.readFileSync(sourcePath, "utf8");
+        const steps = [...sourceMd.matchAll(/^##\s+(.+)$/gm)]
+          .map((m) => m[1].trim().replace(/[`*_~]/g, ""))
+          .filter(
+            (name) => name && !/^(see also|references?|next steps?|further reading)$/i.test(name)
+          )
+          .slice(0, 8) // Google rich-results recommends ≤ 8 steps
+          .map((name, idx) => ({
+            "@type": "HowToStep",
+            position: idx + 1,
+            name,
+            url: `${pageUrl}#${name
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/^-|-$/g, "")}`,
+          }));
+        if (steps.length >= 2) {
+          pageData.frontmatter.head.push([
+            "script",
+            { type: "application/ld+json" },
+            JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "HowTo",
+              name: pageTitle,
+              description: pageDescription,
+              totalTime: "PT5M",
+              tool: [{ "@type": "HowToTool", name: "tailwindcss-obfuscator (npm)" }],
+              step: steps,
+            }),
+          ]);
+        }
+      } catch {
+        // Page source not readable in build context — skip silently.
+      }
+    }
   },
 
   // After VitePress builds the static site, copy every source `.md` into the
