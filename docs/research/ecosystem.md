@@ -94,20 +94,21 @@ npx tw-patch install
 
 The GitHub repository contains:
 
-```
-sonofmagic/tailwindcss-mangle/
-├── packages/
-│   ├── tailwindcss-patch/           # Core patching library
-│   ├── unplugin-tailwindcss-mangle/ # Build plugins
-│   ├── core/                        # Shared core logic
-│   ├── config/                      # Configuration utilities
-│   └── shared/                      # Shared utilities
-├── apps/                            # Test applications
-│   ├── next-app/
-│   ├── nuxt-app/
-│   ├── vite-react/
-│   └── ...
-└── website/                         # Documentation site
+```mermaid
+flowchart TD
+    R[sonofmagic/tailwindcss-mangle/]
+    R --> P[packages/]
+    R --> A[apps/<br/><i>Test applications</i>]
+    R --> W[website/<br/><i>Documentation site</i>]
+    P --> P1[tailwindcss-patch/<br/><i>Core patching library</i>]
+    P --> P2[unplugin-tailwindcss-mangle/<br/><i>Build plugins</i>]
+    P --> P3[core/<br/><i>Shared core logic</i>]
+    P --> P4[config/<br/><i>Configuration utilities</i>]
+    P --> P5[shared/<br/><i>Shared utilities</i>]
+    A --> A1[next-app/]
+    A --> A2[nuxt-app/]
+    A --> A3[vite-react/]
+    A --> A4[...]
 ```
 
 ## Why This Matters for Our Project

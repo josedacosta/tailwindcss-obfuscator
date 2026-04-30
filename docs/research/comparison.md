@@ -9,7 +9,9 @@ description: A side-by-side, evidence-based comparison of every active Tailwind 
 > A side-by-side, evidence-based comparison of every active tool that rewrites Tailwind CSS class names at build time. Updated against the latest releases as of April 2026.
 
 ::: info "Mangler" vs "obfuscator" — same problem, two names
-The ecosystem uses both terms interchangeably. **"Mangler"** (the term used by `tailwindcss-mangle`, `terser` mangle, `css-mangle`) emphasises the bundle-size benefit ; **"obfuscator"** (the term used by `tailwindcss-obfuscator`) emphasises the design-system-protection benefit. Both labels point to the same build-time transformation : rewrite verbose Tailwind class names into short opaque identifiers. We use both throughout these docs because they capture two real angles of the same tool.
+The ecosystem uses both terms interchangeably. **"Mangler"** (the term used by `tailwindcss-mangle`, `terser` mangle, `css-mangle`) emphasises the bundle-size benefit ; **"obfuscator"** (the term used by `tailwindcss-obfuscator`) emphasises the design-system-protection benefit. Both labels point to the same build-time transformation : rewrite verbose Tailwind class names into short opaque identifiers.
+
+For the long-form answer — _what each term technically means, why we are honestly a mangler with a useful obfuscation side-effect, and where this project lives among the four families of build-time class transformation_ — see [Approaches](./approaches).
 :::
 
 ## Tools covered
@@ -133,14 +135,13 @@ Tailwind's first-party tooling (`@tailwindcss/cli`, `@tailwindcss/postcss`, `@ta
 
 ## Decision tree
 
-```
-Are you on Tailwind v3 or v4?
-├── v3 → tailwindcss-obfuscator   (full v3 support, drop-in)
-│        OR tailwindcss-mangle     (mature on v3, less framework coverage)
-└── v4 → Are you on Next.js + Tailwind v4 only and OK with source rewrites?
-         ├── Yes → Obfustail        (one-script demo, fastest to try)
-         └── No  → tailwindcss-obfuscator   (every bundler + framework, no source rewrite)
-                   OR tailwindcss-mangle 9.0.0+   (CSS-scanning path; Vite/Webpack only)
+```mermaid
+flowchart TD
+    A["Are you on Tailwind v3 or v4 ?"]
+    A -->|v3| B["tailwindcss-obfuscator (full v3 support, drop-in)<br/>OR tailwindcss-mangle (mature on v3, less framework coverage)"]
+    A -->|v4| C{"Are you on Next.js + Tailwind v4 only<br/>AND OK with source rewrites ?"}
+    C -->|Yes| D["Obfustail<br/>(one-script demo, fastest to try)"]
+    C -->|No| E["tailwindcss-obfuscator (every bundler + framework, no source rewrite)<br/>OR tailwindcss-mangle 9.0.0+ (CSS-scanning path; Vite/Webpack only)"]
 ```
 
 If you only need CSS compression, ship `cssnano` or `lightningcss` regardless.

@@ -489,12 +489,12 @@ From `src/app/search.css`:
 
 ### File Structure
 
-```
-src/app/
-├── globals.css      # Tailwind import, theme, utilities
-├── typography.css   # Prose styles (layer: components)
-├── search.css       # DocSearch styling
-└── layout.tsx       # Font loading, global classes
+```mermaid
+flowchart LR
+    A[src/app/] --> B[globals.css<br/><i>Tailwind import, theme, utilities</i>]
+    A --> C[typography.css<br/><i>Prose styles, layer components</i>]
+    A --> D[search.css<br/><i>DocSearch styling</i>]
+    A --> E[layout.tsx<br/><i>Font loading, global classes</i>]
 ```
 
 ---
