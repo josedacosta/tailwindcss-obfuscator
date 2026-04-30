@@ -551,8 +551,8 @@ export function detectTailwindVersion(projectRoot: string): "3" | "4" {
 
 ## Related Documents
 
-- **Full Analysis:** `tailwind-v4-features-analysis.md`
-- **Quick Reference:** `tailwind-v4-summary.md`
+- **Full Analysis:** [v4 Features Analysis](./tailwind-v4-features-analysis)
+- **Quick Reference:** [v4 Quick Reference](./tailwind-v4-summary)
 - **Official v4 Upgrade Guide:** https://tailwindcss.com/docs/upgrade-guide
 
 ---

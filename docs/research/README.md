@@ -6,7 +6,7 @@ This directory contains comprehensive research and analysis of Tailwind CSS v4 f
 
 ## Documents Overview
 
-### 1. `tailwind-v4-features-analysis.md` 📖 **FULL REFERENCE**
+### 1. [v4 Features Analysis](./tailwind-v4-features-analysis) 📖 **FULL REFERENCE**
 
 **Purpose:** Complete technical reference for all v4 features and changes
 
@@ -34,7 +34,7 @@ This directory contains comprehensive research and analysis of Tailwind CSS v4 f
 
 ---
 
-### 2. `tailwind-v4-summary.md` ⚡ **QUICK REFERENCE**
+### 2. [v4 Quick Reference](./tailwind-v4-summary) ⚡ **QUICK REFERENCE**
 
 **Purpose:** Quick lookup for v4 changes and patterns
 
@@ -60,7 +60,7 @@ This directory contains comprehensive research and analysis of Tailwind CSS v4 f
 
 ---
 
-### 3. `v4-implementation-checklist.md` ✅ **ACTION PLAN**
+### 3. [v4 Implementation Checklist](./v4-implementation-checklist) ✅ **ACTION PLAN**
 
 **Purpose:** Step-by-step implementation guide with priority order
 
@@ -164,16 +164,8 @@ These **MUST be added** for full v4 support:
 
 ### Step 1: Review Current Status
 
-```bash
-# Read the checklist
-cat v4-implementation-checklist.md
-
-# Check what's already done
-grep -n "✅" v4-implementation-checklist.md
-
-# See what's missing
-grep -n "❌" v4-implementation-checklist.md
-```
+- Open the [v4 Implementation Checklist](./v4-implementation-checklist) page
+- Items already done are marked with ✅; items still needed are marked with ❌
 
 ### Step 2: Choose a Feature to Implement
 
@@ -397,20 +389,11 @@ export default {
 
 ---
 
-## Documentation Structure
+## Related Pages
 
-```
-docs/
-├── research/
-│   ├── README.md (this file)
-│   ├── tailwind-v4-features-analysis.md (full reference)
-│   ├── tailwind-v4-summary.md (quick reference)
-│   └── v4-implementation-checklist.md (action plan)
-├── guide/
-│   └── tailwind-v4-support.md (user-facing guide - TO CREATE)
-└── reference/
-    └── patterns.md (regex patterns reference - TO CREATE)
-```
+- [v4 Features Analysis](./tailwind-v4-features-analysis) — full reference
+- [v4 Quick Reference](./tailwind-v4-summary) — concise lookup
+- [v4 Implementation Checklist](./v4-implementation-checklist) — action plan
 
 ---
 
