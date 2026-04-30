@@ -388,20 +388,20 @@ export function extractFromJsxWithCva(content: string, _filePath: string): strin
  */
 export function extractFromTailwindVariants(content: string, _filePath: string): string[] {
   const classes: string[] = [];
-
-  // Pattern for tv() base classes (single string, no nested braces — regex OK).
-  const tvBasePattern = /tv\s*\(\s*\{[\s\S]*?base\s*:\s*["'`]([^"'`]+)["'`]/g;
   let match;
 
-  while ((match = tvBasePattern.exec(content)) !== null) {
-    const baseClasses = match[1];
-    classes.push(...extractClassesFromString(baseClasses));
-  }
-  tvBasePattern.lastIndex = 0;
-
-  // For each tv() call, find every keyword block (variants, slots,
+  // For each tv() call, find every keyword block (base, variants, slots,
   // compoundVariants, compoundSlots, defaultVariants) and extract every
   // string literal inside it via balanced-brace traversal.
+  //
+  // Earlier versions used a separate `/tv\s*\(\s*\{[\s\S]*?base\s*:\s*…/`
+  // regex for the `base:` string. That `[\s\S]*?base` pattern is a
+  // textbook polynomial-redos shape (CodeQL `js/polynomial-redos`,
+  // CWE-1333) — crafted input with many `bas` runs but no `e` would
+  // backtrack quadratically. The new flow extracts the balanced tv()
+  // call block once, then runs a SAFE non-greedy regex on the block
+  // (no `*?` over arbitrary characters before the `base` literal —
+  // the search is anchored at `\bbase` directly inside the bounded block).
   const tvCallSitePattern = /tv\s*\(\s*\{/g;
   while ((match = tvCallSitePattern.exec(content)) !== null) {
     // Find the closing `}` of the tv({...}) call so we don't bleed into
@@ -409,6 +409,15 @@ export function extractFromTailwindVariants(content: string, _filePath: string):
     const callOpen = content.indexOf("{", match.index);
     const callBlock = extractBalancedBlock(content, callOpen, "{", "}");
     if (!callBlock) continue;
+
+    // Extract the `base: "..."` string literal first. Anchored at
+    // `\bbase` inside the already-bounded callBlock — no polynomial
+    // backtracking risk.
+    const baseRe = /\bbase\s*:\s*["'`]([^"'`]+)["'`]/g;
+    let baseMatch;
+    while ((baseMatch = baseRe.exec(callBlock)) !== null) {
+      classes.push(...extractClassesFromString(baseMatch[1]));
+    }
 
     for (const keyword of [
       "variants",
