@@ -8,7 +8,7 @@ import fg from "fast-glob";
 import type { ExtractionResult, ExtractorFn, PluginContext, Logger } from "../core/types.js";
 import { addClasses } from "../core/context.js";
 import { extractFromHtml } from "./html.js";
-import { extractAllFromJsx } from "./jsx.js";
+import { extractAllFromJsx, extractClassListLikeStrings } from "./jsx.js";
 import { extractFromCss, extractFromTailwindV4Css, detectTailwindVersion } from "./css.js";
 import { deduplicateClasses } from "./base.js";
 
@@ -18,6 +18,7 @@ export {
   extractFromJsxWithCva,
   extractAllFromJsx,
   extractFromTailwindVariants,
+  extractClassListLikeStrings,
 } from "./jsx.js";
 export { extractFromCss, extractFromTailwindV4Css, detectTailwindVersion } from "./css.js";
 export * from "./base.js";
@@ -60,8 +61,16 @@ export function getExtractor(filePath: string): ExtractorFn | null {
 
 /**
  * Extract classes from a single file
+ *
+ * `opts.scanObjectStrings` opts into the lookup-table-string extractor
+ * (`extractClassListLikeStrings`), which catches Tailwind class strings
+ * stored in object-property values that the standard JSX walker doesn't
+ * reach. Default off — see `scanObjectStrings` in `ObfuscatorOptions`.
  */
-export async function extractFromFile(filePath: string): Promise<ExtractionResult> {
+export async function extractFromFile(
+  filePath: string,
+  opts: { scanObjectStrings?: boolean } = {}
+): Promise<ExtractionResult> {
   const result: ExtractionResult = {
     file: filePath,
     classes: [],
@@ -75,6 +84,18 @@ export async function extractFromFile(filePath: string): Promise<ExtractionResul
     if (extractor) {
       const classes = await extractor(content, filePath);
       result.classes = classes;
+
+      // Optional second pass: scan ALL string literals for class-list-like
+      // contents (handles class strings stored in object property values).
+      // Only relevant for JS-family files where the primary extractor is
+      // `extractAllFromJsx` — for HTML / CSS files, classes inside string
+      // literals are already handled by their dedicated extractors.
+      if (opts.scanObjectStrings && JS_FAMILY_EXTENSIONS.has(getExtension(filePath))) {
+        const extra = extractClassListLikeStrings(content, filePath);
+        if (extra.length > 0) {
+          result.classes = [...new Set([...result.classes, ...extra])];
+        }
+      }
     } else {
       result.errors = [`No extractor available for file type: ${filePath}`];
     }
@@ -86,6 +107,8 @@ export async function extractFromFile(filePath: string): Promise<ExtractionResul
 
   return result;
 }
+
+const JS_FAMILY_EXTENSIONS = new Set(["js", "jsx", "ts", "tsx", "vue", "svelte", "astro"]);
 
 /**
  * Extract classes from multiple files using glob patterns
@@ -114,6 +137,54 @@ export async function extractFromGlob(
 }
 
 /**
+ * Test a path against a list of patterns. RegExp entries use `.test()`;
+ * string entries fall back to substring matching on the absolute path so that
+ * users can write `"jose"` or `"node_modules"` without thinking in globs.
+ */
+function pathMatchesAny(filePath: string, patterns: ReadonlyArray<string | RegExp>): boolean {
+  for (const pattern of patterns) {
+    if (pattern instanceof RegExp) {
+      if (pattern.test(filePath)) return true;
+    } else if (filePath.includes(pattern)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Apply `sources.include` (whitelist) and `sources.exclude` (blacklist) to a
+ * file list. Earlier versions accepted these options in the config schema but
+ * never enforced them — leading to bug reports where archived HTML/CSS under
+ * gitignored personal directories ended up in the class mapping anyway and
+ * corrupted SSR chunks (e.g. `require('util')` rewritten because a `class="util"`
+ * appeared in some `*.html` snippet outside the source tree).
+ *
+ * Patterns are matched against the **relative** path (relative to `basePath`),
+ * never the absolute path — otherwise an exclude like `/[\\/]jose[\\/]/` would
+ * silently match every file under `/Users/jose/...` on the maintainer's machine.
+ */
+function applySourcesFilter(
+  files: string[],
+  sources: PluginContext["options"]["sources"] | undefined,
+  basePath: string
+): string[] {
+  if (!sources) return files;
+  const include = sources.include;
+  const exclude = sources.exclude;
+  if ((!include || include.length === 0) && (!exclude || exclude.length === 0)) return files;
+
+  return files.filter((file) => {
+    // Always test against POSIX-style relative paths so users can write
+    // `'jose/'` regardless of the host OS.
+    const relative = path.relative(basePath, file).split(path.sep).join("/");
+    if (include && include.length > 0 && !pathMatchesAny(relative, include)) return false;
+    if (exclude && exclude.length > 0 && pathMatchesAny(relative, exclude)) return false;
+    return true;
+  });
+}
+
+/**
  * Extract all classes from files and add to context
  */
 export async function extractClasses(
@@ -128,9 +199,17 @@ export async function extractClasses(
   logger.info("Extracting Tailwind classes...");
 
   // Extract from content files (HTML, JSX, TSX, etc.)
-  const contentResults = await extractFromGlob(ctx.options.content, {
+  const matchedFiles = await fg(ctx.options.content, {
     cwd: basePath,
+    ignore: ["**/node_modules/**", "**/dist/**", "**/.next/**", "**/build/**", "**/.git/**"],
+    absolute: true,
   });
+  const filteredFiles = applySourcesFilter(matchedFiles, ctx.options.sources, basePath);
+
+  const scanObjectStrings = ctx.options.scanObjectStrings === true;
+  const contentResults = await Promise.all(
+    filteredFiles.map((file) => extractFromFile(file, { scanObjectStrings }))
+  );
 
   for (const result of contentResults) {
     if (result.errors && result.errors.length > 0) {
@@ -166,8 +245,9 @@ export async function extractFromCssFiles(
     ignore: ["**/node_modules/**", "**/dist/**", "**/.next/**", "**/build/**"],
     absolute: true,
   });
+  const filteredCssFiles = applySourcesFilter(cssFiles, ctx.options.sources, basePath);
 
-  for (const file of cssFiles) {
+  for (const file of filteredCssFiles) {
     try {
       const content = await fs.promises.readFile(file, "utf-8");
 
