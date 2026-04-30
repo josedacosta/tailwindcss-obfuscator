@@ -48,7 +48,7 @@ Everything in this checklist ships in the current release. The summary :
 
 #### Known partial / not-fully-stable
 
-- ⚠️ `tv()` (tailwind-variants) : simple flat patterns work, composed variants may break — tracked in [issue #61](https://github.com/josedacosta/tailwindcss-obfuscator/issues/61) and the [Limitations](../reference/limitations) page.
+- ✅ `tv()` (tailwind-variants) : `base`, `variants`, `compoundVariants` and `defaultVariants` extracted end-to-end (PR #63 / issue #61 closed). Slots API not yet in the test matrix — see the [tv() card in Limitations](../reference/limitations#tv-tailwind-variants-base-variants-compoundvariants-supported-as-of-v2-x).
 
 #### Code locations (current)
 
