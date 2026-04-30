@@ -1234,7 +1234,7 @@ importers:
         specifier: ^3.3.2
         version: 3.3.3
       magic-string:
-        specifier: ^0.30.17
+        specifier: ^0.30.21
         version: 0.30.21
       picocolors:
         specifier: ^1.1.1
@@ -16107,7 +16107,7 @@ snapshots:
       obug: 2.1.1
       std-env: 4.1.0
       tinyrainbow: 3.1.0
-      vitest: 4.1.5(@types/node@22.19.1)(@vitest/coverage-v8@4.1.5)(@vitest/ui@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.1)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.3))
+      vitest: 4.1.5(@types/node@22.19.1)(@vitest/coverage-v8@4.1.5)(@vitest/ui@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.1)(esbuild@0.28.0)(jiti@1.21.7)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.3))
 
   '@vitest/expect@4.1.5':
     dependencies:
@@ -16161,7 +16161,7 @@ snapshots:
       sirv: 3.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 3.1.0
-      vitest: 4.1.5(@types/node@22.19.1)(@vitest/coverage-v8@4.1.5)(@vitest/ui@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.1)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.3))
+      vitest: 4.1.5(@types/node@22.19.1)(@vitest/coverage-v8@4.1.5)(@vitest/ui@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.1)(esbuild@0.28.0)(jiti@1.21.7)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.3))
 
   '@vitest/utils@4.1.5':
     dependencies:
