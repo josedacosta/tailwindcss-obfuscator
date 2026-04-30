@@ -32,7 +32,7 @@ Scorecard runs weekly (Monday 06:00 UTC) and on every push. Below is every check
 | Check                      | Why it's 10                                                                                                                                                |
 | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Binary-Artifacts**       | Zero binaries in the repo.                                                                                                                                 |
-| **Dangerous-Workflow**     | All `.github/workflows/*.yml` use SHA-pinned actions, no `${{ github.event.pull_request… }}` pattern in untrusted contexts.                                |
+| **Dangerous-Workflow**     | All `.github/workflows/*.yml` use SHA-pinned actions, no `pull_request_target`-style untrusted-context patterns.                                           |
 | **Dependency-Update-Tool** | Renovate is wired (see `renovate.json`).                                                                                                                   |
 | **License**                | MIT, FSF/OSI recognised.                                                                                                                                   |
 | **Security-Policy**        | `SECURITY.md` at root with disclosure timeline + contact.                                                                                                  |
