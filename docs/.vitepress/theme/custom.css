@@ -693,6 +693,37 @@ h3 {
 }
 
 /* =============================================================================
+   19. HERO ACTIONS — full-width row below logo + description (>=960px)
+
+   Default VitePress places .actions inside .main (left column, next to .image
+   on the right). We pull .actions out of the flex flow with absolute
+   positioning so the three CTAs sit on a single horizontal row that spans
+   the full container width, centered, below the logo + text block.
+   ============================================================================= */
+
+@media (min-width: 960px) {
+  .VPHero .container {
+    position: relative !important;
+    padding-bottom: 7rem !important;
+  }
+
+  .VPHero .main .actions {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding-top: 1.5rem !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.75rem !important;
+  }
+}
+
+/* =============================================================================
    19. BLOCKQUOTE / CALLOUTS
    ============================================================================= */
 
