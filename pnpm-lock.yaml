@@ -1234,7 +1234,7 @@ importers:
         specifier: ^3.3.2
         version: 3.3.3
       magic-string:
-        specifier: ^0.30.17
+        specifier: ^0.30.21
         version: 0.30.21
       picocolors:
         specifier: ^1.1.1
