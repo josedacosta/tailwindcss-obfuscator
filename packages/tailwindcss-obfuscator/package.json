@@ -98,7 +98,7 @@
     "picocolors": "^1.1.1",
     "postcss": "^8.5.12",
     "postcss-selector-parser": "^7.1.1",
-    "unplugin": "^2.3.11"
+    "unplugin": "^3.0.0"
   },
   "devDependencies": {
     "@farmfe/core": "^1.7.11",
