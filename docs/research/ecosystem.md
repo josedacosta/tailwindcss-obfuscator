@@ -8,11 +8,11 @@ The `tailwindcss-patch` and `unplugin-tailwindcss-mangle` packages are **two sep
 
 ```mermaid
 flowchart LR
-  subgraph monorepo[" sonofmagic/tailwindcss-mangle (GitHub monorepo) "]
+  subgraph monorepo["sonofmagic/tailwindcss-mangle (GitHub monorepo)"]
     direction LR
-    patch["📦 tailwindcss-patch<br/><sub>npm package</sub><br/><br/>• Patches Tailwind<br/>• Extracts classes<br/>• Runtime context"]
-    plugin["📦 unplugin-tailwindcss-mangle<br/><sub>npm package</sub><br/><br/>• Vite plugin<br/>• Webpack plugin<br/>• Rollup plugin<br/>• Nuxt module"]
-    patch -->|"exposes internal APIs<br/>+ extracted classes"| plugin
+    patch["📦 tailwindcss-patch — npm package — Patches Tailwind, extracts classes, runtime context"]
+    plugin["📦 unplugin-tailwindcss-mangle — npm package — Vite, Webpack, Rollup, Nuxt"]
+    patch -->|exposes internal APIs + extracted classes| plugin
   end
 
   style patch fill:#1e293b,stroke:#38bdf8,color:#fff
@@ -98,13 +98,13 @@ The GitHub repository contains:
 flowchart TD
     R[sonofmagic/tailwindcss-mangle/]
     R --> P[packages/]
-    R --> A[apps/<br/><i>Test applications</i>]
-    R --> W[website/<br/><i>Documentation site</i>]
-    P --> P1[tailwindcss-patch/<br/><i>Core patching library</i>]
-    P --> P2[unplugin-tailwindcss-mangle/<br/><i>Build plugins</i>]
-    P --> P3[core/<br/><i>Shared core logic</i>]
-    P --> P4[config/<br/><i>Configuration utilities</i>]
-    P --> P5[shared/<br/><i>Shared utilities</i>]
+    R --> A["apps/ — Test applications"]
+    R --> W["website/ — Documentation site"]
+    P --> P1["tailwindcss-patch/ — Core patching library"]
+    P --> P2["unplugin-tailwindcss-mangle/ — Build plugins"]
+    P --> P3["core/ — Shared core logic"]
+    P --> P4["config/ — Configuration utilities"]
+    P --> P5["shared/ — Shared utilities"]
     A --> A1[next-app/]
     A --> A2[nuxt-app/]
     A --> A3[vite-react/]
