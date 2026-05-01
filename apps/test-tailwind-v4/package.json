@@ -16,7 +16,7 @@
   "devDependencies": {
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-react": "^6.0.1",
     "@tailwindcss/vite": "^4.2.4",
     "tailwindcss": "^4.2.4",
     "tailwindcss-obfuscator": "workspace:*",
