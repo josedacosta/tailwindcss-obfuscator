@@ -26,7 +26,7 @@
     "vite": "^8.0.10"
   },
   "devDependencies": {
-    "@types/jsdom": "^21.1.7",
+    "@types/jsdom": "^28.0.1",
     "@types/node": "^22.10.2",
     "@vitest/ui": "^4.1.5",
     "jsdom": "^25.0.1",
