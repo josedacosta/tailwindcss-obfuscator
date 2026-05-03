@@ -126,7 +126,7 @@ jobs:
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
-      - uses: actions/dependency-review-action@67d4f4bd7a9b17a0db54d2a7519187c65e339de8 # v4.3.4
+      - uses: actions/dependency-review-action@5a2ce3f5b92ee19cbb1541a4984c76d921601d7c # v4.3.4
         with:
           fail-on-severity: moderate
           # Allow the same MIT/Apache/BSD permissive licenses the project
