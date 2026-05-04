@@ -96,7 +96,7 @@
     "fast-glob": "^3.3.3",
     "magic-string": "^0.30.21",
     "picocolors": "^1.1.1",
-    "postcss": "^8.5.12",
+    "postcss": "^8.5.14",
     "postcss-selector-parser": "^7.1.1",
     "unplugin": "^3.0.0"
   },
