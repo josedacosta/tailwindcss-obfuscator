@@ -23,6 +23,6 @@
     "tailwindcss": "^4.2.4",
     "tailwindcss-obfuscator": "workspace:*",
     "typescript": "^5.8.3",
-    "vite": "^6.4.0"
+    "vite": "^8.0.10"
   }
 }
