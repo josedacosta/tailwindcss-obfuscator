@@ -36,7 +36,7 @@ Live grade : [scorecard.dev/viewer/?uri=github.com/josedacosta/tailwindcss-obfus
 
 **What Scorecard wants** : 3+ distinct organisations contributing commits in the last 30 days.
 
-**Why we're at 3** : the project has 1 contributing organisation (the maintainer). Renovate / Dependabot / GitHub-Actions bots count as accounts but not as separate organisations.
+**Why we're at 3** : the project has 1 contributing organisation (the maintainer). Automated bots (GitHub-Actions, etc.) count as accounts but not as separate organisations.
 
 **Could it ever be 10** : only if 3+ external contributors from different companies / orgs land merged code. Open-source nature means this could happen organically over time, but it's not something we can engineer.
 
@@ -60,7 +60,7 @@ Live grade : [scorecard.dev/viewer/?uri=github.com/josedacosta/tailwindcss-obfus
 
 **What Scorecard wants** : 100 % of recent merged PRs to have CI checks attached.
 
-**Why we're at 8** : Scorecard counts the last 30 merged PRs. Some old Renovate lockfile-only PRs predate the full CI matrix and don't have all the modern checks. As old PRs age out of the rolling window, the score climbs.
+**Why we're at 8** : Scorecard counts the last 30 merged PRs. Some old automated lockfile-only PRs predate the full CI matrix and don't have all the modern checks. As old PRs age out of the rolling window, the score climbs.
 
 **Could it ever be 10** : **yes, naturally, in a few weeks** as we accumulate new PRs that all run the full CI matrix.
 
@@ -84,9 +84,9 @@ Live grade : [scorecard.dev/viewer/?uri=github.com/josedacosta/tailwindcss-obfus
 
 **What Scorecard wants** : every dependency pinned to an exact version or commit SHA.
 
-**Why we're at 8** : GitHub Actions are SHA-pinned (40-char commit hash). npm dependencies use range specifiers (`^X.Y.Z`) — the npm ecosystem norm. Strict pinning would defeat Renovate's auto-bump pipeline.
+**Why we're at 8** : GitHub Actions are SHA-pinned (40-char commit hash). npm dependencies use range specifiers (`^X.Y.Z`) — the npm ecosystem norm. Strict pinning runs against that norm.
 
-**Could it ever be 10** : technically yes by pinning every npm dep to exact versions, but we'd have to give up Renovate's auto-bump value. **Not on the roadmap** — current setup is the sane npm-ecosystem default.
+**Could it ever be 10** : technically yes by pinning every npm dep to exact versions, but that runs against the npm-ecosystem norm of range specifiers. **Not on the roadmap** — current setup is the sane npm-ecosystem default.
 
 ### Vulnerabilities — variable (transient)
 
@@ -155,7 +155,7 @@ Live alerts : [github.com/josedacosta/tailwindcss-obfuscator/security/code-scann
 | CI-Tests            | 8        | temporal              | wait for old PRs to age out                    |
 | SAST                | 9        | temporal              | wait for ~30 more post-CodeQL commits          |
 | CII-Best-Practices  | 5        | manual                | fill Silver questionnaire on bestpractices.dev |
-| Pinned-Dependencies | 8        | ecosystem floor       | abandon Renovate auto-bump (not worth it)      |
+| Pinned-Dependencies | 8        | ecosystem floor       | pin every npm dep exactly (not worth it)       |
 | Vulnerabilities     | variable | transient             | drop EOL test apps with unpatched CVEs         |
 
 If you arrived here via a security-tab badge and were worried that a 6-7/10 score meant something was broken : it doesn't. The numbers above are the structural ceiling for this project shape. Real security signal lives in [Dependabot alerts](https://github.com/josedacosta/tailwindcss-obfuscator/security/dependabot) and [CodeQL findings](https://github.com/josedacosta/tailwindcss-obfuscator/security/code-scanning) — both currently at zero.

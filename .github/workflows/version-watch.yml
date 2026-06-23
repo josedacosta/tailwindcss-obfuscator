@@ -2,7 +2,7 @@ name: Version Watch
 
 # Surveils every package this project supports for SemVer-major bumps OR
 # explicit breaking-change keywords in the upstream release notes. Anti-
-# overkill: patches and minors are NOT surfaced (Renovate handles those).
+# overkill: patches and minors are NOT surfaced (routine bumps are out of scope).
 #
 # When something needs human attention, the maintainer is notified through:
 #   1. SMTP email to contact@josedacosta.info, when SMTP_* secrets are set
