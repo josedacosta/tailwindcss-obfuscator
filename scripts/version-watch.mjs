@@ -6,7 +6,7 @@
  *
  * Anti-overkill carve-out
  * ───────────────────────
- * Renovate already handles minor / patch bumps as routine PRs. This script
+ * Minor / patch bumps are routine and out of scope. This script
  * is INTENTIONALLY noisy on majors / breaking changes only — those are the
  * cases that warrant human attention (audit our adapter, plan a v3 of the
  * package, update test apps). It does NOT alert on:
@@ -153,7 +153,7 @@ function renderReport(results, generatedAt) {
   lines.push(`# Version Watch Report — ${generatedAt}`);
   lines.push("");
   lines.push(
-    "_The watcher only alerts on **SemVer-major** bumps OR explicit **breaking-change** keywords in upstream release notes. Patch / minor bumps are handled by Renovate and are not surfaced here._"
+    "_The watcher only alerts on **SemVer-major** bumps OR explicit **breaking-change** keywords in upstream release notes. Patch / minor bumps are routine and are not surfaced here._"
   );
   lines.push("");
 

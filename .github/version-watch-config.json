@@ -1,6 +1,6 @@
 {
   "$schema": "./version-watch-schema.json",
-  "description": "Watchlist for the version-watch workflow. The workflow alerts on SemVer-major bumps OR breaking-change keywords in upstream release notes. Patches and minors are intentionally NOT alerted on (Renovate handles those routinely).",
+  "description": "Watchlist for the version-watch workflow. The workflow alerts on SemVer-major bumps OR breaking-change keywords in upstream release notes. Patches and minors are intentionally NOT alerted on (routine bumps are out of scope).",
   "packages": [
     {
       "name": "tailwindcss",
