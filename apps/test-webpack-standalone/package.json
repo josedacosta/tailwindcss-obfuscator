@@ -12,7 +12,7 @@
     "@tailwindcss/postcss": "^4.2.4",
     "css-loader": "^7.1.2",
     "mini-css-extract-plugin": "^2.10.2",
-    "postcss": "^8.5.12",
+    "postcss": "^8.5.18",
     "postcss-loader": "^8.2.0",
     "tailwindcss": "^4.2.4",
     "tailwindcss-obfuscator": "workspace:*",
