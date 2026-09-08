@@ -1,7 +1,7 @@
 ---
 outline: deep
 title: Why we're not 100% on every security check
-description: Per-check explanation of every Scorecard / Best-Practices / Dependabot result that is not at the maximum — what's structural, what's temporal, and what's intentionally deferred.
+description: Per-check explanation of every Scorecard / Best-Practices result that is not at the maximum — what's structural, what's temporal, and what's intentionally deferred.
 ---
 
 # Why we're not 100% on every security check
@@ -92,7 +92,7 @@ Live grade : [scorecard.dev/viewer/?uri=github.com/josedacosta/tailwindcss-obfus
 
 **What Scorecard wants** : 0 known vulnerabilities in the dependency tree.
 
-**Why we sometimes drop below 10** : when we add a test app for an EOL framework version (e.g. Astro v4), Dependabot raises alerts for that framework's known vulns. We dropped Astro v4 + Astro v5 + Vite v4 + Vite v5 test apps for this reason — the v4/v5 lines have unpatched CVEs that upstream will not backport.
+**Why we sometimes drop below 10** : when we add a test app for an EOL framework version (e.g. Astro v4), that framework's known vulns land in the dependency tree and Scorecard counts them. We dropped Astro v4 + Astro v5 + Vite v4 + Vite v5 test apps for this reason — the v4/v5 lines have unpatched CVEs that upstream will not backport.
 
 **Could it ever be 10** : **yes, and currently is** — we keep only test apps on framework versions with current security support.
 
@@ -120,13 +120,13 @@ Live badge : [bestpractices.dev/projects/12705](https://www.bestpractices.dev/pr
 **Achievable next** : Silver. Most criteria already satisfied technically — just need to fill the questionnaire to attest each item.
 **Stretch goal** : Gold. Requires reproducible builds + signed commits + audited dep provenance.
 
-## Dependabot — what it surfaces here
+## Dependency CVEs — what the manual audit surfaces here
 
-Live alerts : [github.com/josedacosta/tailwindcss-obfuscator/security/dependabot](https://github.com/josedacosta/tailwindcss-obfuscator/security/dependabot).
+Dependabot is disabled on this repository, by preference : no alerts, no security updates, no version updates. Run `pnpm audit` to get the live picture — see [Security verification systems](./security.md) for the full procedure.
 
 The shipped package (`packages/tailwindcss-obfuscator/`) is the source of truth for what consumers install ; it has zero open advisories, locked down by the `pnpm.overrides` block in the root `package.json`.
 
-When Dependabot raises an alert, it's almost always in a `apps/test-*/` test app. Triage decision tree :
+When the audit reports a finding, it's almost always in a `apps/test-*/` test app. Triage decision tree :
 
 1. Is the affected version line still receiving upstream patches? **Yes** → bump to the latest patch.
 2. **No** (EOL line) → drop the test app entirely. Coverage of that framework version is lost ; the vulnerability count goes back to zero.
@@ -158,4 +158,4 @@ Live alerts : [github.com/josedacosta/tailwindcss-obfuscator/security/code-scann
 | Pinned-Dependencies | 8        | ecosystem floor       | pin every npm dep exactly (not worth it)       |
 | Vulnerabilities     | variable | transient             | drop EOL test apps with unpatched CVEs         |
 
-If you arrived here via a security-tab badge and were worried that a 6-7/10 score meant something was broken : it doesn't. The numbers above are the structural ceiling for this project shape. Real security signal lives in [Dependabot alerts](https://github.com/josedacosta/tailwindcss-obfuscator/security/dependabot) and [CodeQL findings](https://github.com/josedacosta/tailwindcss-obfuscator/security/code-scanning) — both currently at zero.
+If you arrived here via a security-tab badge and were worried that a 6-7/10 score meant something was broken : it doesn't. The numbers above are the structural ceiling for this project shape. Real security signal lives in [CodeQL findings](https://github.com/josedacosta/tailwindcss-obfuscator/security/code-scanning) and in `pnpm audit` — both currently at zero.

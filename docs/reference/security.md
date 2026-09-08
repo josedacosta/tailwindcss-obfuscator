@@ -1,24 +1,23 @@
 ---
 outline: deep
 title: Security verification systems & how we score
-description: How tailwindcss-obfuscator is graded by Dependabot, OSSF Scorecard, OpenSSF Best Practices, CodeQL and others — what's actionable, what's structurally bounded, and how to interpret the badges in the README.
+description: How tailwindcss-obfuscator is graded by OSSF Scorecard, OpenSSF Best Practices, CodeQL and others — what's actionable, what's structurally bounded, and how to interpret the badges in the README.
 ---
 
 # Security verification systems
 
-This page is the operator's manual for the security badges and dashboards on this project. If you arrived here from a Scorecard or Dependabot link wondering « why is this project graded X/10 ? », the table below is your answer.
+This page is the operator's manual for the security badges and dashboards on this project. If you arrived here from a Scorecard link wondering « why is this project graded X/10 ? », the table below is your answer.
 
 ::: info Trust the actual security posture, not the score
 A 6.4/10 on Scorecard.dev for a solo-maintainer / new-repo project is **the structural ceiling**, not a security gap. Specific check scores are explained in detail below — every line that's not at 10 has a documented reason that's either temporal (auto-resolves with time) or structural (cannot improve without a co-maintainer / changing project shape).
 :::
 
-## The 6 verification systems active on this repo
+## The 5 verification systems active on this repo
 
 | System                                                       | What it grades                                                                        | Where you see it                                                                                                                                                          |
 | ------------------------------------------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [**OSSF Scorecard**](https://scorecard.dev/)                 | 18 supply-chain hygiene checks                                                        | [scorecard.dev/viewer/?uri=github.com/josedacosta/tailwindcss-obfuscator](https://scorecard.dev/viewer/?uri=github.com/josedacosta/tailwindcss-obfuscator) + Security tab |
 | [**OpenSSF Best Practices**](https://www.bestpractices.dev/) | 50+ self-attested project criteria (Passing / Silver / Gold)                          | [bestpractices.dev/projects/12705](https://www.bestpractices.dev/projects/12705)                                                                                          |
-| **GitHub Dependabot**                                        | Known CVEs in the dependency tree (lockfile-aware)                                    | [Security → Dependabot](https://github.com/josedacosta/tailwindcss-obfuscator/security/dependabot)                                                                        |
 | **GitHub CodeQL** (security-extended)                        | Source-code SAST findings (ReDoS, SQL injection, prototype pollution, etc.)           | [Security → Code scanning](https://github.com/josedacosta/tailwindcss-obfuscator/security/code-scanning)                                                                  |
 | **GitHub Secret Scanning + Push Protection**                 | Committed credentials, tokens, API keys                                               | Security tab (no findings if all green)                                                                                                                                   |
 | **npm Provenance + Sigstore**                                | Cryptographic attestation that the published tarball was built from this exact commit | [npmjs.com/package/tailwindcss-obfuscator](https://www.npmjs.com/package/tailwindcss-obfuscator) (« Provenance » badge)                                                   |
@@ -44,14 +43,14 @@ Scorecard runs weekly (Monday 06:00 UTC) and on every push. Below is every check
 | Check                   | Score | Why we cannot improve it (yet)                                                                                                                                                                                                               |
 | ----------------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Branch-Protection**   | 8/10  | Wants `required_approving_review_count >= 2`. Solo maintainer cannot satisfy this without a co-maintainer. Score 8 is the structural floor.                                                                                                  |
-| **CI-Tests**            | 8/10  | Wants 100 % of recent PRs to have CI checks. Some old automated lockfile-only PRs predate the full CI matrix. Self-improves as old PRs age out of the 30-PR rolling window.                                                                   |
+| **CI-Tests**            | 8/10  | Wants 100 % of recent PRs to have CI checks. Some old automated lockfile-only PRs predate the full CI matrix. Self-improves as old PRs age out of the 30-PR rolling window.                                                                  |
 | **CII-Best-Practices**  | 5/10  | We have the « Passing » badge but not yet « Silver » (8) or « Gold » (10). Upgrading is a self-attested questionnaire at [bestpractices.dev/projects/12705](https://www.bestpractices.dev/projects/12705). On the roadmap.                   |
 | **Code-Review**         | 0/10  | Wants HUMAN approver per PR. Bot reviewers (CodeRabbit, Copilot) don't count. Solo maintainer cannot self-approve and have it count. Score 0 is the structural floor.                                                                        |
 | **Contributors**        | 3/10  | Wants 3+ contributing organisations. Solo maintainer = 1. Cannot improve without external contributors signing CLA from different orgs.                                                                                                      |
 | **Fuzzing**             | 0/10  | We have no fuzzer harness. Anti-overkill carve-out documented in `CLAUDE.md` — class mangler semantics are testable directly via 418+ vitest tests, golden snapshots and bench regressions ; fuzzing harness ROI low for this project shape. |
 | **Maintained**          | 0/10  | Repo created 2026-01-30, less than 90 days at the time of writing. Auto-resolves as soon as the project crosses the 90-day mark.                                                                                                             |
 | **Packaging**           | n/a   | Scorecard doesn't recognise our `pnpm release` (calls `changeset publish`) as a packaging workflow. The package IS published with provenance — the score is « not detected », not « failed ».                                                |
-| **Pinned-Dependencies** | 8/10  | Wants 100 % of deps pinned to commit SHA / version. Our GitHub Actions are SHA-pinned ; npm deps use range specifiers (`^X.Y.Z`) which is the npm ecosystem norm.                         |
+| **Pinned-Dependencies** | 8/10  | Wants 100 % of deps pinned to commit SHA / version. Our GitHub Actions are SHA-pinned ; npm deps use range specifiers (`^X.Y.Z`) which is the npm ecosystem norm.                                                                            |
 | **SAST**                | 9/10  | Wants 100 % of recent commits SAST-scanned. CodeQL was enabled mid-project (PR #74) ; commits before then weren't scanned. Self-improves as new commits accumulate.                                                                          |
 | **Signed-Releases**     | n/a   | Scorecard doesn't yet recognise npm provenance via Sigstore as « signing ». We DO sign every release via OIDC + Sigstore — visible on npmjs.com under the « Provenance » badge. The score is « not detected », not « failed ».               |
 
@@ -71,25 +70,40 @@ Closing the gap from 8.5 → 10 would require :
 
 Both are explicit anti-overkill carve-outs for this project — see the « Anti-overkill » block in our agent brief.
 
-## GitHub Dependabot — known CVEs in dependencies
+## Known CVEs in dependencies — audited by hand
 
-Dependabot reads `pnpm-lock.yaml` (and every `apps/*/package.json`) against the GitHub Advisory Database. Every dependency on a known-vulnerable version raises an alert in [Security → Dependabot](https://github.com/josedacosta/tailwindcss-obfuscator/security/dependabot).
+Dependabot is **disabled on this repository**, deliberately and project-wide : no alerts, no security updates, no version updates. Dependency CVEs are audited by the maintainer instead of by a bot opening pull requests.
 
-### How to read the alert count
+::: warning No bot means no passive notification
+Nothing will e-mail you when a new advisory lands on a dependency. The audit below is a **pull** check — it only tells you what you ask it, when you ask it. Releases are covered automatically (see below) ; **between** releases, nothing checks unless you do.
+:::
 
-Most alerts on this repo are in the **`apps/test-*/` test apps**, NOT in the published package. The shipped package (`packages/tailwindcss-obfuscator/`) is the source of truth for what consumers install ; it has zero open advisories, locked down by the `pnpm.overrides` block in the root `package.json`.
+Release-time coverage is already enforced : `pnpm verify:release` runs `pnpm audit --audit-level=high` and fails the release if anything at high or critical is open. No version ships past an unaddressed high-severity advisory, bot or no bot.
 
-When we add a test app for an EOL framework version (e.g. Astro v4), Dependabot raises alerts for that framework's known vulns. We have two options :
+### The audit command
+
+```bash
+pnpm audit --json          # every workspace, machine-readable
+pnpm audit                 # same, human-readable summary
+pnpm update --latest -r    # apply the bumps, recursively
+```
+
+`pnpm audit` resolves the actual installed tree from `pnpm-lock.yaml`, so it accounts for the `pnpm.overrides` block in the root `package.json` — which a lockfile-reading bot does not. It is the authoritative answer for this repo, and it was already the authoritative answer while Dependabot was on.
+
+### How to read the result
+
+Most findings are in the **`apps/test-*/` test apps**, NOT in the published package. The shipped package (`packages/tailwindcss-obfuscator/`) is the source of truth for what consumers install ; it carries zero open advisories, locked down by `pnpm.overrides`.
+
+When a test app pins an EOL framework version (e.g. Astro v4), that framework's known vulns surface in the audit. Two options :
 
 1. **Bump the test app to a patched version**, OR
 2. **Drop the test app** if no patches exist for that version line (EOL).
 
 Both are documented in CHANGELOG entries and PR descriptions.
 
-### What's NEVER an alert here
+### What the audit never covers
 
-- **Source code in `packages/tailwindcss-obfuscator/src/**`\*\* — the published package's own code is graded by CodeQL, not Dependabot.
-- **Transitive deps with overrides** — when our `pnpm.overrides` block in the root `package.json` upgrades a vulnerable transitive to a patched version, Dependabot still might surface the original version because it reads the lockfile direct entries. Check `pnpm audit --json` for the authoritative answer.
+The published package's own source, under `packages/tailwindcss-obfuscator/src/`, is graded by CodeQL — not by dependency auditing. An advisory database only knows about published versions of other people's packages, so no `pnpm audit` run will ever say anything about the code this repo actually ships.
 
 ## GitHub CodeQL — SAST on shipped src
 
