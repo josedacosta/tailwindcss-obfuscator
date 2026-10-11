@@ -46,7 +46,7 @@ Live grade : [scorecard.dev/viewer/?uri=github.com/josedacosta/tailwindcss-obfus
 
 **Why we're at 0** : we deliberately don't fuzz. The library's behaviour is testable directly via 418+ vitest unit tests + golden-file snapshot tests for every test app + bench regression baselines + CodeQL static analysis. Adding a fuzzer harness would burn CI compute for marginal incremental signal.
 
-**Could it ever be 10** : yes, by adding `jazzer.js` (the JS fuzzer). The cost is non-trivial CI-time and ongoing harness maintenance. **Documented as anti-overkill carve-out** in `CLAUDE.md` ; not on the roadmap.
+**Could it ever be 10** : yes, by adding `jazzer.js` (the JS fuzzer). The cost is non-trivial CI-time and ongoing harness maintenance. **Documented as an anti-overkill carve-out** in the project policy ; not on the roadmap.
 
 ### Maintained — 0 / 10 → resolves to 10 / 10 automatically (temporal)
 

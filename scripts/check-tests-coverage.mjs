@@ -10,7 +10,7 @@
  * (PR #84). The goal is the boolean: "does this src file have at least
  * one test that talks about it?". A new feature landing without any
  * test reference is a regression of the project's "every feature ships
- * with tests" rule (CLAUDE.md ULTRA-IMPORTANT).
+ * with tests" rule (an ultra-important project policy).
  *
  * Exit codes:
  *   0  every src file has at least one test reference (or is allowlisted)
@@ -170,7 +170,7 @@ if (missing.length === 0) {
 
 console.error("✗ The following src files have ZERO test references:\n");
 for (const f of missing) console.error("  - packages/tailwindcss-obfuscator/src/" + f);
-console.error("\nEvery feature must ship with tests (CLAUDE.md ULTRA-IMPORTANT rule).");
+console.error("\nEvery feature must ship with tests (ultra-important project policy).");
 console.error("Add a test that imports the file, or — if the file is a pure re-export / barrel —");
 console.error("add it to ALLOWLIST in scripts/check-tests-coverage.mjs with a justifying comment.");
 process.exit(1);
