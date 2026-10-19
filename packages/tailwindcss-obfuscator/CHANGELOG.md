@@ -213,10 +213,6 @@
   - Fork PR workflow approval set to "Require approval for ALL external contributors" (most strict).
   - Actions allowlist updated to include `ossf/scorecard-action@*` and `anchore/sbom-action@*`.
 
-  **Automated review (informational only — never approves a PR)**
-  - CodeRabbit GitHub App installed under the free Open Source plan, scoped to this repo only, configured via `.coderabbit.yaml` with security-paranoid review instructions.
-  - GitHub Copilot Code Review enabled via a repository ruleset on the default branch, configured via `.github/copilot-instructions.md` with matching security-paranoid instructions.
-
   **Contribution workflow**
   - `CONTRIBUTING.md` made explicit about the dual standard (owner-streamlined vs external-strict), realistic review/release cadence, and the automated review tooling.
   - `.github/PULL_REQUEST_TEMPLATE.md` opens with a banner reminding contributors that only the maintainer can merge and that opening a PR doesn't trigger an npm publish.

@@ -58,7 +58,6 @@ Several bots and integrations run on every pull request. **None of them can appr
 | **CI** (Lint / Format / Typecheck / Build / Tests on Node 20+22)                              | green/red status checks                                      | "Checks" tab of the PR      |
 | **Path-based labels** ([`actions/labeler`](https://github.com/actions/labeler))               | tags like `area: package`, `framework: nextjs`, `changeset`  | sidebar of the PR           |
 | **Welcome bot** ([`actions/first-interaction`](https://github.com/actions/first-interaction)) | greets first-time contributors with expectations + checklist | top comment of the first PR |
-| **CodeRabbit** ([App page](https://github.com/marketplace/coderabbit))                        | AI summary of the diff + inline review comments              | comment thread of the PR    |
 | **Changesets bot**                                                                            | reminder if your PR is missing a `.changeset/*.md`           | comment thread of the PR    |
 
 If any of these post a critical comment, please address it before requesting a maintainer review — it shortens the review cycle a lot. But remember: **only [@josedacosta](https://github.com/josedacosta)'s explicit "approved" review counts**, regardless of what any bot says.

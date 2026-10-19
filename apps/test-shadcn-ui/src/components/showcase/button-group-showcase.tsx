@@ -222,7 +222,7 @@ export function ButtonGroupShowcase() {
       <SubSection title="With Popover">
         <ButtonGroup>
           <Button variant="outline">
-            <Bot className="mr-2 h-4 w-4" /> Copilot
+            <Bot className="mr-2 h-4 w-4" /> Assistant
           </Button>
           <Popover>
             <PopoverTrigger asChild>
@@ -240,10 +240,10 @@ export function ButtonGroupShowcase() {
                   placeholder="Describe your task in natural language."
                   className="mb-4 resize-none"
                 />
-                <p className="mb-2 font-medium">Start a new task with Copilot</p>
+                <p className="mb-2 font-medium">Start a new task with the assistant</p>
                 <p className="text-muted-foreground">
-                  Describe your task in natural language. Copilot will work in the background and
-                  open a pull request for your review.
+                  Describe your task in natural language. The assistant will work in the background
+                  and open a pull request for your review.
                 </p>
               </div>
             </PopoverContent>

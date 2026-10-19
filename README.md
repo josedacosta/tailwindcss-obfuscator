@@ -876,7 +876,7 @@ The site supports i18n via VitePress. Open a discussion if you'd like to lead a 
 ### What to expect when you open a PR
 
 1. **Branch protection forces every change through a PR.** No direct push to `main`, even for the maintainer.
-2. **Five layers of automated review** run on your PR (CI, CodeQL, CodeRabbit AI, GitHub Copilot Code Review, auto-labels) — they post comments only, none of them can approve or merge.
+2. **Three layers of automated checks** run on your PR (CI, CodeQL, auto-labels) — they post comments only, none of them can approve or merge.
 3. **The maintainer reads your PR personally.** First response within ~a week. Reviews focus on: public-API stability, test coverage, docs updates. Cosmetics come last.
 4. **Squash-merge once approved + CI green.** Your contribution is credited in the next release's CHANGELOG via the Changesets entry you added with `pnpm changeset`.
 5. **Releases are batched.** Your change ships on `main` immediately (and to the docs site), but the npm version bump waits until the maintainer cuts a release — usually within days, sometimes weeks. This keeps version numbers meaningful.

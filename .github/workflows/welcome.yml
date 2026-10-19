@@ -42,7 +42,7 @@ jobs:
             - **Only the maintainer (@josedacosta) can merge this PR**, even if all CI checks turn green. This is enforced by branch protection + CODEOWNERS — see [`CONTRIBUTING.md`](https://github.com/josedacosta/tailwindcss-obfuscator/blob/main/CONTRIBUTING.md#-maintainer-only-actions-technically-enforced) for the why.
             - **Opening this PR doesn't trigger an npm release.** Releases are batched: your changeset will land in the next release cycle, on a cadence the maintainer decides. Please don't ping asking for an immediate release.
             - **Expect a first review within ~a week.** The maintainer reads every PR personally.
-            - You may see automated review comments from CodeRabbit and similar tools — these are **informational only** and do not count as the maintainer's approval.
+            - You may see automated comments from CI and labeling tools — these are **informational only** and do not count as the maintainer's approval.
 
             While you wait, please make sure:
             - [ ] CI is green (lint, typecheck, tests, build)

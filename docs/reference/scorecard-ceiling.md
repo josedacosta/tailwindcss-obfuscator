@@ -28,7 +28,7 @@ Live grade : [scorecard.dev/viewer/?uri=github.com/josedacosta/tailwindcss-obfus
 
 **What Scorecard wants** : every PR merged into `main` to carry at least one explicit human review approval.
 
-**Why we're at 0** : every PR on this repo is admin-merged by the maintainer. Solo means no one else is around to approve. Bot reviews (CodeRabbit, Copilot Code Review) are NOT counted by Scorecard — only human approvals from a different account than the PR author count.
+**Why we're at 0** : every PR on this repo is admin-merged by the maintainer. Solo means no one else is around to approve. Bot reviews are NOT counted by Scorecard — only human approvals from a different account than the PR author count.
 
 **Could it ever be 10** : only with a co-maintainer who reviews every PR. **Not on the roadmap.**
 

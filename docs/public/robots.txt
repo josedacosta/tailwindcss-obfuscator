@@ -5,7 +5,7 @@
 # All crawlers, including AI/LLM crawlers, are explicitly welcome.
 # This is intentional — the project is open-source MIT and benefits from
 # wider AI-assisted discovery (Claude Search, ChatGPT Search, Perplexity,
-# Google AI Overviews, Bing Copilot, etc.).
+# Google AI Overviews, Bing, etc.).
 #
 # LLM-friendly entry points:
 #   /tailwindcss-obfuscator/llms.txt       — concise project summary + key URLs
