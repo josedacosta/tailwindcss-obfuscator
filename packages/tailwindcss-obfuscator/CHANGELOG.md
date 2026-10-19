@@ -1,5 +1,31 @@
 # tailwindcss-obfuscator
 
+## 3.2.0
+
+### Minor Changes
+
+- [`d428b63`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/d428b6340456d3133022d3d238c26a17ea441a9d) Thanks [@josedacosta](https://github.com/josedacosta)! - New extractor option `scanObjectStrings` (default `false`) — opt-in pass that walks Tailwind class strings stored in object property values, factory args, and lookup tables that the standard JSX / `cn()` / `cva()` / `tv()` walkers don't reach. Heuristic-gated to avoid false positives: a string is picked up only if it contains ≥2 whitespace-separated tokens AND every token validates as a Tailwind class. Single-word strings (`"flex"`, `"red"`, `"info"`) are NEVER auto-extracted — wrap them in `cn(…)` or add to `safelist`.
+
+  Fixes the « broken design with obfuscator » class of bugs where status-color tables, badge variants by level, etc. produced inconsistent obfuscation across siblings of the same lookup table.
+
+### Patch Changes
+
+- [`08ccbf6`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/08ccbf67c8f9aa5ee82c6bf7c8b757b1e24f5d78) Thanks [@josedacosta](https://github.com/josedacosta)! - Documentation: corrected the v4 feature-status pages (`research/tailwind-v4-features-analysis`, `research/tailwind-v4-summary`, `research/v4-implementation-checklist`). Most v4 utilities and variants previously labelled « ❌ MISSING » have actually shipped since v2.0.x — the docs were stale. The pages now accurately reflect that wildcard variants, 3D transforms, inset shadows, radial/conic gradients, field-sizing/color-scheme/font-stretch utilities, CSS-variable parens shorthand, arbitrary underscores and the v4 important-suffix syntax are all supported. No code change.
+
+- [`c2027ac`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/c2027acf2f889fec515dffad6763f5d6a6509c7d) Thanks [@josedacosta](https://github.com/josedacosta)! - Documentation: removed the stale « tv() currently broken » card on the Limitations page. The fix shipped in PR #63 (issue #61 closed) on 2026-04-29 and is verified end-to-end on every release by `apps/test-tailwind-variants/`. The card now correctly says supported, with a single noted caveat (multi-element `slot` API not yet in test matrix).
+
+- [`a5273d6`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/a5273d6bcfe96f7f3fde697e3367368f70e51bd5) Thanks [@josedacosta](https://github.com/josedacosta)! - CI: added a weekly version-watch cron (`Monday 08:00 UTC`) that surveils every package this project supports for SemVer-major bumps OR explicit breaking-change keywords in upstream release notes. Anti-overkill: patches and minors are intentionally not surfaced (routine bumps are out of scope). Notification path is SMTP email when `SMTP_*` secrets are configured, GitHub-issue fallback otherwise. Adjustable via `.github/version-watch-config.json`.
+
+- [`eaaad52`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/eaaad52a25821504e648fea58d6d1e5cd6a24a96) Thanks [@josedacosta](https://github.com/josedacosta)! - Test apps: added `apps/test-eleventy/` exercising Eleventy (11ty) v3 + Tailwind v4 + the `tailwindcss-obfuscator/internals` CLI-mode pipeline. Eleventy emits multi-page HTML output from Nunjucks templates; the post-build pass walks every `_site/**/*.html` page and rewrites `_site/styles.css` in lockstep. 78 classes extracted at 100 % CSS obfuscation, 0 % residual. Adds `_site` to the `verify-obfuscation.mjs` build-dir search list so the new app (and any future Eleventy/Jekyll app) is auto-detected.
+
+- [`7e72102`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/7e72102f3619beee14db85ddfb8f018683da282b) Thanks [@josedacosta](https://github.com/josedacosta)! - Test apps: added `apps/test-lit/` exercising Lit (web components) v3 + Vite + Tailwind v4. Confirms the JSX/AST extractor handles `class="..."` attributes embedded inside Lit's `html\`\``tagged template literals (Babel parses the template's quasis and the existing JSXAttribute/HTML regex catches the class strings). 52 classes extracted at 100 % obfuscation, 0 % residual. No package code change needed; the only app-specific config was extending the`content`glob to include`\*_/_.ts` (Lit lives in .ts files, not .tsx).
+
+- [`f6e0e66`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/f6e0e66304d668cc088492c0943c8fe303e6e70e) Thanks [@josedacosta](https://github.com/josedacosta)! - Test apps: added `apps/test-preact/` exercising Preact + Vite + Tailwind v4. Verifies the JSX extractor correctly handles Preact's `class` attribute (vs React's `className`) and signal-based reactive class bindings. 50 classes extracted at 100 % obfuscation coverage with 0 % residual on first build, no code change to the package needed.
+
+- [`397f8bd`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/397f8bd41dfa2a05dc1bca4c67820f5b1a5772ce) Thanks [@josedacosta](https://github.com/josedacosta)! - Test apps: added `apps/test-vite-react-v5/` to close the « claimed but untested Vite v5 » gap. The README advertises the supported Vite range as v4 → v8, but until now CI only exercised v6, v7, v8. The new app pins Vite v5.4 as the floor of the matrix. 105 classes extracted at 100 % obfuscation, no code change to the package needed.
+
+- [`64d34e8`](https://github.com/josedacosta/tailwindcss-obfuscator/commit/64d34e8a4654f7b8e314ea5fd8f714cbb1411b33) Thanks [@josedacosta](https://github.com/josedacosta)! - Test coverage: added 39 new unit tests covering previously-uncovered modules — `core/tailwind-validator.ts` (was 0%), `core/config.ts` config-file loader (was 21%), and `utils/logger.ts` formatters / sink wiring (was 27%). Total test count rises from 432 to 471. No code change.
+
 ## 3.1.3
 
 ### Patch Changes
